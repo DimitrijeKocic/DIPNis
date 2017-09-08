@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.dika.dipnis.EventAddActivity"
+    tools:showIn="@layout/activity_event_add"
+    android:background="@drawable/transparent_background_image" >
+
+    <ScrollView
+        android:id="@+id/scvEventAdd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+        <RelativeLayout
+            android:id="@+id/rlEventAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/mar15"
+            android:layout_marginStart="@dimen/mar15"
+            android:layout_marginRight="@dimen/mar15"
+            android:layout_marginEnd="@dimen/mar15"
+            android:layout_marginTop="@dimen/mar15">
+
+            <LinearLayout
+                android:id="@+id/EALlTipDogadjaja"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/EATvTipDogadjaja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strEATvTipDogadjaja"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t17" />
+
+                <Spinner
+                    android:id="@+id/EASpinTipDogadjaja"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/mar10"
+                    android:layout_marginStart="@dimen/mar10" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/EAEtVrstaIzvodjac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/t17"
+                android:hint="@string/strEAEtHintVrstaSporta"
+                android:layout_marginTop="@dimen/mar5"
+                android:layout_below="@+id/EALlTipDogadjaja"/>
+
+            <RelativeLayout
+                android:id="@+id/EARlRezultat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mar5"
+                android:layout_below="@+id/EAEtVrstaIzvodjac">
+
+                <TextView
+                    android:id="@+id/EATvRezultat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strEATvRezultat"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t17"
+                    android:gravity="center"/>
+
+                <LinearLayout
+                    android:id="@+id/EALlRezultat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/EATvRezultat">
+
+                    <EditText
+                        android:id="@+id/EAEtTim1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t17"
+                        android:textAlignment="center"
+                        android:hint="@string/strEAEtHintTim1" />
+
+                    <EditText
+                        android:id="@+id/EAEtTim1Poeni"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t17"
+                        android:textAlignment="center"
+                        android:hint="" />
+
+                    <EditText
+                        android:id="@+id/EAEtTim2Poeni"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t17"
+                        android:textAlignment="center"
+                        android:hint="" />
+
+                    <EditText
+                        android:id="@+id/EAEtTim2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t17"
+                        android:textAlignment="center"
+                        android:hint="@string/strEAEtHintTim2" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/EAEtKratakOpis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t17"
+                    android:hint="@string/strEAEtHintKratakOpis"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/EARlLokacija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mar5"
+                android:layout_below="@+id/EARlRezultat">
+
+                <LinearLayout
+                    android:id="@+id/EALlLokacija"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="25dp"
+                    android:paddingEnd="25dp"
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp">
+
+                    <EditText
+                        android:id="@+id/EAEtLokacija"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t17"
+                        android:hint="@string/strEAEtHintLokacija" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/EAIvLokacija"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="-25dp"
+                    android:layout_marginStart="-25dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/EALlLokacija"
+                    android:layout_toEndOf="@id/EALlLokacija"
+                    android:scaleType="fitStart"
+                    app:srcCompat="@drawable/location_icon"
+                    tools:ignore="ContentDescription"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/EALlDatumVreme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mar5"
+                android:orientation="horizontal"
+                android:layout_below="@+id/EARlLokacija">
+
+                <LinearLayout
+                    android:id="@+id/EALlDatum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/EAIvDatum"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        app:srcCompat="@drawable/calendar"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/EATvDatum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/mar10"
+                        android:layout_marginStart="@dimen/mar10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t17"
+                        android:text="" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:id="@+id/EALlVreme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/EAIvVreme"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        app:srcCompat="@drawable/clock"
+                        tools:ignore="ContentDescription"/>
+
+                    <TextView
+                        android:id="@+id/EATvVreme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/mar10"
+                        android:layout_marginStart="@dimen/mar10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t17"
+                        android:text="" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/EAEtOpis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/t17"
+                android:hint="@string/strEAEtHintOpis"
+                android:layout_marginTop="@dimen/mar5"
+                android:layout_below="@+id/EALlDatumVreme"/>
+
+            <ImageView
+                android:id="@+id/EAIvSlika"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mar5"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"
+                tools:ignore="ContentDescription"
+                android:layout_below="@+id/EAEtOpis"/>
+
+            <LinearLayout
+                android:id="@+id/EALlDugmici"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mar5"
+                android:orientation="horizontal"
+                android:layout_below="@+id/EAIvSlika">
+
+                <Button
+                    android:id="@+id/EABtnDodajSliku"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="3"
+                    android:text="@string/strEDBtnDodajSliku"
+                    android:background="@drawable/round_button"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t15" />
+
+                <Button
+                    android:id="@+id/EABtnSacuvajDogadjaj"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="4"
+                    android:layout_marginLeft="@dimen/mar10"
+                    android:layout_marginStart="@dimen/mar10"
+                    android:text="@string/strEABtnSacuvajDogadjaj"
+                    android:background="@drawable/round_button"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t15" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/EAClProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/greyTransparent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/EAProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

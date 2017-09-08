@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.dika.dipnis.InitiativeReviewActivity"
+    tools:showIn="@layout/activity_initiative_review"
+    android:background="@drawable/transparent_background_image">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/scvInitiativeReview"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/mar15"
+        android:layout_marginStart="@dimen/mar15"
+        android:layout_marginRight="@dimen/mar15"
+        android:layout_marginEnd="@dimen/mar15">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlInitiativeReview">
+
+            <RelativeLayout
+                android:id="@+id/IRRlFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/IRLlTipInicijative"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/mar15"
+                    android:paddingLeft="@dimen/pad3"
+                    android:paddingBottom="@dimen/pad3"
+                    android:paddingRight="@dimen/pad3"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:id="@+id/IRTvTipInicijative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strIRTvTipInicijative"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t18"/>
+
+                    <Spinner
+                        android:id="@+id/IRSpinTipInicijative"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/mar10"
+                        android:layout_marginStart="@dimen/mar10"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/IRLlVrstaRazlog"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/mar10"
+                    android:paddingLeft="@dimen/pad3"
+                    android:paddingBottom="@dimen/pad3"
+                    android:paddingRight="@dimen/pad3"
+                    android:background="@drawable/border"
+                    android:layout_below="@id/IRLlTipInicijative"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/IRTvVrstaRazlog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/t18"/>
+
+                    <Spinner
+                        android:id="@+id/IRSpinVrstaRazlog"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/mar10"
+                        android:layout_marginStart="@dimen/mar10"/>
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/IRChkBuduceInicijative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strIRChkBuduceInicijative"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t18"
+                    android:layout_marginTop="@dimen/mar10"
+                    android:background="@drawable/border"
+                    android:layout_below="@id/IRLlVrstaRazlog"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/IRRlPrikaz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/IRRlFilter"
+                android:layout_marginTop="@dimen/mar15"
+                android:background="@drawable/border"
+                android:paddingBottom="@dimen/pad3"
+                android:paddingLeft="@dimen/pad3"
+                android:paddingRight="@dimen/pad3">
+
+                <TextView
+                    android:id="@+id/IRTvPrikaz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strIRTvPrikaz"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t20" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

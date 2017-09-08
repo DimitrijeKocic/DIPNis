@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#dc0000</color>
+    <color name="skyBlue">#00a2e8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#777777</color>
+    <color name="black">#000000</color>
+    <color name="greyTransparent">#60777777</color>
+    <color name="redTransparent">#40dc0000</color>
+    <color name="skyBlueTransparent">#4000a2e8</color>
+</resources>

@@ -1,0 +1,104 @@
+<resources>
+    <!--Naziv-->
+    <string name="strNazivAplikacije">DIPNiš</string>
+    <!--Stavke u meniju-->
+    <string name="strTitlePrijava">Prijava</string>
+    <string name="strTitleRegistracija">Registracija</string>
+    <string name="strTitleOAplikaciji">O aplikaciji</string>
+    <!--Dogadjaji, inicijative, problemi - Nazivi formi-->
+    <string name="strTitlePocetna">Početna</string>
+    <string name="strTitlePregledDogadjaja">Pregled događaja</string>
+    <string name="strTitleOpisDogadjaja">Opis događaja</string>
+    <string name="strTitleDodajDogadjaj">Dodaj događaj</string>
+    <string name="strTitlePregledInicijativa">Pregled inicijativa</string>
+    <string name="strTitleOpisInicijative">Opis inicijative</string>
+    <string name="strTitleDodajInicijativu">Dodaj inicijativu</string>
+    <string name="strTitlePregledProblema">Pregled problema</string>
+    <string name="strTitleOpisProblema">Opis problema</string>
+    <string name="strTitleDodajProblem">Dodaj problem</string>
+    <!--Dugmici u pocetnoj formi-->
+    <string name="strBtnDogadjaji">Događaji</string>
+    <string name="strBtnInicijative">Inicijative</string>
+    <string name="strBtnProblemi">Problemi</string>
+    <string name="strBtnPregledDogInicProb">Pregled</string>
+    <string name="strBtnDodajDogInicProb">Dodaj</string>
+    <!--Tekst u formi O aplikaciji-->
+    <string name="strTvTekstOAplikaciji">Ovde ce da stoji tekst za formu O aplikaciji!!!</string>
+    <!--Iz forme Pregled dogadjaja-->
+    <string name="strERTvFilter">Filter</string>
+    <string name="strERTvTipDogadjaja">Tip događaja:</string>
+    <string name="strERTvVrstaSporta">Vrsta sporta:</string>
+    <string name="strERTvIzvodjacGrupa">Izvođač/Grupa:</string>
+    <string name="strERTvVrstaDogadjaja">Vrsta događaja:</string>
+    <string-array name="strERSpinTipDogadjaja">
+        <item>Svi</item>
+        <item>Sportski</item>
+        <item>Koncerti</item>
+        <item>Ostali</item>
+    </string-array>
+    <string name="strERChkBuduciDogadjaji">Prikaži samo buduće događaje</string>
+    <string name="strERTvPrikaz">Prikaz odabranih događаја</string>
+    <!--Iz forme Opis dogadjaja-->
+    <string name="strEDTvTipDogadjaja">Tip događaja:</string>
+    <string name="strEDTvVrstaSporta">Vrsta sporta:</string>
+    <string name="strEDTvIzvodjacGrupa">Izvođač/Grupa:</string>
+    <string name="strEDTvVrstaDogadjaja">Vrsta događaja:</string>
+    <string name="strEDTvRezultat">Rezultat:</string>
+    <string name="strEDTvKratakOpis">Kratak opis:</string>
+    <string name="strEDTvLokacija">Lokacija:</string>
+    <string name="strEDBtnPrikaziNaMapi">Prikaži na mapi</string>
+    <string name="strEDTvDatum">Datum:</string>
+    <string name="strEDTvVreme">Vreme:</string>
+    <string name="strEDTvOpis">Opis:</string>
+    <string name="strEDTvGalerija">Galerija:</string>
+    <string name="strEDTvGalerijaOpis">Još uvek ne postoje slike za ovaj događaj.</string>
+    <string name="strEDBtnDodajSliku">Dodaj sliku</string>
+    <string name="strEDAdbTitleObavestenje">Obaveštenje</string>
+    <string name="strEDDodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
+    <string name="strEDBtnSledeca">&gt;</string>
+    <string name="strEDBtnPrethodna">&lt;</string>
+    <string name="strEDAdbTitleSlika">Dodaj sliku</string>
+    <string-array name="strEDAdbItems">
+        <item>Slikaj</item>
+        <item>Odaberi iz galerije</item>
+    </string-array>
+    <!--Iz forme Dodaj dogadjaj-->
+    <string name="strEATvTipDogadjaja">Tip događaja:</string>
+    <string-array name="strEASpinTipDogadjaja">
+        <item>Sportski</item>
+        <item>Koncerti</item>
+        <item>Ostali</item>
+    </string-array>
+    <string name="strEAEtHintVrstaSporta">Vrsta sporta</string>
+    <string name="strEAEtHintIzvodjacGrupa">Izvođač/Grupa</string>
+    <string name="strEAEtHintVrstaDogadjaja">Vrsta događaja</string>
+    <string name="strEATvRezultat">Rezultat</string>
+    <string name="strEAEtHintTim1">Tim 1</string>
+    <string name="strEAEtHintTim2">Tim 2</string>
+    <string name="strEAEtHintKratakOpis">Kratak opis</string>
+    <string name="strEAEtHintLokacija">Lokacija</string>
+    <string name="strEAEtHintOpis">Opis</string>
+    <string name="strEABtnDodajSliku">Dodaj sliku</string>
+    <string name="strEAAdbTitleObavestenje">Obaveštenje</string>
+    <string name="strEADodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
+    <string name="strEAAdbTitleSlika">Dodaj sliku</string>
+    <string-array name="strEAAdbItems">
+        <item>Slikaj</item>
+        <item>Odaberi iz galerije</item>
+    </string-array>
+    <string name="strEABtnSacuvajDogadjaj">Sačuvaj događaj</string>
+    <!--Iz forme Pregled inicijativa-->
+    <string name="strIRTvTipInicijative">Tip inicijative:</string>
+    <string name="strIRTvVrstaSporta">Vrsta sporta:</string>
+    <string name="strIRTvVrstaInicijative">Vrsta inicijative:</string>
+    <string name="strIRTvRazlog">Razlog:</string>
+    <string-array name="strIRSpinTipInicijative">
+        <item>Sve</item>
+        <item>Sportske</item>
+        <item>Protesti</item>
+        <item>Humanitarne akcije</item>
+        <item>Ostale</item>
+    </string-array>
+    <string name="strIRChkBuduceInicijative">Prikaži samo buduće inicijative</string>
+    <string name="strIRTvPrikaz">Prikaz odabranih inicijativa</string>
+</resources>
