@@ -13,10 +13,6 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String homeUrl = "http://24.135.176.151:8080/dipNisServer/";
-    //public static final String homeUrl = "http://160.99.9.136/dipnis/";
-
-
     public Button btnDogadjaji, btnInicijative, btnProblemi, btnPregledDogadjaja, btnPregledInicijativa,
             btnPregledProblema, btnDodajDogadjaj, btnDodajInicijativu, btnDodajProblem;
 

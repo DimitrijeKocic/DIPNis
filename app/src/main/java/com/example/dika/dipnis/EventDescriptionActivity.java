@@ -59,9 +59,11 @@ import java.util.HashMap;
 
 import android.content.DialogInterface;
 
-import static com.example.dika.dipnis.MainActivity.homeUrl;
+import static com.example.dika.dipnis.Global.homeUrl;
 
 public class EventDescriptionActivity extends AppCompatActivity {
+
+    private Global global;
 
     private static final int CAMERA = 0;
     private static final int GALLERY = 1;
@@ -86,6 +88,8 @@ public class EventDescriptionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOpisDogadjaja);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        global = new Global();
 
         //inicijalizacija liste bitmapa
         bmps = new ArrayList<>();
@@ -261,7 +265,6 @@ public class EventDescriptionActivity extends AppCompatActivity {
     ////////////////////BACKGROUND WORKER KLASA///////////////////////
     public class MyAsyncTask extends AsyncTask<String, Object, Boolean> {
 
-        String dataString, resultString;
         ArrayList<String> keys, values;
         HashMap<String, String> event;
 
@@ -287,14 +290,14 @@ public class EventDescriptionActivity extends AppCompatActivity {
             if (params[0].equals("showDetails")) {
                 keys.add("id");
                 values.add(params[1]);
-                makeEventFromJSON(getJSON(eventsShowDetailsUrl, keys, values));
+                makeEventFromJSON(global.getJSON(eventsShowDetailsUrl, true, keys, values));
             }
             else if (params[0].equals("addImage")) {
                 keys.add("id");
                 keys.add("slika");
                 values.add(params[1]);
                 values.add(params[2]);
-                getJSON(eventsAddImageUrl, keys, values);
+                global.getJSON(eventsAddImageUrl, true, keys, values);
                 details = false;
             }
             return details;
@@ -341,43 +344,6 @@ public class EventDescriptionActivity extends AppCompatActivity {
             }
 
             unsetProgressBar();
-        }
-
-        public String getJSON(String scriptURL, ArrayList<String> keys, ArrayList<String> values) {
-            try {
-                URL url = new URL(scriptURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                dataString = "";
-                for (int i = 0; i < keys.size(); i++) {
-                    dataString += URLEncoder.encode(keys.get(i), "UTF-8") + "=" + URLEncoder.encode(values.get(i), "UTF-8");
-                    if (i != keys.size() - 1)
-                        dataString += "&";
-                }
-                bufferedWriter.write(dataString);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                while((resultString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(resultString + "\n");
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return stringBuilder.toString().trim();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
         }
 
         public void makeEventFromJSON(String jsonString) {

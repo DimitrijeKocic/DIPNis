@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
+        android:name=".Global"
         android:allowBackup="true"
         android:icon="@mipmap/dipnis_logo"
         android:label="@string/strNazivAplikacije"

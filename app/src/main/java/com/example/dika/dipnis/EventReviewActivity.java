@@ -44,9 +44,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
-import static com.example.dika.dipnis.MainActivity.homeUrl;
+import static com.example.dika.dipnis.Global.homeUrl;
 
 public class EventReviewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    private Global global;
 
     public Spinner spinTipDogadjaja, spinVrstaIzvodjac;
     public ListView lvPrikaz;
@@ -64,6 +66,8 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPregledDogadjaja);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        global = new Global();
 
         //Postavljanje promenjivih za kontrole
         spinTipDogadjaja = (Spinner) findViewById(R.id.ERSpinTipDogadjaja);
@@ -223,7 +227,6 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         ArrayList<HashMap<String, String>> eventsList;
         ArrayList<String> eventsTypes;
 
-        String dataString, resultString;
         ArrayList<String> keys, values;
 
         String eventsSpinnerKindUrl, eventsShowAllUrl, eventsShowFutureUrl, eventsShowFutureTypeUrl, eventsShowFutureTypeKindUrl, eventsShowTypeUrl, eventsShowTypeKindUrl;
@@ -255,42 +258,42 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
                 case "spinnerKind":
                     keys.add("tipDogadjaja");
                     values.add(params[1]);
-                    makeStringArrFromJSON(getJSON(eventsSpinnerKindUrl, true, keys, values));
+                    makeStringArrFromJSON(global.getJSON(eventsSpinnerKindUrl, true, keys, values));
                     spiner = true;
                     break;
                 case "showAll":
                     keys = null;
                     values = null;
-                    makeListFromJSON(getJSON(eventsShowAllUrl, false, keys, values));
+                    makeListFromJSON(global.getJSON(eventsShowAllUrl, false, keys, values));
                     break;
                 case "showFuture":
                     keys = null;
                     values = null;
-                    makeListFromJSON(getJSON(eventsShowFutureUrl, false, keys, values));
+                    makeListFromJSON(global.getJSON(eventsShowFutureUrl, false, keys, values));
                     break;
                 case "showFutureType":
                     keys.add("tipDogadjaja");
                     values.add(params[1]);
-                    makeListFromJSON(getJSON(eventsShowFutureTypeUrl, true, keys, values));
+                    makeListFromJSON(global.getJSON(eventsShowFutureTypeUrl, true, keys, values));
                     break;
                 case "showFutureTypeKind":
                     keys.add("tipDogadjaja");
                     keys.add("vrstaIzvodjac");
                     values.add(params[1]);
                     values.add(params[2]);
-                    makeListFromJSON(getJSON(eventsShowFutureTypeKindUrl, true, keys, values));
+                    makeListFromJSON(global.getJSON(eventsShowFutureTypeKindUrl, true, keys, values));
                     break;
                 case "showType":
                     keys.add("tipDogadjaja");
                     values.add(params[1]);
-                    makeListFromJSON(getJSON(eventsShowTypeUrl, true, keys, values));
+                    makeListFromJSON(global.getJSON(eventsShowTypeUrl, true, keys, values));
                     break;
                 case "showTypeKind":
                     keys.add("tipDogadjaja");
                     keys.add("vrstaIzvodjac");
                     values.add(params[1]);
                     values.add(params[2]);
-                    makeListFromJSON(getJSON(eventsShowTypeKindUrl, true, keys, values));
+                    makeListFromJSON(global.getJSON(eventsShowTypeKindUrl, true, keys, values));
                     break;
             }
             return spiner;
@@ -318,46 +321,6 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
             }
 
             unsetProgressBar();
-        }
-
-        //funkcija za kreiranje stringa od JSON-a koji vrati skripta
-        public String getJSON(String scriptURL, boolean postMethod, ArrayList<String> keys, ArrayList<String> values) {
-            try {
-                URL url = new URL(scriptURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                if (postMethod) {
-                    httpURLConnection.setRequestMethod("POST");
-                    httpURLConnection.setDoOutput(true);
-                    OutputStream outputStream = httpURLConnection.getOutputStream();
-                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    dataString = "";
-                    for (int i = 0; i < keys.size(); i++) {
-                        dataString += URLEncoder.encode(keys.get(i), "UTF-8") + "=" + URLEncoder.encode(values.get(i), "UTF-8");
-                        if (i != keys.size() - 1)
-                            dataString += "&";
-                    }
-                    bufferedWriter.write(dataString);
-                    bufferedWriter.flush();
-                    bufferedWriter.close();
-                    outputStream.close();
-                }
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                while((resultString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(resultString + "\n");
-                }
-                bufferedReader.close();
-                inputStream.close();
-                httpURLConnection.disconnect();
-                return stringBuilder.toString().trim();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
         }
 
         //funkcija za postavljanje key value liste za popunjavanje listView-a prikaz dogadjaja
