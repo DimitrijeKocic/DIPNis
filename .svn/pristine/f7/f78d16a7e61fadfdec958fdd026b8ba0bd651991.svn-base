@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dika.dipnis"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="25.3.1" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/dipnis_logo"
+        android:label="@string/strNazivAplikacije"
+        android:roundIcon="@mipmap/dipnis_logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.dika.dipnis.MainActivity"
+            android:label="@string/strNazivAplikacije"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.AboutActivity"
+            android:label="@string/strTitleOAplikaciji"
+            android:parentActivityName="com.example.dika.dipnis.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.EventReviewActivity"
+            android:label="@string/strTitlePregledDogadjaja"
+            android:parentActivityName="com.example.dika.dipnis.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.EventAddActivity"
+            android:label="@string/strTitleDodajDogadjaj"
+            android:parentActivityName="com.example.dika.dipnis.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustPan" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.InitiativeReviewActivity"
+            android:label="@string/strTitlePregledInicijativa"
+            android:parentActivityName="com.example.dika.dipnis.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.InitiativeAddActivity"
+            android:label="@string/strTitleDodajInicijativu"
+            android:parentActivityName="com.example.dika.dipnis.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.ProblemReviewActivity"
+            android:label="@string/strTitlePregledProblema"
+            android:parentActivityName="com.example.dika.dipnis.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.ProblemAddActivity"
+            android:label="@string/strTitleDodajProblem"
+            android:parentActivityName="com.example.dika.dipnis.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.EventDescriptionActivity"
+            android:label="@string/strTitleOpisDogadjaja"
+            android:parentActivityName="com.example.dika.dipnis.EventReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.EventReviewActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.InitiativeDescriptionActivity"
+            android:label="@string/strTitleOpisInicijative"
+            android:parentActivityName="com.example.dika.dipnis.InitiativeReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.InitiativeReviewActivity" />
+        </activity>
+        <activity
+            android:name="com.example.dika.dipnis.ProblemDescriptionActivity"
+            android:label="@string/strTitleOpisProblema"
+            android:parentActivityName="com.example.dika.dipnis.ProblemReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dika.dipnis.ProblemReviewActivity" />
+        </activity>
+    </application>
+
+</manifest>

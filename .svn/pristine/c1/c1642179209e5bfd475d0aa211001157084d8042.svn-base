@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\Users\\Laza\\Desktop\\GitSvnDIPNis\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Laza\\Desktop\\GitSvnDIPNis\\app\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Laza\\Desktop\\DIPNis\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Laza\\Desktop\\DIPNis\\app\\src\\main\\res\\menu\\menu_main.xml"
+    }
+]
