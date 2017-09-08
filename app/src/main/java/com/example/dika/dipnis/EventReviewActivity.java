@@ -1,11 +1,14 @@
 package com.example.dika.dipnis;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.BoolRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
@@ -54,8 +57,9 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
     public ListView lvPrikaz;
     public CheckBox chkBuduciDogadjaji;
     public LinearLayout llVrstaIzvodjac;
-    public TextView tvVrstaIzvodjac;
+    public TextView tvVrstaIzvodjac, tvPrikazNePostoji;
     public ConstraintLayout clProgressBar;
+    public AlertDialog.Builder adb;
 
     public String spinTipDogadjajaText, spinVrstaIzvodjacText;
 
@@ -76,6 +80,7 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         chkBuduciDogadjaji = (CheckBox) findViewById(R.id.ERChkBuduciDogadjaji);
         llVrstaIzvodjac = (LinearLayout) findViewById(R.id.ERLlVrstaIzvodjac);
         tvVrstaIzvodjac = (TextView) findViewById(R.id.ERTvVrstaIzvodjac);
+        tvPrikazNePostoji = (TextView) findViewById(R.id.ERTvPrikazNePostoji);
         clProgressBar = (ConstraintLayout) findViewById(R.id.ERClProgressBar);
 
         //prikaz svih dogadjaja
@@ -173,13 +178,13 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
                 //postavljanje textView-a
                 switch (spinTipDogadjajaText) {
                     case "Sportski":
-                        tvVrstaIzvodjac.setText(R.string.strERTvVrstaSporta);
+                        tvVrstaIzvodjac.setText(R.string.strEREDTvVrstaSporta);
                         break;
                     case "Koncerti":
-                        tvVrstaIzvodjac.setText(R.string.strERTvIzvodjacGrupa);
+                        tvVrstaIzvodjac.setText(R.string.strEREDTvIzvodjacGrupa);
                         break;
                     case "Ostali":
-                        tvVrstaIzvodjac.setText(R.string.strERTvVrstaDogadjaja);
+                        tvVrstaIzvodjac.setText(R.string.strEREDTvVrstaDogadjaja);
                         break;
                 }
                 llVrstaIzvodjac.setVisibility(View.VISIBLE); //vidljivost spinera i textView-a
@@ -222,7 +227,7 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
 
 
     ////////////////////BACKGROUND WORKER KLASA///////////////////////
-    public class MyAsyncTask extends AsyncTask<String, Object, Boolean> {
+    public class MyAsyncTask extends AsyncTask<String, Object, String> {
 
         ArrayList<HashMap<String, String>> eventsList;
         ArrayList<String> eventsTypes;
@@ -252,51 +257,85 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         }
 
         @Override
-        protected Boolean doInBackground(String... params) {
-            boolean spiner = false; //true ako je za popunjavanje spinera
-            switch (params[0]) {
+        protected String doInBackground(String... params) {
+            String type = params[0], jsonStr;
+            switch (type) {
                 case "spinnerKind":
                     keys.add("tipDogadjaja");
                     values.add(params[1]);
-                    makeStringArrFromJSON(global.getJSON(eventsSpinnerKindUrl, true, keys, values));
-                    spiner = true;
+                    jsonStr = global.getJSON(eventsSpinnerKindUrl, true, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeStringArrFromJSON(jsonStr);
+                    }
                     break;
                 case "showAll":
                     keys = null;
                     values = null;
-                    makeListFromJSON(global.getJSON(eventsShowAllUrl, false, keys, values));
+                    jsonStr = global.getJSON(eventsShowAllUrl, false, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeListFromJSON(jsonStr);
+                    }
                     break;
                 case "showFuture":
                     keys = null;
                     values = null;
-                    makeListFromJSON(global.getJSON(eventsShowFutureUrl, false, keys, values));
+                    jsonStr = global.getJSON(eventsShowFutureUrl, false, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeListFromJSON(jsonStr);
+                    }
                     break;
                 case "showFutureType":
                     keys.add("tipDogadjaja");
                     values.add(params[1]);
-                    makeListFromJSON(global.getJSON(eventsShowFutureTypeUrl, true, keys, values));
+                    jsonStr = global.getJSON(eventsShowFutureTypeUrl, true, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeListFromJSON(jsonStr);
+                    }
                     break;
                 case "showFutureTypeKind":
                     keys.add("tipDogadjaja");
                     keys.add("vrstaIzvodjac");
                     values.add(params[1]);
                     values.add(params[2]);
-                    makeListFromJSON(global.getJSON(eventsShowFutureTypeKindUrl, true, keys, values));
+                    jsonStr = global.getJSON(eventsShowFutureTypeKindUrl, true, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeListFromJSON(jsonStr);
+                    }
                     break;
                 case "showType":
                     keys.add("tipDogadjaja");
                     values.add(params[1]);
-                    makeListFromJSON(global.getJSON(eventsShowTypeUrl, true, keys, values));
+                    jsonStr = global.getJSON(eventsShowTypeUrl, true, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeListFromJSON(jsonStr);
+                    }
                     break;
                 case "showTypeKind":
                     keys.add("tipDogadjaja");
                     keys.add("vrstaIzvodjac");
                     values.add(params[1]);
                     values.add(params[2]);
-                    makeListFromJSON(global.getJSON(eventsShowTypeKindUrl, true, keys, values));
+                    jsonStr = global.getJSON(eventsShowTypeKindUrl, true, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeListFromJSON(jsonStr);
+                    }
                     break;
             }
-            return spiner;
+            return type;
         }
 
         @Override
@@ -305,19 +344,37 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            if (!result) {
-                //popunjavanje listView-a
-                SimpleAdapter listAdapter = new SimpleAdapter(EventReviewActivity.this, eventsList, R.layout.event_item_layout,
-                        new String[]{"id", "tipDogadjaja", "vrstaIzvodjac", "kratakOpis", "lokacija", "datumVreme"},
-                        new int[]{R.id.EventItemTvId, R.id.EventItemTvTipDogadjaja, R.id.EventItemTvVrstaIzvodjac, R.id.EventItemTvKratakOpis, R.id.EventItemTvLokacija, R.id.EventItemTvDatumVreme});
-                lvPrikaz.setAdapter(listAdapter);
-                //listAdapter.notifyDataSetChanged();
-            } else {
+        protected void onPostExecute(String result) {
+            if (result.equals("spinnerKind")) {
                 //Postavljanje itema spinera za vrstu dogadjaja
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_layout, eventsTypes);
                 adapter.setDropDownViewResource(R.layout.spinner_item_layout);
                 spinVrstaIzvodjac.setAdapter(adapter);
+            } else if (result.equals("Timeout")) {
+                adb = new AlertDialog.Builder(EventReviewActivity.this);
+                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
+                adb.setMessage(R.string.strEREDEAAdbGreska);
+                adb.setPositiveButton(R.string.strEREDEAAdbOK, new Dialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                adb.show();
+            } else {
+                if (eventsList.isEmpty()) {
+                    lvPrikaz.setVisibility(View.GONE);
+                    tvPrikazNePostoji.setVisibility(View.VISIBLE);
+                } else {
+                    //popunjavanje listView-a
+                    SimpleAdapter listAdapter = new SimpleAdapter(EventReviewActivity.this, eventsList, R.layout.event_item_layout,
+                            new String[]{"id", "tipDogadjaja", "vrstaIzvodjac", "kratakOpis", "lokacija", "datumVreme"},
+                            new int[]{R.id.EventItemTvId, R.id.EventItemTvTipDogadjaja, R.id.EventItemTvVrstaIzvodjac, R.id.EventItemTvKratakOpis, R.id.EventItemTvLokacija, R.id.EventItemTvDatumVreme});
+                    lvPrikaz.setAdapter(listAdapter);
+                    //listAdapter.notifyDataSetChanged();
+                    lvPrikaz.setVisibility(View.VISIBLE);
+                    tvPrikazNePostoji.setVisibility(View.GONE);
+                }
             }
 
             unsetProgressBar();

@@ -2,15 +2,20 @@ package com.example.dika.dipnis;
 
 import android.app.Application;
 
+import org.apache.http.conn.ConnectTimeoutException;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -31,6 +36,8 @@ public final class Global extends Application {
         try {
             URL url = new URL(scriptURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setConnectTimeout(15000);
+            httpURLConnection.setReadTimeout(15000);
             if (postMethod) {
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -57,13 +64,9 @@ public final class Global extends Application {
             inputStream.close();
             httpURLConnection.disconnect();
             return stringBuilder.toString().trim();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+                return "ConnectTimeout";
         }
-
-        return null;
     }
 
 }

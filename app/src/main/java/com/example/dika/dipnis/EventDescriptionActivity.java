@@ -1,6 +1,7 @@
 package com.example.dika.dipnis;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -145,11 +146,12 @@ public class EventDescriptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                 if (tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0) {
-                    adb.setTitle(getResources().getString(R.string.strEDAdbTitleObavestenje));
-                    adb.setMessage(R.string.strEDDodajSlikuObavestenje);
+                    adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
+                    adb.setMessage(R.string.strEDEADodajSlikuObavestenje);
+                    adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
                 } else {
-                    final String[] adbItems = getResources().getStringArray(R.array.strEDAdbItems);
-                    adb.setTitle(getResources().getString(R.string.strEDAdbTitleSlika));
+                    final String[] adbItems = getResources().getStringArray(R.array.strEDEAAdbItems);
+                    adb.setTitle(getResources().getString(R.string.strEDEAAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
@@ -186,7 +188,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                 bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                 //upis u bazu
-                new MyAsyncTask().execute("addImage", idDog, img);
+                new MyAsyncTask().execute("addImage", idDog, img, homeUrl);
                 //upis u lokalno skladiste
                 File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
                 FileOutputStream fo;
@@ -212,7 +214,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-                    new MyAsyncTask().execute("addImage", idDog, img);
+                    new MyAsyncTask().execute("addImage", idDog, img, homeUrl);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -263,7 +265,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
 
 
     ////////////////////BACKGROUND WORKER KLASA///////////////////////
-    public class MyAsyncTask extends AsyncTask<String, Object, Boolean> {
+    public class MyAsyncTask extends AsyncTask<String, Object, String> {
 
         ArrayList<String> keys, values;
         HashMap<String, String> event;
@@ -285,22 +287,30 @@ public class EventDescriptionActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Boolean doInBackground(String... params) {
-            boolean details = true;
-            if (params[0].equals("showDetails")) {
+        protected String doInBackground(String... params) {
+            String type = params[0], jsonStr;
+            if (type.equals("showDetails")) {
                 keys.add("id");
                 values.add(params[1]);
-                makeEventFromJSON(global.getJSON(eventsShowDetailsUrl, true, keys, values));
+                jsonStr = global.getJSON(eventsShowDetailsUrl, true, keys, values);
+                if (jsonStr.equals("ConnectTimeout")) {
+                    type = "Timeout";
+                } else {
+                    makeEventFromJSON(jsonStr);
+                }
             }
             else if (params[0].equals("addImage")) {
                 keys.add("id");
                 keys.add("slika");
+                keys.add("homeUrl");
                 values.add(params[1]);
                 values.add(params[2]);
-                global.getJSON(eventsAddImageUrl, true, keys, values);
-                details = false;
+                values.add(params[3]);
+                jsonStr = global.getJSON(eventsAddImageUrl, true, keys, values);
+                if (jsonStr.equals("ConnectTimeout"))
+                    type = "Timeout";
             }
-            return details;
+            return type;
         }
 
         @Override
@@ -309,19 +319,19 @@ public class EventDescriptionActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
+        protected void onPostExecute(String result) {
+            if (result.equals("showDetails")) {
                 String tip = event.get("tipDogadjaja");
 
                 if (tip.equals("Sportski")) {
-                    tvVrstaIzvodjac.setText(R.string.strEDTvVrstaSporta);
+                    tvVrstaIzvodjac.setText(R.string.strEREDTvVrstaSporta);
                     tvKratakOpisRezultat.setText(R.string.strEDTvRezultat);
                 } else {
                     tvKratakOpisRezultat.setText(R.string.strEDTvKratakOpis);
                     if (tip.equals("Koncerti")) {
-                        tvVrstaIzvodjac.setText(R.string.strEDTvIzvodjacGrupa);
+                        tvVrstaIzvodjac.setText(R.string.strEREDTvIzvodjacGrupa);
                     } else {
-                        tvVrstaIzvodjac.setText(R.string.strEDTvVrstaDogadjaja);
+                        tvVrstaIzvodjac.setText(R.string.strEREDTvVrstaDogadjaja);
                     }
                 }
 
@@ -341,6 +351,17 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     btnPrethodna.setVisibility(View.GONE);
                     tvGalerijaOpis.setVisibility(View.VISIBLE);
                 }
+            } else if (result.equals("Timeout")) {
+                adb = new AlertDialog.Builder(EventDescriptionActivity.this);
+                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
+                adb.setMessage(R.string.strEREDEAAdbGreska);
+                adb.setPositiveButton(R.string.strEREDEAAdbOK, new Dialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                adb.show();
             }
 
             unsetProgressBar();
@@ -380,9 +401,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     try {
                         url = new URL(sl);
                         bmps.add(BitmapFactory.decodeStream(url.openConnection().getInputStream()));
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    }catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

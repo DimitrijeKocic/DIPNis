@@ -41,7 +41,7 @@
                     android:id="@+id/EATvTipDogadjaja"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEATvTipDogadjaja"
+                    android:text="@string/strEREDEATvTipDogadjaja"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
@@ -298,7 +298,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="3"
-                    android:text="@string/strEDBtnDodajSliku"
+                    android:text="@string/strEDEABtnDodajSliku"
                     android:background="@drawable/round_button"
                     android:textColor="@color/white"
                     android:textSize="@dimen/t15" />

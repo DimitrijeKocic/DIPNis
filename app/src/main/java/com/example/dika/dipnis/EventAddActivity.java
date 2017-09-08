@@ -119,11 +119,12 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View view) {
                 adb = new AlertDialog.Builder(EventAddActivity.this);
                 if (tvDatum.getText().toString().compareTo(dateNow) > 0) {
-                    adb.setTitle(getResources().getString(R.string.strEAAdbTitleObavestenje));
-                    adb.setMessage(R.string.strEADodajSlikuObavestenje);
+                    adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
+                    adb.setMessage(R.string.strEDEADodajSlikuObavestenje);
+                    adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
                 } else {
-                    final String[] adbItems = getResources().getStringArray(R.array.strEAAdbItems);
-                    adb.setTitle(getResources().getString(R.string.strEAAdbTitleSlika));
+                    final String[] adbItems = getResources().getStringArray(R.array.strEDEAAdbItems);
+                    adb.setTitle(getResources().getString(R.string.strEDEAAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
@@ -241,7 +242,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            tvDatum.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+            tvDatum.setText(year + "-" + ((month + 1) < 10 ? "0" : "") + (month + 1) + "-" + (dayOfMonth < 10 ? "0" : "") + dayOfMonth);
         }
     }
 
@@ -258,7 +259,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            tvVreme.setText(hourOfDay + ":" + minute);
+            tvVreme.setText((hourOfDay < 10 ? "0" : "") + hourOfDay + ":" + (minute < 10 ? "0" : "") + minute);
         }
     }
 }
