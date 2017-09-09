@@ -307,8 +307,11 @@ public class EventDescriptionActivity extends AppCompatActivity {
                 values.add(params[2]);
                 values.add(params[3]);
                 jsonStr = global.getJSON(eventsAddImageUrl, true, keys, values);
-                if (jsonStr.equals("ConnectTimeout"))
+                if (jsonStr.equals("ConnectTimeout")) {
                     type = "Timeout";
+                } else if (jsonStr.equals("Success")) {
+                    type = "Success";
+                }
             }
             return type;
         }
@@ -351,6 +354,12 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     btnPrethodna.setVisibility(View.GONE);
                     tvGalerijaOpis.setVisibility(View.VISIBLE);
                 }
+            } else if (result.equals("Success")) {
+                adb = new AlertDialog.Builder(EventDescriptionActivity.this);
+                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
+                adb.setMessage(R.string.strEDAdbTitleSlikaDodata);
+                adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                adb.show();
             } else if (result.equals("Timeout")) {
                 adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                 adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
