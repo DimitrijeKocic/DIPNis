@@ -44,7 +44,8 @@
     <string name="strEREDEAAdbTitleObavestenje">Obaveštenje</string>
     <string name="strEDEADodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
     <string name="strEDEAAdbTitleSlika">Dodaj sliku</string>
-    <string name="strEDAdbTitleSlikaDodata">Slika je uspešno dodata u bazu.</string>
+    <string name="strEDAdbSlikaDodata">Slika je uspešno dodata u bazu.</string>
+    <string name="strEAAdbDogadjajSacuvan">Događaj je uspešno sačuvan u bazi.</string>
     <string-array name="strEDEAAdbItems">
         <item>Slikaj</item>
         <item>Odaberi iz galerije</item>

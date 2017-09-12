@@ -197,8 +197,6 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     fo = new FileOutputStream(destination);
                     fo.write(stream.toByteArray());
                     fo.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -357,7 +355,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
             } else if (result.equals("Success")) {
                 adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                 adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                adb.setMessage(R.string.strEDAdbTitleSlikaDodata);
+                adb.setMessage(R.string.strEDAdbSlikaDodata);
                 adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
                 adb.show();
             } else if (result.equals("Timeout")) {
