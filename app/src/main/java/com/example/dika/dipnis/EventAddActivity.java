@@ -66,7 +66,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
     private String dateNow, timeNow;
 
     public static TextView tvDatum, tvVreme;
-    public EditText etVrstaIzvodjac, etKratakOpis;
+    public EditText etVrstaIzvodjac, etKratakOpis, etTim1, etTim2, etTim1Poeni, etTim2Poeni, etLokacija, etOpis;
     public TextView tvRezultat;
     public Spinner spinTipDogadjaja;
     public LinearLayout llDatum, llVreme, llRezultat;
@@ -88,6 +88,10 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         tvVreme = (TextView) findViewById(R.id.EATvVreme);
         etVrstaIzvodjac = (EditText) findViewById(R.id.EAEtVrstaIzvodjac);
         etKratakOpis = (EditText) findViewById(R.id.EAEtKratakOpis);
+        etTim1 = (EditText) findViewById(R.id.EAEtTim1);
+        etTim2 = (EditText) findViewById(R.id.EAEtTim2);
+        etTim1Poeni = (EditText) findViewById(R.id.EAEtTim1Poeni);
+        etTim2Poeni = (EditText) findViewById(R.id.EAEtTim2Poeni);
         tvRezultat = (TextView) findViewById(R.id.EATvRezultat);
         spinTipDogadjaja = (Spinner) findViewById(R.id.EASpinTipDogadjaja);
         llDatum = (LinearLayout) findViewById(R.id.EALlDatum);
@@ -171,6 +175,11 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
 
                     String tipDogadjaja = spinTipDogadjaja.getSelectedItem().toString();
                     String vrstaIzvodjac = etVrstaIzvodjac.getText().toString();
+                    String kratakOpis = etKratakOpis.getText().toString();
+                    String tim1 = etTim1.getText().toString();
+                    String tim2 = etTim2.getText().toString();
+                    String tim1Poeni = etTim1Poeni.getText().toString();
+                    String timwPoeni = etTim2Poeni.getText().toString();
 
                     //new MyAsyncTask().execute("addImage", idDog, img, homeUrl);
 
