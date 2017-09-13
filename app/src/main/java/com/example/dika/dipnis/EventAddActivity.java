@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -45,9 +46,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -83,6 +86,9 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        global = new Global();
+        camera = false;
+
         //Postavljanje promenjivih za kontrole
         tvDatum = (TextView) findViewById(R.id.EATvDatum);
         tvVreme = (TextView) findViewById(R.id.EATvVreme);
@@ -92,6 +98,8 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         etTim2 = (EditText) findViewById(R.id.EAEtTim2);
         etTim1Poeni = (EditText) findViewById(R.id.EAEtTim1Poeni);
         etTim2Poeni = (EditText) findViewById(R.id.EAEtTim2Poeni);
+        etLokacija = (EditText) findViewById(R.id.EAEtLokacija);
+        etOpis = (EditText) findViewById(R.id.EAEtOpis);
         tvRezultat = (TextView) findViewById(R.id.EATvRezultat);
         spinTipDogadjaja = (Spinner) findViewById(R.id.EASpinTipDogadjaja);
         llDatum = (LinearLayout) findViewById(R.id.EALlDatum);
@@ -101,6 +109,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         btnDodajSliku = (Button) findViewById(R.id.EABtnDodajSliku);
         btnSacuvajDogadjaj = (Button) findViewById(R.id.EABtnSacuvajDogadjaj);
         clProgressBar = (ConstraintLayout) findViewById(R.id.EAClProgressBar);
+        adb = new AlertDialog.Builder(EventAddActivity.this);
 
         //setovanje trenutnog datuma i vremena
         String[] dateTimeArr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime()).split(" ");
@@ -140,8 +149,9 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                 adb = new AlertDialog.Builder(EventAddActivity.this);
                 if (tvDatum.getText().toString().compareTo(dateNow) > 0) {
                     adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                    adb.setMessage(R.string.strEDEADodajSlikuObavestenje);
+                    adb.setMessage(R.string.strEDEAAdbDodajSlikuObavestenje);
                     adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                    adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
                     final String[] adbItems = getResources().getStringArray(R.array.strEDEAAdbItems);
                     adb.setTitle(getResources().getString(R.string.strEDEAAdbTitleSlika));
@@ -159,6 +169,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                             }
                         }
                     });
+                    adb.setIcon(R.drawable.adb_slikaj);
                 }
                 adb.show();
             }
@@ -167,21 +178,12 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         btnSacuvajDogadjaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String img;
                 if (bmp != null) {
                     //konvertovanje slike u string
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-
-                    String tipDogadjaja = spinTipDogadjaja.getSelectedItem().toString();
-                    String vrstaIzvodjac = etVrstaIzvodjac.getText().toString();
-                    String kratakOpis = etKratakOpis.getText().toString();
-                    String tim1 = etTim1.getText().toString();
-                    String tim2 = etTim2.getText().toString();
-                    String tim1Poeni = etTim1Poeni.getText().toString();
-                    String timwPoeni = etTim2Poeni.getText().toString();
-
-                    //new MyAsyncTask().execute("addImage", idDog, img, homeUrl);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
 
                     if (camera) {
                         File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
@@ -195,6 +197,46 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                             e.printStackTrace();
                         }
                     }
+                } else img = "";
+
+                String tipDogadjaja = spinTipDogadjaja.getSelectedItem().toString();
+
+                //provera za unos u tekst polja
+                ArrayList<EditText> inputCheck = new ArrayList<>();
+                EditText item = null;
+                if (tipDogadjaja.equals("Sportski")) {
+                    inputCheck.addAll(Arrays.asList(etVrstaIzvodjac, etTim1, etTim2, etTim1Poeni, etTim2Poeni, etLokacija, etOpis));
+                } else {
+                    inputCheck.addAll(Arrays.asList(etVrstaIzvodjac, etKratakOpis, etLokacija, etOpis));
+                }
+                for (EditText itemTmp : inputCheck) {
+                    if (itemTmp.getText().toString().equals("")) {
+                        item = itemTmp;
+                        break;
+                    }
+                }
+                if (item == null) {
+                    String vrstaIzvodjac = etVrstaIzvodjac.getText().toString();
+                    String lokacija = etLokacija.getText().toString();
+                    String opis = etOpis.getText().toString();
+                    String datumVreme = tvDatum.getText().toString() + " " + tvVreme.getText().toString() + ":00";
+                    String kratakOpis;
+                    if (tipDogadjaja.equals("Sportski")) {
+                        String tim1 = etTim1.getText().toString();
+                        String tim2 = etTim2.getText().toString();
+                        String tim1Poeni = etTim1Poeni.getText().toString();
+                        String tim2Poeni = etTim2Poeni.getText().toString();
+                        kratakOpis = tim1 + " " + tim1Poeni + ":"  + tim2Poeni + " " + tim2;
+                    } else {
+                        kratakOpis = etKratakOpis.getText().toString();
+                    }
+                    new MyAsyncTask().execute("addImage", tipDogadjaja, vrstaIzvodjac, kratakOpis, lokacija, datumVreme, opis, img, homeUrl);
+                } else {
+                    adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
+                    adb.setMessage(getResources().getString(R.string.strEAAdbObavezanUnos) + " " + (item.getHint().toString().equals("") ? "Rezultat" : item.getHint().toString()) + ".");
+                    adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                    adb.setIcon(R.drawable.adb_obavestenje);
+                    adb.show();
                 }
             }
         });
@@ -335,6 +377,8 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
 
         @Override
         protected void onPreExecute() {
+            setProgressBar();
+
             //deklaracija adrese skripte
             eventsAddUrl = homeUrl + "eventsAdd.php";
             //Deklaracija listi
@@ -344,8 +388,6 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
 
         @Override
         protected String doInBackground(String... params) {
-            setProgressBar();
-
             String type = "", jsonStr;
             keys.add("tipDogadjaja");
             keys.add("vrstaIzvodjac");
@@ -366,11 +408,11 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             jsonStr = global.getJSON(eventsAddUrl, true, keys, values);
             if (jsonStr.equals("ConnectTimeout")) {
                 type = "Timeout";
+            } else if (jsonStr.equals("TooBigImage")) {
+                type = "BigImage";
             } else if (jsonStr.equals("Success")) {
                 type = "Success";
             }
-
-            unsetProgressBar();
 
             return type;
         }
@@ -387,6 +429,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                 adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
                 adb.setMessage(R.string.strEAAdbDogadjajSacuvan);
                 adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                adb.setIcon(R.drawable.adb_success);
                 adb.show();
             } else if (result.equals("Timeout")) {
                 adb = new AlertDialog.Builder(EventAddActivity.this);
@@ -398,8 +441,10 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                         finish();
                     }
                 });
+                adb.setIcon(R.drawable.adb_obavestenje);
                 adb.show();
             }
+            unsetProgressBar();
         }
     }
 }

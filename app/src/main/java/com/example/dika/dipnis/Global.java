@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Socket;
@@ -26,8 +27,8 @@ import java.util.ArrayList;
 
 public final class Global extends Application {
 
-    //public static final String homeUrl = "http://24.135.176.151:8080/dipNisServer/";
-    public static final String homeUrl = "http://160.99.9.136/dipnis/";
+    public static final String homeUrl = "http://24.135.176.151:8080/dipNisServer/";
+    //public static final String homeUrl = "http://160.99.9.136/dipnis/";
 
     public String dataString, resultString;
 
@@ -37,13 +38,13 @@ public final class Global extends Application {
             URL url = new URL(scriptURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(20000);
-            httpURLConnection.setReadTimeout(20000);
+            httpURLConnection.setReadTimeout(21000);
             if (postMethod) {
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                dataString = "";
+                dataString = new String();
                 for (int i = 0; i < keys.size(); i++) {
                     dataString += URLEncoder.encode(keys.get(i), "UTF-8") + "=" + URLEncoder.encode(values.get(i), "UTF-8");
                     if (i != keys.size() - 1)
@@ -64,9 +65,11 @@ public final class Global extends Application {
             inputStream.close();
             httpURLConnection.disconnect();
             return stringBuilder.toString().trim();
+        } catch (SocketTimeoutException e) {
+            return "ConnectTimeout";
         } catch (IOException e) {
-                return "ConnectTimeout";
+            e.printStackTrace();
         }
+        return null;
     }
-
 }

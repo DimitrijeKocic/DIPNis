@@ -111,8 +111,8 @@ public class EventDescriptionActivity extends AppCompatActivity {
         btnSledeca = (Button) findViewById(R.id.EDBtnSledeca);
         btnPrethodna = (Button) findViewById(R.id.EDBtnPrethodna);
         btnDodajSliku = (Button) findViewById(R.id.EDBtnDodajSliku);
-
         clProgressBar = (ConstraintLayout) findViewById(R.id.EDClProgressBar);
+        adb = new AlertDialog.Builder(EventDescriptionActivity.this);
 
         Intent intent = getIntent();
         idDog = intent.getStringExtra("idDogadjaja");
@@ -144,11 +144,11 @@ public class EventDescriptionActivity extends AppCompatActivity {
         btnDodajSliku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                 if (tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0) {
                     adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                    adb.setMessage(R.string.strEDEADodajSlikuObavestenje);
+                    adb.setMessage(R.string.strEDEAAdbDodajSlikuObavestenje);
                     adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                    adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
                     final String[] adbItems = getResources().getStringArray(R.array.strEDEAAdbItems);
                     adb.setTitle(getResources().getString(R.string.strEDEAAdbTitleSlika));
@@ -166,6 +166,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                             }
                         }
                     });
+                    adb.setIcon(R.drawable.adb_slikaj);
                 }
                 adb.show();
             }
@@ -185,7 +186,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                 ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
                 //konvertuje u string
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                bm.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                 String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                 //upis u bazu
                 new MyAsyncTask().execute("addImage", idDog, img, homeUrl);
@@ -210,7 +211,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
                     //konvertuje u string i poziva asyncTask za upis u bazu
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    bm.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                     String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                     new MyAsyncTask().execute("addImage", idDog, img, homeUrl);
                 } catch (IOException e) {
@@ -353,10 +354,10 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     tvGalerijaOpis.setVisibility(View.VISIBLE);
                 }
             } else if (result.equals("Success")) {
-                adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                 adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
                 adb.setMessage(R.string.strEDAdbSlikaDodata);
                 adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                adb.setIcon(R.drawable.adb_success);
                 adb.show();
             } else if (result.equals("Timeout")) {
                 adb = new AlertDialog.Builder(EventDescriptionActivity.this);
@@ -368,6 +369,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+                adb.setIcon(R.drawable.adb_obavestenje);
                 adb.show();
             }
 
