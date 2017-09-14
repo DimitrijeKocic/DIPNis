@@ -5,57 +5,34 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.ExifInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.renderscript.ScriptGroup;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import android.content.DialogInterface;
@@ -145,13 +122,13 @@ public class EventDescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0) {
-                    adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                    adb.setMessage(R.string.strEDEAAdbDodajSlikuObavestenje);
-                    adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                    adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                    adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
+                    adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
-                    final String[] adbItems = getResources().getStringArray(R.array.strEDEAAdbItems);
-                    adb.setTitle(getResources().getString(R.string.strEDEAAdbTitleSlika));
+                    final String[] adbItems = getResources().getStringArray(R.array.strAdbItems);
+                    adb.setTitle(getResources().getString(R.string.strAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
@@ -354,16 +331,16 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     tvGalerijaOpis.setVisibility(View.VISIBLE);
                 }
             } else if (result.equals("Success")) {
-                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                adb.setMessage(R.string.strEDAdbSlikaDodata);
-                adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                adb.setMessage(R.string.strAdbSlikaDodata);
+                adb.setPositiveButton(R.string.strAdbOK, null);
                 adb.setIcon(R.drawable.adb_success);
                 adb.show();
             } else if (result.equals("Timeout")) {
                 adb = new AlertDialog.Builder(EventDescriptionActivity.this);
-                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                adb.setMessage(R.string.strEREDEAAdbGreska);
-                adb.setPositiveButton(R.string.strEREDEAAdbOK, new Dialog.OnClickListener() {
+                adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                adb.setMessage(R.string.strAdbGreska);
+                adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();

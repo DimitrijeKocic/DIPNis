@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/EventItemRl"
+        android:id="@+id/EIListRl"
         android:padding="@dimen/pad5"
         android:background="@drawable/border_transparent_background" >
 
@@ -14,10 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/EventItemLlTipVrsta">
+            android:id="@+id/EIListLlTipLokacija">
 
             <TextView
-                android:id="@+id/EventItemTvTipDogadjaja"
+                android:id="@+id/EIListItemTvTipDogadjajaInicijative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -32,7 +32,7 @@
 
 
             <TextView
-                android:id="@+id/EventItemTvLokacija"
+                android:id="@+id/EIListItemTvLokacija"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -43,11 +43,11 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/EventItemTvKratakOpis"
+            android:id="@+id/EIListItemTvKratakOpis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_below="@id/EventItemLlTipVrsta"
+            android:layout_below="@id/EIListLlTipLokacija"
             android:gravity="center"
             android:textSize="@dimen/t17"
             android:textColor="@color/black"
@@ -57,11 +57,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/EventItemLlDatumLokacija"
-            android:layout_below="@id/EventItemTvKratakOpis">
+            android:id="@+id/EIListLlVrstaDatum"
+            android:layout_below="@id/EIListItemTvKratakOpis">
 
             <TextView
-                android:id="@+id/EventItemTvVrstaIzvodjac"
+                android:id="@+id/EIListItemTvVrstaIzvodjacRazlog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -75,7 +75,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/EventItemTvDatumVreme"
+                android:id="@+id/EIListItemTvDatumVreme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -88,7 +88,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/EventItemTvId"
+        android:id="@+id/EIListItemTvId"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"

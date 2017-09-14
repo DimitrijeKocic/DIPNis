@@ -6,23 +6,17 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
 import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,21 +32,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 
 import static com.example.dika.dipnis.Global.homeUrl;
 
@@ -148,13 +135,13 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View view) {
                 adb = new AlertDialog.Builder(EventAddActivity.this);
                 if (tvDatum.getText().toString().compareTo(dateNow) > 0) {
-                    adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                    adb.setMessage(R.string.strEDEAAdbDodajSlikuObavestenje);
-                    adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                    adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                    adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
+                    adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
-                    final String[] adbItems = getResources().getStringArray(R.array.strEDEAAdbItems);
-                    adb.setTitle(getResources().getString(R.string.strEDEAAdbTitleSlika));
+                    final String[] adbItems = getResources().getStringArray(R.array.strAdbItems);
+                    adb.setTitle(getResources().getString(R.string.strAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
@@ -232,9 +219,9 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                     }
                     new MyAsyncTask().execute("addImage", tipDogadjaja, vrstaIzvodjac, kratakOpis, lokacija, datumVreme, opis, img, homeUrl);
                 } else {
-                    adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                    adb.setMessage(getResources().getString(R.string.strEAAdbObavezanUnos) + " " + (item.getHint().toString().equals("") ? "Rezultat" : item.getHint().toString()) + ".");
-                    adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                    adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                    adb.setMessage(getResources().getString(R.string.strAdbObavezanUnos) + " " + (item.getHint().toString().equals("") ? "Rezultat" : item.getHint().toString()) + ".");
+                    adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                     adb.show();
                 }
@@ -424,16 +411,16 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         protected void onPostExecute(String result) {
             if (result.equals("Success")) {
                 adb = new AlertDialog.Builder(EventAddActivity.this);
-                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                adb.setMessage(R.string.strEAAdbDogadjajSacuvan);
-                adb.setPositiveButton(R.string.strEREDEAAdbOK, null);
+                adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                adb.setMessage(R.string.strEAdbDogadjajSacuvan);
+                adb.setPositiveButton(R.string.strAdbOK, null);
                 adb.setIcon(R.drawable.adb_success);
                 adb.show();
             } else if (result.equals("Timeout")) {
                 adb = new AlertDialog.Builder(EventAddActivity.this);
-                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                adb.setMessage(R.string.strEREDEAAdbGreska);
-                adb.setPositiveButton(R.string.strEREDEAAdbOK, new Dialog.OnClickListener() {
+                adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                adb.setMessage(R.string.strAdbGreska);
+                adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();

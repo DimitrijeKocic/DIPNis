@@ -1,16 +1,13 @@
 package com.example.dika.dipnis;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +16,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -32,21 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.dika.dipnis.Global.homeUrl;
 
 public class EventReviewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -129,7 +111,6 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
 
         spinTipDogadjaja.setOnItemSelectedListener(this);
         spinVrstaIzvodjac.setOnItemSelectedListener(this);
-
     }
 
     /////////////KREIRANJE MENIJA/////////////////
@@ -352,9 +333,9 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
                 adapter.setDropDownViewResource(R.layout.spinner_item_layout);
                 spinVrstaIzvodjac.setAdapter(adapter);
             } else if (result.equals("Timeout")) {
-                adb.setTitle(getResources().getString(R.string.strEREDEAAdbTitleObavestenje));
-                adb.setMessage(R.string.strEREDEAAdbGreska);
-                adb.setPositiveButton(R.string.strEREDEAAdbOK, new Dialog.OnClickListener() {
+                adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                adb.setMessage(R.string.strAdbGreska);
+                adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -368,9 +349,9 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
                     tvPrikazNePostoji.setVisibility(View.VISIBLE);
                 } else {
                     //popunjavanje listView-a
-                    SimpleAdapter listAdapter = new SimpleAdapter(EventReviewActivity.this, eventsList, R.layout.event_item_layout,
+                    SimpleAdapter listAdapter = new SimpleAdapter(EventReviewActivity.this, eventsList, R.layout.ei_list_item_layout,
                             new String[]{"id", "tipDogadjaja", "vrstaIzvodjac", "kratakOpis", "lokacija", "datumVreme"},
-                            new int[]{R.id.EventItemTvId, R.id.EventItemTvTipDogadjaja, R.id.EventItemTvVrstaIzvodjac, R.id.EventItemTvKratakOpis, R.id.EventItemTvLokacija, R.id.EventItemTvDatumVreme});
+                            new int[]{R.id.EIListItemTvId, R.id.EIListItemTvTipDogadjajaInicijative, R.id.EIListItemTvVrstaIzvodjacRazlog, R.id.EIListItemTvKratakOpis, R.id.EIListItemTvLokacija, R.id.EIListItemTvDatumVreme});
                     lvPrikaz.setAdapter(listAdapter);
                     //listAdapter.notifyDataSetChanged();
                     lvPrikaz.setVisibility(View.VISIBLE);

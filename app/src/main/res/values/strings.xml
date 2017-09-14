@@ -26,6 +26,25 @@
     <!--.......................OPSTE.....................-->
 
 
+    <!--.................ALERT DIALOG BUILDER...............-->
+    <!--Sve forme-->
+    <string name="strAdbTitleObavestenje">Obaveštenje</string>
+    <string name="strAdbTitleSlika">Dodaj sliku</string>
+    <string name="strAdbSlikaDodata">Slika je uspešno dodata u bazu.</string>
+    <string name="strAdbObavezanUnos">Obavezan unos u polje</string>
+    <string-array name="strAdbItems">
+        <item>Slikaj</item>
+        <item>Odaberi iz galerije</item>
+    </string-array>
+    <string name="strAdbOK">OK</string>
+    <string name="strAdbGreska">Greška prilikom konektovanja na server. Pokušajte kasnije.</string>
+
+    <!--Dogadjaji-->
+    <string name="strEAdbDodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
+    <string name="strEAdbDogadjajSacuvan">Događaj je uspešno sačuvan u bazi.</string>
+    <!--.................ALERT DIALOG BUILDER...............-->
+
+
     <!--.....................OSNOVNA FORMA...................-->
     <!--Dugmici u pocetnoj formi-->
     <string name="strBtnDogadjaji">Događaji</string>
@@ -43,20 +62,6 @@
     <string name="strEREDTvIzvodjacGrupa">Izvođač/Grupa:</string>
     <string name="strEREDTvVrstaDogadjaja">Vrsta događaja:</string>
     <string name="strEDEABtnDodajSliku">Dodaj sliku</string>
-
-    <!--Alert dialog-->
-    <string name="strEREDEAAdbTitleObavestenje">Obaveštenje</string>
-    <string name="strEDEAAdbDodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
-    <string name="strEDEAAdbTitleSlika">Dodaj sliku</string>
-    <string name="strEDAdbSlikaDodata">Slika je uspešno dodata u bazu.</string>
-    <string name="strEAAdbDogadjajSacuvan">Događaj je uspešno sačuvan u bazi.</string>
-    <string name="strEAAdbObavezanUnos">Obavezan unos u polje</string>
-    <string-array name="strEDEAAdbItems">
-        <item>Slikaj</item>
-        <item>Odaberi iz galerije</item>
-    </string-array>
-    <string name="strEREDEAAdbOK">OK</string>
-    <string name="strEREDEAAdbGreska">Greška prilikom konektovanja na server. Pokušajte kasnije.</string>
 
     <!--Iz forme Pregled dogadjaja-->
     <string name="strERTvFilter">Filter</string>
