@@ -408,8 +408,6 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             jsonStr = global.getJSON(eventsAddUrl, true, keys, values);
             if (jsonStr.equals("ConnectTimeout")) {
                 type = "Timeout";
-            } else if (jsonStr.equals("TooBigImage")) {
-                type = "BigImage";
             } else if (jsonStr.equals("Success")) {
                 type = "Success";
             }

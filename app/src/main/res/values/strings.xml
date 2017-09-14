@@ -3,10 +3,12 @@
     <!--.......................OPSTE.....................-->
     <!--Naziv-->
     <string name="strNazivAplikacije">DIPNiš</string>
+
     <!--Stavke u meniju-->
     <string name="strTitlePrijava">Prijava</string>
     <string name="strTitleRegistracija">Registracija</string>
     <string name="strTitleOAplikaciji">O aplikaciji</string>
+
     <!--Dogadjaji, inicijative, problemi - Nazivi formi-->
     <string name="strTitlePocetna">Početna</string>
     <string name="strTitlePregledDogadjaja">Pregled događaja</string>
@@ -18,6 +20,7 @@
     <string name="strTitlePregledProblema">Pregled problema</string>
     <string name="strTitleOpisProblema">Opis problema</string>
     <string name="strTitleDodajProblem">Dodaj problem</string>
+
     <!--Tekst u formi O aplikaciji-->
     <string name="strTvTekstOAplikaciji">Ovde ce da stoji tekst za formu O aplikaciji!!!</string>
     <!--.......................OPSTE.....................-->
@@ -40,6 +43,7 @@
     <string name="strEREDTvIzvodjacGrupa">Izvođač/Grupa:</string>
     <string name="strEREDTvVrstaDogadjaja">Vrsta događaja:</string>
     <string name="strEDEABtnDodajSliku">Dodaj sliku</string>
+
     <!--Alert dialog-->
     <string name="strEREDEAAdbTitleObavestenje">Obaveštenje</string>
     <string name="strEDEAAdbDodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
@@ -53,6 +57,7 @@
     </string-array>
     <string name="strEREDEAAdbOK">OK</string>
     <string name="strEREDEAAdbGreska">Greška prilikom konektovanja na server. Pokušajte kasnije.</string>
+
     <!--Iz forme Pregled dogadjaja-->
     <string name="strERTvFilter">Filter</string>
     <string-array name="strERSpinTipDogadjaja">
@@ -64,6 +69,7 @@
     <string name="strERChkBuduciDogadjaji">Prikaži samo buduće događaje</string>
     <string name="strERTvPrikaz">Prikaz odabranih događаја</string>
     <string name="strERTvPrikazNePostoji">Ne postoji nijedan događaj ove vrste.</string>
+
     <!--Iz forme Opis dogadjaja-->
     <string name="strEDTvRezultat">Rezultat:</string>
     <string name="strEDTvKratakOpis">Kratak opis:</string>
@@ -75,6 +81,7 @@
     <string name="strEDTvGalerijaOpis">Još uvek ne postoje slike za ovaj događaj.</string>
     <string name="strEDBtnSledeca">&gt;</string>
     <string name="strEDBtnPrethodna">&lt;</string>
+
     <!--Iz forme Dodaj dogadjaj-->
     <string-array name="strEASpinTipDogadjaja">
         <item>Sportski</item>
