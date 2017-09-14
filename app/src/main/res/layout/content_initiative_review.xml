@@ -9,131 +9,183 @@
     tools:showIn="@layout/activity_initiative_review"
     android:background="@drawable/transparent_background_image">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/rlInitiativeReview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/scvInitiativeReview"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/mar15"
         android:layout_marginLeft="@dimen/mar15"
-        android:layout_marginStart="@dimen/mar15"
         android:layout_marginRight="@dimen/mar15"
-        android:layout_marginEnd="@dimen/mar15">
+        android:layout_marginStart="@dimen/mar15"
+        android:layout_marginTop="1dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/IRTvFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rlInitiativeReview">
+            android:text="@string/strIRTvFilter"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t19"
+            android:layout_marginTop="@dimen/mar10" />
 
-            <RelativeLayout
-                android:id="@+id/IRRlFilter"
+        <RelativeLayout
+            android:id="@+id/IRRlFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_marginTop="@dimen/mar6"
+            android:layout_below="@id/IRTvFilter">
+
+            <LinearLayout
+                android:id="@+id/IRLlTipInicijative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/IRLlTipInicijative"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/mar15"
-                    android:paddingLeft="@dimen/pad3"
-                    android:paddingBottom="@dimen/pad3"
-                    android:paddingRight="@dimen/pad3"
-                    android:background="@drawable/border">
-
-                    <TextView
-                        android:id="@+id/IRTvTipInicijative"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/strIRTvTipInicijative"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/t18"/>
-
-                    <Spinner
-                        android:id="@+id/IRSpinTipInicijative"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="@dimen/mar10"
-                        android:layout_marginStart="@dimen/mar10"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/IRLlVrstaRazlog"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/mar10"
-                    android:paddingLeft="@dimen/pad3"
-                    android:paddingBottom="@dimen/pad3"
-                    android:paddingRight="@dimen/pad3"
-                    android:background="@drawable/border"
-                    android:layout_below="@id/IRLlTipInicijative"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/IRTvVrstaRazlog"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/t18"/>
-
-                    <Spinner
-                        android:id="@+id/IRSpinVrstaRazlog"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="@dimen/mar10"
-                        android:layout_marginStart="@dimen/mar10"/>
-
-                </LinearLayout>
-
-                <CheckBox
-                    android:id="@+id/IRChkBuduceInicijative"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/strIRChkBuduceInicijative"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t18"
-                    android:layout_marginTop="@dimen/mar10"
-                    android:background="@drawable/border"
-                    android:layout_below="@id/IRLlVrstaRazlog"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/IRRlPrikaz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/IRRlFilter"
-                android:layout_marginTop="@dimen/mar15"
-                android:background="@drawable/border"
+                android:layout_marginTop="@dimen/mar5"
+                android:orientation="horizontal"
                 android:paddingBottom="@dimen/pad3"
                 android:paddingLeft="@dimen/pad3"
                 android:paddingRight="@dimen/pad3">
 
                 <TextView
-                    android:id="@+id/IRTvPrikaz"
-                    android:layout_width="match_parent"
+                    android:id="@+id/IRTvTipInicijative"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strIRTvPrikaz"
-                    android:textAlignment="center"
+                    android:text="@string/strIRIDIATvTipInicijative"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/t20" />
+                    android:textSize="@dimen/t17" />
 
-            </RelativeLayout>
+                <Spinner
+                    android:id="@+id/IRSpinTipInicijative"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/mar10"
+                    android:layout_marginStart="@dimen/mar10"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/IRLlVrstaRazlog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/IRLlTipInicijative"
+                android:layout_marginTop="@dimen/mar10"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/pad3"
+                android:paddingLeft="@dimen/pad3"
+                android:paddingRight="@dimen/pad3"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/IRTvVrstaRazlog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t17" />
+
+                <Spinner
+                    android:id="@+id/IRSpinVrstaRazlog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/mar10"
+                    android:layout_marginStart="@dimen/mar10"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/IRChkBuduceInicijative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/IRLlVrstaRazlog"
+                android:layout_marginTop="@dimen/mar10"
+                android:text="@string/strIRChkBuduceInicijative"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t17" />
 
         </RelativeLayout>
 
-    </ScrollView>
+        <RelativeLayout
+            android:id="@+id/IRRlPrikaz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/IRRlFilter"
+            android:layout_marginTop="@dimen/mar15"
+            android:paddingBottom="@dimen/pad3"
+            android:paddingLeft="@dimen/pad3"
+            android:paddingRight="@dimen/pad3">
+
+            <TextView
+                android:id="@+id/IRTvPrikaz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/strIRTvPrikaz"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t19"
+                android:layout_marginBottom="@dimen/mar8"/>
+
+            <ListView
+                android:id="@+id/IRLvPrikaz"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/IRTvPrikaz" />
+
+            <TextView
+                android:id="@+id/IRTvPrikazNePostoji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/strIRTvPrikazNePostoji"
+                android:textColor="@color/red"
+                android:textSize="@dimen/t17"
+                android:layout_below="@id/IRTvPrikaz"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/IRClProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rlInitiativeReview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/greyTransparent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/IRProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

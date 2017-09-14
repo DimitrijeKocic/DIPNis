@@ -102,11 +102,16 @@
 
 
     <!--.....................INICIJATIVE......................-->
+    <!--Zajednicko-->
+    <string name="strIRIDIATvTipInicijative">Tip inicijative:</string>
+    <string name="strIRIDTvVrstaSporta">Vrsta sporta:</string>
+    <string name="strIRIDTvRazlogProtesta">Razlog protesta:</string>
+    <string name="strIRIDTvVrstaHumanitarneAkcije">Vrsta humanitarne akcije:</string>
+    <string name="strIRIDTvVrstaInicijative">Vrsta inicijative:</string>
+    <string name="strIDIABtnDodajSliku">Dodaj sliku</string>
+
     <!--Iz forme Pregled inicijativa-->
-    <string name="strIRTvTipInicijative">Tip inicijative:</string>
-    <string name="strIRTvVrstaSporta">Vrsta sporta:</string>
-    <string name="strIRTvVrstaInicijative">Vrsta inicijative:</string>
-    <string name="strIRTvRazlog">Razlog:</string>
+    <string name="strIRTvFilter">Filter</string>
     <string-array name="strIRSpinTipInicijative">
         <item>Sve</item>
         <item>Sportske</item>
@@ -116,5 +121,6 @@
     </string-array>
     <string name="strIRChkBuduceInicijative">Prikaži samo buduće inicijative</string>
     <string name="strIRTvPrikaz">Prikaz odabranih inicijativa</string>
+    <string name="strIRTvPrikazNePostoji">Ne postoji nijedna inicijativa ove vrste.</string>
 
 </resources>
