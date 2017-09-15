@@ -41,6 +41,7 @@
 
     <!--Dogadjaji-->
     <string name="strEAdbDodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
+    <string name="strEAdbDogadjajSacuvanObavestenje">Ne možete dodati događaj u budućnosti sa slikom.</string>
     <string name="strEAdbDogadjajSacuvan">Događaj je uspešno sačuvan u bazi.</string>
     <!--.................ALERT DIALOG BUILDER...............-->
 

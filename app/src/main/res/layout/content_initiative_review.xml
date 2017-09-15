@@ -82,7 +82,7 @@
                 android:paddingBottom="@dimen/pad3"
                 android:paddingLeft="@dimen/pad3"
                 android:paddingRight="@dimen/pad3"
-                android:visibility="gone">
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/IRTvVrstaRazlog"

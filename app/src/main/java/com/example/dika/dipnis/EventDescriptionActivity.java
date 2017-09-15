@@ -89,7 +89,6 @@ public class EventDescriptionActivity extends AppCompatActivity {
         btnPrethodna = (Button) findViewById(R.id.EDBtnPrethodna);
         btnDodajSliku = (Button) findViewById(R.id.EDBtnDodajSliku);
         clProgressBar = (ConstraintLayout) findViewById(R.id.EDClProgressBar);
-        adb = new AlertDialog.Builder(EventDescriptionActivity.this);
 
         Intent intent = getIntent();
         idDog = intent.getStringExtra("idDogadjaja");
@@ -122,12 +121,14 @@ public class EventDescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0) {
+                    adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                     adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
                     adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
                     final String[] adbItems = getResources().getStringArray(R.array.strAdbItems);
+                    adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
@@ -331,6 +332,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     tvGalerijaOpis.setVisibility(View.VISIBLE);
                 }
             } else if (result.equals("Success")) {
+                adb = new AlertDialog.Builder(EventDescriptionActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                 adb.setMessage(R.string.strAdbSlikaDodata);
                 adb.setPositiveButton(R.string.strAdbOK, null);

@@ -121,10 +121,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@id/EDLlKratakOpisRezultat">
+                android:layout_below="@id/IDLlKratakOpis">
 
                 <LinearLayout
-                    android:id="@+id/EDLlLokacija"
+                    android:id="@+id/IDLlLokacija"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="25dp"
@@ -133,7 +133,7 @@
                     android:paddingStart="0dp">
 
                     <TextView
-                        android:id="@+id/EDTvLokacija"
+                        android:id="@+id/IDTvLokacija"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/strEDTvLokacija"
@@ -141,7 +141,7 @@
                         android:textSize="@dimen/t17" />
 
                     <TextView
-                        android:id="@+id/EDTvLokacijaBaza"
+                        android:id="@+id/IDTvLokacijaBaza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/mar10"
@@ -155,13 +155,13 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/EDIvLokacija"
+                    android:id="@+id/IDIvLokacija"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginLeft="-25dp"
                     android:layout_marginStart="-25dp"
-                    android:layout_toRightOf="@id/EDLlLokacija"
-                    android:layout_toEndOf="@id/EDLlLokacija"
+                    android:layout_toRightOf="@id/IDLlLokacija"
+                    android:layout_toEndOf="@id/IDLlLokacija"
                     android:scaleType="fitStart"
                     app:srcCompat="@drawable/location_icon"
                     tools:ignore="ContentDescription"/>
@@ -169,15 +169,15 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlDatumVreme"
+                android:id="@+id/IDLlDatumVreme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@id/EDRlLokacija">
+                android:layout_below="@id/IDRlLokacija">
 
                 <TextView
-                    android:id="@+id/EDTvDatum"
+                    android:id="@+id/IDTvDatum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/strEDTvDatum"
@@ -185,7 +185,7 @@
                     android:textSize="@dimen/t17"  />
 
                 <TextView
-                    android:id="@+id/EDTvDatumBaza"
+                    android:id="@+id/IDTvDatumBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -196,7 +196,7 @@
                     android:textSize="@dimen/t17" />
 
                 <TextView
-                    android:id="@+id/EDTvVreme"
+                    android:id="@+id/IDTvVreme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/strEDTvVreme"
@@ -204,7 +204,7 @@
                     android:textSize="@dimen/t17" />
 
                 <TextView
-                    android:id="@+id/EDTvVremeBaza"
+                    android:id="@+id/IDTvVremeBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -217,15 +217,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlOpis"
+                android:id="@+id/IDLlOpis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@id/EDLlDatumVreme">
+                android:layout_below="@id/IDLlDatumVreme">
 
                 <TextView
-                    android:id="@+id/EDTvOpis"
+                    android:id="@+id/IDTvOpis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/strEDTvOpis"
@@ -233,7 +233,7 @@
                     android:textSize="@dimen/t17" />
 
                 <TextView
-                    android:id="@+id/EDTvOpisBaza"
+                    android:id="@+id/IDTvOpisBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -246,16 +246,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlGalerija"
+                android:id="@+id/IDLlGalerija"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
                 android:baselineAligned="false"
-                android:layout_below="@id/EDLlOpis">
+                android:layout_below="@id/IDLlOpis">
 
                 <TextView
-                    android:id="@+id/EDTvGalerija"
+                    android:id="@+id/IDTvGalerija"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/strEDTvGalerija"
@@ -263,7 +263,7 @@
                     android:textSize="@dimen/t17" />
 
                 <LinearLayout
-                    android:id="@+id/EDLlGalerijaOpis"
+                    android:id="@+id/IDLlGalerijaOpis"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -272,7 +272,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/EDTvGalerijaOpis"
+                        android:id="@+id/IDTvGalerijaOpis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/strEDTvGalerijaOpis"
@@ -281,7 +281,7 @@
                         android:visibility="gone"/>
 
                     <ImageView
-                        android:id="@+id/EDIvGalerija"
+                        android:id="@+id/IDIvGalerija"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scaleType="fitStart"
@@ -289,7 +289,7 @@
                         tools:ignore="ContentDescription"/>
 
                     <LinearLayout
-                        android:id="@+id/EDLlSledecaPrethodna"
+                        android:id="@+id/IDLlSledecaPrethodna"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -297,7 +297,7 @@
                         android:layout_marginBottom="@dimen/mar10">
 
                         <Button
-                            android:id="@+id/EDBtnPrethodna"
+                            android:id="@+id/IDBtnPrethodna"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
                             android:text="@string/strEDBtnPrethodna"
@@ -306,7 +306,7 @@
                             android:textSize="@dimen/t15" />
 
                         <Button
-                            android:id="@+id/EDBtnDodajSliku"
+                            android:id="@+id/IDBtnDodajSliku"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_weight="1"
@@ -320,7 +320,7 @@
                             android:textSize="@dimen/t15" />
 
                         <Button
-                            android:id="@+id/EDBtnSledeca"
+                            android:id="@+id/IDBtnSledeca"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
                             android:text="@string/strEDBtnSledeca"
@@ -339,7 +339,7 @@
     </ScrollView>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/EDClProgressBar"
+        android:id="@+id/IDClProgressBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
@@ -356,7 +356,7 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/EDProgressBar"
+            android:id="@+id/IDProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"

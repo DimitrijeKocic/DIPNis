@@ -96,7 +96,6 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         btnDodajSliku = (Button) findViewById(R.id.EABtnDodajSliku);
         btnSacuvajDogadjaj = (Button) findViewById(R.id.EABtnSacuvajDogadjaj);
         clProgressBar = (ConstraintLayout) findViewById(R.id.EAClProgressBar);
-        adb = new AlertDialog.Builder(EventAddActivity.this);
 
         //setovanje trenutnog datuma i vremena
         String[] dateTimeArr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime()).split(" ");
@@ -135,12 +134,14 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View view) {
                 adb = new AlertDialog.Builder(EventAddActivity.this);
                 if (tvDatum.getText().toString().compareTo(dateNow) > 0) {
+                    adb = new AlertDialog.Builder(EventAddActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                     adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
                     adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
                     final String[] adbItems = getResources().getStringArray(R.array.strAdbItems);
+                    adb = new AlertDialog.Builder(EventAddActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
@@ -217,8 +218,22 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                     } else {
                         kratakOpis = etKratakOpis.getText().toString();
                     }
-                    new MyAsyncTask().execute("addImage", tipDogadjaja, vrstaIzvodjac, kratakOpis, lokacija, datumVreme, opis, img, homeUrl);
+                    if (bmp != null && tvDatum.getText().toString().compareTo(dateNow) > 0) {
+                        adb = new AlertDialog.Builder(EventAddActivity.this);
+                        adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                        adb.setMessage(R.string.strEAdbDogadjajSacuvanObavestenje);
+                        adb.setPositiveButton(R.string.strAdbOK, null);
+                        adb.setIcon(R.drawable.adb_obavestenje);
+                        adb.show();
+                        ivSlika.setVisibility(View.GONE);
+                        bmp = null;
+                        ivSlika.setImageBitmap(bmp);
+                    } else {
+                        new MyAsyncTask().execute("addImage", tipDogadjaja, vrstaIzvodjac, kratakOpis, lokacija, datumVreme, opis, img, homeUrl);
+                        initialState();
+                    }
                 } else {
+                    adb = new AlertDialog.Builder(EventAddActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                     adb.setMessage(getResources().getString(R.string.strAdbObavezanUnos) + " " + (item.getHint().toString().equals("") ? "Rezultat" : item.getHint().toString()) + ".");
                     adb.setPositiveButton(R.string.strAdbOK, null);
@@ -227,6 +242,24 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                 }
             }
         });
+    }
+
+    /////////////////POCETNO STANJE ELEMENATA/////////////////////
+    public void initialState() {
+        spinTipDogadjaja.setSelection(0);
+        etVrstaIzvodjac.setText("");
+        etTim1.setText("");
+        etTim1Poeni.setText("");
+        etTim2.setText("");
+        etTim2Poeni.setText("");
+        etKratakOpis.setText("");
+        etLokacija.setText("");
+        tvDatum.setText(dateNow);
+        tvVreme.setText(timeNow);
+        etOpis.setText("");
+        ivSlika.setVisibility(View.GONE);
+        bmp = null;
+        ivSlika.setImageBitmap(bmp);
     }
 
     /////////////////REZULTAT KAMERE ILI GALERIJE////////////////////

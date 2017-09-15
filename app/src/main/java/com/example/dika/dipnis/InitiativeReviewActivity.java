@@ -64,7 +64,6 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
         tvVrstaRazlog = (TextView) findViewById(R.id.IRTvVrstaRazlog);
         tvPrikazNePostoji = (TextView) findViewById(R.id.IRTvPrikazNePostoji);
         clProgressBar = (ConstraintLayout) findViewById(R.id.IRClProgressBar);
-        adb = new AlertDialog.Builder(InitiativeReviewActivity.this);
 
         //prikaz svih inicijativa
         new MyAsyncTask().execute("showAll");
@@ -145,7 +144,7 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
         if(spinner.getId() == R.id.IRSpinTipInicijative) { //spiner za tip inicijative
             spinTipInicijativeText = spinTipInicijative.getSelectedItem().toString();
 
-            if (spinTipInicijativeText.equals("Svi")) {
+            if (spinTipInicijativeText.equals("Sve")) {
                 if (chkBuduceInicijative.isChecked())
                     new MyAsyncTask().execute("showFuture");
                 else new MyAsyncTask().execute("showAll");
@@ -333,6 +332,7 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
                 adapter.setDropDownViewResource(R.layout.spinner_item_layout);
                 spinVrstaRazlog.setAdapter(adapter);
             } else if (result.equals("Timeout")) {
+                adb = new AlertDialog.Builder(InitiativeReviewActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                 adb.setMessage(R.string.strAdbGreska);
                 adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {

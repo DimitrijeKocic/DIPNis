@@ -64,7 +64,6 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         tvVrstaIzvodjac = (TextView) findViewById(R.id.ERTvVrstaIzvodjac);
         tvPrikazNePostoji = (TextView) findViewById(R.id.ERTvPrikazNePostoji);
         clProgressBar = (ConstraintLayout) findViewById(R.id.ERClProgressBar);
-        adb = new AlertDialog.Builder(EventReviewActivity.this);
 
         //prikaz svih dogadjaja
         new MyAsyncTask().execute("showAll");
@@ -333,6 +332,7 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
                 adapter.setDropDownViewResource(R.layout.spinner_item_layout);
                 spinVrstaIzvodjac.setAdapter(adapter);
             } else if (result.equals("Timeout")) {
+                adb = new AlertDialog.Builder(EventReviewActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                 adb.setMessage(R.string.strAdbGreska);
                 adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {
