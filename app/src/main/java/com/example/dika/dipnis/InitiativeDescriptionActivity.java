@@ -1,16 +1,64 @@
 package com.example.dika.dipnis;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+
+import static com.example.dika.dipnis.Global.homeUrl;
 
 public class InitiativeDescriptionActivity extends AppCompatActivity {
+
+    private Global global;
+
+    private static final int CAMERA = 0;
+    private static final int GALLERY = 1;
+
+    public TextView tvTipInicijativeBaza, tvVrstaRazlog, tvVrstaRazlogBaza, tvKratakOpisBaza,
+                    tvLokacijaBaza, tvDatumBaza, tvVremeBaza, tvOpisBaza;
+    public TextView tvGalerijaOpis;
+    public ImageView ivGalerija;
+    public Button btnSledeca, btnPrethodna, btnDodajSliku;
+    public ConstraintLayout clProgressBar;
+    public AlertDialog.Builder adb;
+
+    public ArrayList<Bitmap> bmps;
+    public int index;
+
+    public String idInic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +67,143 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOpisInicijative);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        global = new Global();
+
+        //inicijalizacija liste bitmapa
+        bmps = new ArrayList<>();
+        index = 0;
+
+        //Postavljanje promenjivih za kontrole
+        tvTipInicijativeBaza = (TextView) findViewById(R.id.IDTvTipInicijativeBaza);
+        tvVrstaRazlog = (TextView) findViewById(R.id.IDTvVrstaRazlog);
+        tvVrstaRazlogBaza = (TextView) findViewById(R.id.IDTvVrstaRazlogBaza);
+        tvKratakOpisBaza = (TextView) findViewById(R.id.IDTvKratakOpisBaza);
+        tvLokacijaBaza = (TextView) findViewById(R.id.IDTvLokacijaBaza);
+        tvDatumBaza = (TextView) findViewById(R.id.IDTvDatumBaza);
+        tvVremeBaza = (TextView) findViewById(R.id.IDTvVremeBaza);
+        tvOpisBaza = (TextView) findViewById(R.id.IDTvOpisBaza);
+        tvGalerijaOpis = (TextView) findViewById(R.id.IDTvGalerijaOpis);
+        ivGalerija = (ImageView) findViewById(R.id.IDIvGalerija);
+        btnSledeca = (Button) findViewById(R.id.IDBtnSledeca);
+        btnPrethodna = (Button) findViewById(R.id.IDBtnPrethodna);
+        btnDodajSliku = (Button) findViewById(R.id.IDBtnDodajSliku);
+        clProgressBar = (ConstraintLayout) findViewById(R.id.IDClProgressBar);
+
+        Intent intent = getIntent();
+        idInic = intent.getStringExtra("idInicijative");
+        //prikaz svih inicijativa
+        new MyAsyncTask().execute("showDetails", idInic);
+
+        btnSledeca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (bmps.size() != 0) {
+                    if (index < bmps.size() - 1)
+                        ivGalerija.setImageBitmap(bmps.get(++index));
+                    else ivGalerija.setImageBitmap(bmps.get(index = 0));
+                }
+            }
+        });
+
+        btnPrethodna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (bmps.size() != 0) {
+                    if (index > 0)
+                        ivGalerija.setImageBitmap(bmps.get(--index));
+                    else ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
+                }
+            }
+        });
+
+        btnDodajSliku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0) {
+                    adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                    adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                    adb.setMessage(R.string.strIAdbDodajSlikuObavestenje);
+                    adb.setPositiveButton(R.string.strAdbOK, null);
+                    adb.setIcon(R.drawable.adb_obavestenje);
+                } else {
+                    final String[] adbItems = getResources().getStringArray(R.array.strAdbItems);
+                    adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                    adb.setTitle(getResources().getString(R.string.strAdbTitleSlika));
+                    adb.setItems(adbItems, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            if (adbItems[i].equals("Slikaj")) {
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(intent, CAMERA);
+                            } else if (adbItems[i].equals("Odaberi iz galerije")) {
+                                Intent intent = new Intent();
+                                intent.setType("image/*");
+                                intent.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(Intent.createChooser(intent, "Odaberi sliku"), GALLERY);
+                            }
+                        }
+                    });
+                    adb.setIcon(R.drawable.adb_slikaj);
+                }
+                adb.show();
+            }
+        });
     }
 
+    /////////////////REZULTAT KAMERE ILI GALERIJE////////////////////
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == CAMERA) {
+                //zapamti sliku u bitmapu
+                Bitmap bm = (Bitmap) data.getExtras().get("data");
+                //dodaje u listu bitmapa i postavlja je u imageView
+                bmps.add(bm);
+                ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
+                //konvertuje u string
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+                //upis u bazu
+                new MyAsyncTask().execute("addImage", idInic, img, homeUrl);
+                //upis u lokalno skladiste
+                File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+                FileOutputStream fo;
+                try {
+                    destination.createNewFile();
+                    fo = new FileOutputStream(destination);
+                    fo.write(stream.toByteArray());
+                    fo.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (requestCode == GALLERY) {
+                try {
+                    //zapamti sliku u bitmapu
+                    Bitmap bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                    //dodaje u listu bitmapa i postavlja je u imageView
+                    bmps.add(bm);
+                    ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
+                    //konvertuje u string i poziva asyncTask za upis u bazu
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+                    new MyAsyncTask().execute("addImage", idInic, img, homeUrl);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            ivGalerija.setVisibility(View.VISIBLE);
+            btnSledeca.setVisibility(View.VISIBLE);
+            btnPrethodna.setVisibility(View.VISIBLE);
+            tvGalerijaOpis.setVisibility(View.GONE);
+        }
+    }
+
+    /////////////KREIRANJE MENIJA/////////////////
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -28,6 +211,7 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         return true;
     }
 
+    //////EVENT ZA KLIK NA STAVKU MENIJA/////
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -43,4 +227,178 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    ////////POSTAVLJANJE I UKLANJANJE PROGRESS BAR-A////////
+    public void setProgressBar() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        clProgressBar.setVisibility(View.VISIBLE);
+    }
+    public void unsetProgressBar() {
+        clProgressBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+
+
+
+
+    ////////////////////BACKGROUND WORKER KLASA///////////////////////
+    public class MyAsyncTask extends AsyncTask<String, Object, String> {
+
+        ArrayList<String> keys, values;
+        HashMap<String, String> initiative;
+
+        String initiativesShowDetailsUrl, initiativesAddImageUrl;
+
+        @Override
+        protected void onPreExecute() {
+            setProgressBar();
+
+            initiative = new HashMap<>();
+            //deklaracija adresa skripti
+            initiativesShowDetailsUrl = homeUrl + "initiativesShowDetails.php";
+            initiativesAddImageUrl = homeUrl + "initiativesAddImage.php";
+            //Deklaracija listi
+            keys = new ArrayList<>();
+            values = new ArrayList<>();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String type = params[0], jsonStr;
+            if (type.equals("showDetails")) {
+                keys.add("id");
+                values.add(params[1]);
+                jsonStr = global.getJSON(initiativesShowDetailsUrl, true, keys, values);
+                if (jsonStr.equals("ConnectTimeout")) {
+                    type = "Timeout";
+                } else {
+                    makeEventFromJSON(jsonStr);
+                }
+            }
+            else if (params[0].equals("addImage")) {
+                keys.add("id");
+                keys.add("slika");
+                keys.add("homeUrl");
+                values.add(params[1]);
+                values.add(params[2]);
+                values.add(params[3]);
+                jsonStr = global.getJSON(initiativesAddImageUrl, true, keys, values);
+                if (jsonStr.equals("ConnectTimeout")) {
+                    type = "Timeout";
+                } else if (jsonStr.equals("Success")) {
+                    type = "Success";
+                }
+            }
+            return type;
+        }
+
+        @Override
+        protected void onProgressUpdate(Object... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.equals("showDetails")) {
+                String tip = initiative.get("tipInicijative");
+
+                switch (tip) {
+                    case "Sportske":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaSporta);
+                        break;
+                    case "Protesti":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvRazlogProtesta);
+                        break;
+                    case "Humanitarne akcije":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaHumanitarneAkcije);
+                        break;
+                    case "Ostale":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaInicijative);
+                        break;
+                }
+
+                tvTipInicijativeBaza.setText(tip);
+                tvVrstaRazlogBaza.setText(initiative.get("vrstaRazlog"));
+                tvKratakOpisBaza.setText(initiative.get("kratakOpis"));
+                tvLokacijaBaza.setText(initiative.get("lokacija"));
+                tvDatumBaza.setText(initiative.get("datum"));
+                tvVremeBaza.setText(initiative.get("vreme"));
+                tvOpisBaza.setText(initiative.get("opis"));
+
+                if (bmps.size() != 0)
+                    ivGalerija.setImageBitmap(bmps.get(index));
+                else {
+                    ivGalerija.setVisibility(View.GONE);
+                    btnSledeca.setVisibility(View.GONE);
+                    btnPrethodna.setVisibility(View.GONE);
+                    tvGalerijaOpis.setVisibility(View.VISIBLE);
+                }
+            } else if (result.equals("Success")) {
+                adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                adb.setMessage(R.string.strAdbSlikaDodata);
+                adb.setPositiveButton(R.string.strAdbOK, null);
+                adb.setIcon(R.drawable.adb_success);
+                adb.show();
+            } else if (result.equals("Timeout")) {
+                adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                adb.setMessage(R.string.strAdbGreska);
+                adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                adb.setIcon(R.drawable.adb_obavestenje);
+                adb.show();
+            }
+
+            unsetProgressBar();
+        }
+
+        public void makeEventFromJSON(String jsonString) {
+            try {
+                //brisanje stare liste
+                initiative.clear();
+                //JSON objekat
+                JSONObject detalji = new JSONObject(jsonString);
+
+                String id = detalji.getString("idInicijative");
+                String tipInicijative = detalji.getString("tipInicijative");
+                String vrstaRazlog = detalji.getString("vrstaRazlog");
+                String kratakOpis = detalji.getString("kratakOpis");
+                String lokacija = detalji.getString("lokacija");
+                String datumVreme = detalji.getString("datumVreme");
+                datumVreme = datumVreme.substring(0, datumVreme.length() - 3);
+                String[] dv = datumVreme.split(" ");
+                String opis = detalji.getString("opis");
+                String slikeUrl = detalji.getString("slike");
+                String[] slike = slikeUrl.split(" ");
+
+                //kreiranje key.value parova za svaki dogadjaj
+                initiative.put("id", id);
+                initiative.put("tipInicijative", tipInicijative);
+                initiative.put("vrstaRazlog", vrstaRazlog);
+                initiative.put("kratakOpis", kratakOpis);
+                initiative.put("lokacija", lokacija);
+                initiative.put("datum", dv[0]);
+                initiative.put("vreme", dv[1]);
+                initiative.put("opis", opis);
+
+                for (String sl : slike) {
+                    URL url = null;
+                    try {
+                        url = new URL(sl);
+                        bmps.add(BitmapFactory.decodeStream(url.openConnection().getInputStream()));
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

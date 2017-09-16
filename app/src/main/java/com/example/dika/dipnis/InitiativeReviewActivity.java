@@ -158,14 +158,17 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
 
                 //postavljanje textView-a
                 switch (spinTipInicijativeText) {
-                    case "Sportski":
-                        tvVrstaRazlog.setText(R.string.strEREDTvVrstaSporta);
+                    case "Sportske":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaSporta);
                         break;
-                    case "Koncerti":
-                        tvVrstaRazlog.setText(R.string.strEREDTvIzvodjacGrupa);
+                    case "Protesti":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvRazlogProtesta);
                         break;
-                    case "Ostali":
-                        tvVrstaRazlog.setText(R.string.strEREDTvVrstaDogadjaja);
+                    case "Humanitarne akcije":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaHumanitarneAkcije);
+                        break;
+                    case "Ostale":
+                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaInicijative);
                         break;
                 }
                 llVrstaRazlog.setVisibility(View.VISIBLE); //vidljivost spinera i textView-a
@@ -407,7 +410,7 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
                 initiativesTypes.add("Sve");
 
                 JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray vrsteInicijativa = jsonObject.getJSONArray("vrsteInicijativa");
+                JSONArray vrsteInicijativa = jsonObject.getJSONArray("vrsteInicijative");
 
                 for (int i = 0; i < vrsteInicijativa.length(); i++) {
                     JSONObject inicijativa = vrsteInicijativa.getJSONObject(i);

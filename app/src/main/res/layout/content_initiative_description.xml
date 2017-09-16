@@ -99,7 +99,7 @@
                     android:id="@+id/IDTvKratakOpis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="@string/strIDTvKratakOpis"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17"  />
 
@@ -136,7 +136,7 @@
                         android:id="@+id/IDTvLokacija"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/strEDTvLokacija"
+                        android:text="@string/strIDTvLokacija"
                         android:textColor="@color/black"
                         android:textSize="@dimen/t17" />
 
@@ -180,7 +180,7 @@
                     android:id="@+id/IDTvDatum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvDatum"
+                    android:text="@string/strIDTvDatum"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17"  />
 
@@ -199,7 +199,7 @@
                     android:id="@+id/IDTvVreme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvVreme"
+                    android:text="@string/strIDTvVreme"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
@@ -228,7 +228,7 @@
                     android:id="@+id/IDTvOpis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvOpis"
+                    android:text="@string/strIDTvOpis"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
@@ -258,7 +258,7 @@
                     android:id="@+id/IDTvGalerija"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvGalerija"
+                    android:text="@string/strIDTvGalerija"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
@@ -275,7 +275,7 @@
                         android:id="@+id/IDTvGalerijaOpis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/strEDTvGalerijaOpis"
+                        android:text="@string/strIDTvGalerijaOpis"
                         android:textColor="@color/red"
                         android:textSize="@dimen/t17"
                         android:visibility="gone"/>
@@ -300,7 +300,7 @@
                             android:id="@+id/IDBtnPrethodna"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
-                            android:text="@string/strEDBtnPrethodna"
+                            android:text="@string/strIDBtnPrethodna"
                             android:background="@drawable/round_button"
                             android:textColor="@color/white"
                             android:textSize="@dimen/t15" />
@@ -314,7 +314,7 @@
                             android:layout_marginStart="@dimen/mar5"
                             android:layout_marginRight="@dimen/mar5"
                             android:layout_marginEnd="@dimen/mar5"
-                            android:text="@string/strEDEABtnDodajSliku"
+                            android:text="@string/strIDIABtnDodajSliku"
                             android:background="@drawable/round_button"
                             android:textColor="@color/white"
                             android:textSize="@dimen/t15" />
@@ -323,7 +323,7 @@
                             android:id="@+id/IDBtnSledeca"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
-                            android:text="@string/strEDBtnSledeca"
+                            android:text="@string/strIDBtnSledeca"
                             android:background="@drawable/round_button"
                             android:textColor="@color/white"
                             android:textSize="@dimen/t15" />

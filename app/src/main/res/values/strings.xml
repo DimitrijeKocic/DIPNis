@@ -43,6 +43,11 @@
     <string name="strEAdbDodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>
     <string name="strEAdbDogadjajSacuvanObavestenje">Ne možete dodati događaj u budućnosti sa slikom.</string>
     <string name="strEAdbDogadjajSacuvan">Događaj je uspešno sačuvan u bazi.</string>
+
+    <!--Inicijative-->
+    <string name="strIAdbDodajSlikuObavestenje">Ne možete dodati sliku za inicijativu u budućnosti.</string>
+    <string name="strIAdbInicijativaSacuvanaObavestenje">Ne možete dodati inicijativu u budućnosti sa slikom.</string>
+    <string name="strIAdbInicijativaSacuvana">Inicijativa je uspešno sačuvana u bazi.</string>
     <!--.................ALERT DIALOG BUILDER...............-->
 
 
@@ -128,5 +133,33 @@
     <string name="strIRChkBuduceInicijative">Prikaži samo buduće inicijative</string>
     <string name="strIRTvPrikaz">Prikaz odabranih inicijativa</string>
     <string name="strIRTvPrikazNePostoji">Ne postoji nijedna inicijativa ove vrste.</string>
+
+    <!--Iz forme Opis inicijativa-->
+    <string name="strIDTvKratakOpis">Kratak opis:</string>
+    <string name="strIDTvLokacija">Lokacija:</string>
+    <string name="strIDTvDatum">Datum:</string>
+    <string name="strIDTvVreme">Vreme:</string>
+    <string name="strIDTvOpis">Opis:</string>
+    <string name="strIDTvGalerija">Galerija:</string>
+    <string name="strIDTvGalerijaOpis">Još uvek ne postoje slike za ovu inicijativu.</string>
+    <string name="strIDBtnSledeca">&gt;</string>
+    <string name="strIDBtnPrethodna">&lt;</string>
+
+    <!--Iz forme Dodaj inicijativu-->
+    <string-array name="strIASpinTipInicijative">
+        <item>Sportske</item>
+        <item>Protesti</item>
+        <item>Humanitarne akcije</item>
+        <item>Ostale</item>
+    </string-array>
+    <string name="strIAEtHintVrstaSporta">Vrsta sporta</string>
+    <string name="strIAEtHintRazlogProtesta">Razlog protesta</string>
+    <string name="strIAEtHintVrstaHumanitarneAkcije">Vrsta humanitarne akcije</string>
+    <string name="strIAEtHintVrstaInicijative">Vrsta inicijative</string>
+    <string name="strIAEtHintKratakOpis">Kratak opis</string>
+    <string name="strIAEtHintLokacija">Lokacija</string>
+    <string name="strIAEtHintOpis">Opis</string>
+    <string name="strIABtnSacuvajInicijativu">Sačuvaj inicijativu</string>
+    <!--.....................INICIJATIVE......................-->
 
 </resources>
