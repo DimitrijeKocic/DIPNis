@@ -49,7 +49,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
     public TextView tvTipDogadjajaBaza, tvVrstaIzvodjac, tvVrstaIzvodjacBaza, tvKratakOpisRezultat,
                     tvKratakOpisRezultatBaza, tvLokacijaBaza, tvDatumBaza, tvVremeBaza, tvOpisBaza;
     public TextView tvGalerijaOpis;
-    public ImageView ivGalerija;
+    public ImageView ivGalerija, ivLokacija;
     public Button btnSledeca, btnPrethodna, btnDodajSliku;
     public ConstraintLayout clProgressBar;
     public AlertDialog.Builder adb;
@@ -85,6 +85,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
         tvOpisBaza = (TextView) findViewById(R.id.EDTvOpisBaza);
         tvGalerijaOpis = (TextView) findViewById(R.id.EDTvGalerijaOpis);
         ivGalerija = (ImageView) findViewById(R.id.EDIvGalerija);
+        ivLokacija = (ImageView) findViewById(R.id.EDIvLokacija);
         btnSledeca = (Button) findViewById(R.id.EDBtnSledeca);
         btnPrethodna = (Button) findViewById(R.id.EDBtnPrethodna);
         btnDodajSliku = (Button) findViewById(R.id.EDBtnDodajSliku);
@@ -94,6 +95,17 @@ public class EventDescriptionActivity extends AppCompatActivity {
         idDog = intent.getStringExtra("idDogadjaja");
         //prikaz svih dogadjaja
         new MyAsyncTask().execute("showDetails", idDog);
+
+        //klik na lokaciju
+        ivLokacija.setClickable(true);
+        ivLokacija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventDescriptionActivity.this, MapsActivity.class);
+                intent.putExtra("markerPosition", "definedPosition");
+                startActivity(intent);
+            }
+        });
 
         btnSledeca.setOnClickListener(new View.OnClickListener() {
             @Override

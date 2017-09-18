@@ -60,7 +60,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
     public TextView tvRezultat;
     public Spinner spinTipDogadjaja;
     public LinearLayout llDatum, llVreme, llRezultat;
-    public ImageView ivSlika;
+    public ImageView ivSlika, ivLokacija;
     public Button btnDodajSliku, btnSacuvajDogadjaj;
     public ConstraintLayout clProgressBar;
     public AlertDialog.Builder adb;
@@ -93,6 +93,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         llVreme = (LinearLayout) findViewById(R.id.EALlVreme);
         llRezultat = (LinearLayout) findViewById(R.id.EALlRezultat);
         ivSlika = (ImageView) findViewById(R.id.EAIvSlika);
+        ivLokacija = (ImageView) findViewById(R.id.EAIvLokacija);
         btnDodajSliku = (Button) findViewById(R.id.EABtnDodajSliku);
         btnSacuvajDogadjaj = (Button) findViewById(R.id.EABtnSacuvajDogadjaj);
         clProgressBar = (ConstraintLayout) findViewById(R.id.EAClProgressBar);
@@ -110,6 +111,17 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         spinTipDogadjaja.setAdapter(adapter);
 
         spinTipDogadjaja.setOnItemSelectedListener(this);
+
+        //klik na lokaciju
+        ivLokacija.setClickable(true);
+        ivLokacija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventAddActivity.this, MapsActivity.class);
+                intent.putExtra("markerPosition", "currentPosition");
+                startActivity(intent);
+            }
+        });
 
         //klik na kalenar - odabir datuma
         llDatum.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +241,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                         bmp = null;
                         ivSlika.setImageBitmap(bmp);
                     } else {
-                        new MyAsyncTask().execute("addImage", tipDogadjaja, vrstaIzvodjac, kratakOpis, lokacija, datumVreme, opis, img, homeUrl);
+                        new MyAsyncTask().execute("addEvent", tipDogadjaja, vrstaIzvodjac, kratakOpis, lokacija, datumVreme, opis, img, homeUrl);
                         initialState();
                     }
                 } else {
