@@ -5,4 +5,32 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dika.dipnis.MapsActivity" />
+    tools:context="com.example.dika.dipnis.MapsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarPocetna"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <ImageView
+            android:id="@+id/logoMapa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/dipnis_logo"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/titleMapa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strTitleMapa"
+            android:layout_gravity="center"
+            android:textSize="@dimen/t23"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+</fragment>

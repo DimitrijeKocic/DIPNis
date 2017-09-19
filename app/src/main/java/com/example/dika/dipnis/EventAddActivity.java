@@ -49,6 +49,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
 
     private static final int CAMERA = 0;
     private static final int GALLERY = 1;
+    private static final int LOCATION = 2;
 
     private Bitmap bmp;
     private boolean camera;
@@ -119,7 +120,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 Intent intent = new Intent(EventAddActivity.this, MapsActivity.class);
                 intent.putExtra("markerPosition", "currentPosition");
-                startActivity(intent);
+                startActivityForResult(intent, LOCATION);
             }
         });
 
@@ -279,11 +280,14 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
+            //rezultat kamere
             if (requestCode == CAMERA) {
                 bmp = (Bitmap) data.getExtras().get("data");
                 ivSlika.setImageBitmap(bmp);
                 camera = true;
+                ivSlika.setVisibility(View.VISIBLE);
             }
+            //rezultat galerije
             else if (requestCode == GALLERY) {
                 try {
                     bmp = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
@@ -292,8 +296,12 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                ivSlika.setVisibility(View.VISIBLE);
             }
-            ivSlika.setVisibility(View.VISIBLE);
+            //rezultat mape
+            else if (requestCode == LOCATION) {
+                etLokacija.setText(data.getStringExtra("lokacija"));
+            }
         }
     }
 

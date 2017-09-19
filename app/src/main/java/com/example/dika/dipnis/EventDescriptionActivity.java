@@ -102,7 +102,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EventDescriptionActivity.this, MapsActivity.class);
-                intent.putExtra("markerPosition", "definedPosition");
+                intent.putExtra("markerPosition", "definedPosition"); //definedPosition ce da bude string lokacije
                 startActivity(intent);
             }
         });
