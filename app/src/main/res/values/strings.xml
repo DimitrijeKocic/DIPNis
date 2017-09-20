@@ -32,7 +32,7 @@
     <string name="strAdbTitleObavestenje">Obaveštenje</string>
     <string name="strAdbTitleSlika">Dodaj sliku</string>
     <string name="strAdbSlikaDodata">Slika je uspešno dodata u bazu.</string>
-    <string name="strAdbObavezanUnos">Obavezan unos u polje</string>
+    <string name="strAdbObavezanUnos">Obavezan unos u polje:</string>
     <string-array name="strAdbItems">
         <item>Slikaj</item>
         <item>Odaberi iz galerije</item>
