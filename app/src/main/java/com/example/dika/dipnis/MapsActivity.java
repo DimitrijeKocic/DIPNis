@@ -3,8 +3,10 @@ package com.example.dika.dipnis;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.identity.intents.Address;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -24,6 +27,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -37,6 +46,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Marker myLocationMarker;
     LocationRequest myLocationRequest;
 
+    String markerPosition;
+    boolean setMarker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +57,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        setMarker = false;
     }
 
     @Override
@@ -71,9 +85,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         Intent intent = getIntent();
-        String markerPosition = intent.getStringExtra("markerPosition");
+        markerPosition = intent.getStringExtra("markerPosition");
         if (!markerPosition.equals("noPosition")) {
-            //POSTAVKA MARKERA NA VEC ODREDJENU LOKACIJU
+            setMarker = true;
+            Geocoder geocoder = new Geocoder(this);
+            List<android.location.Address> addressList = null;
+            try {
+                addressList = geocoder.getFromLocationName(markerPosition, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            android.location.Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            myLocationMarker = myMap.addMarker(new MarkerOptions().position(latLng).title(markerPosition));
+            myMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            myMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         }
     }
 
@@ -106,21 +132,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
         myLastLocation = location;
-        /*if (myCurrLocationMarker != null) {
-            myCurrLocationMarker.remove();
-        }*/
 
         //Postavka markera na trenutnu poziciju
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        /*MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(R.color.red));
-        myCurrLocationMarker = myMap.addMarker(markerOptions);*/
-
         //Pomeraj kamere i zumiranje na trenutnu lokaciju
-        myMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        myMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        if (setMarker) {
+            myMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            myMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        }
 
         //prekid update-ovanja lokacije
         if (myGoogleApiClient != null) {
