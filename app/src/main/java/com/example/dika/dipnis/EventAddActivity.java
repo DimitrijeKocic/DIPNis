@@ -119,7 +119,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EventAddActivity.this, MapsActivity.class);
-                intent.putExtra("markerPosition", "currentPosition");
+                intent.putExtra("markerPosition", "noPosition");
                 startActivityForResult(intent, LOCATION);
             }
         });

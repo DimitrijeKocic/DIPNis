@@ -1,6 +1,7 @@
 package com.example.dika.dipnis;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -33,7 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap myMap;
     GoogleApiClient myGoogleApiClient;
     Location myLastLocation;
-    Marker myCurrLocationMarker;
+    Marker myLocationMarker;
     LocationRequest myLocationRequest;
 
     @Override
@@ -68,6 +69,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             myMap.setMyLocationEnabled(true);
             myMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
+
+        Intent intent = getIntent();
+        String markerPosition = intent.getStringExtra("markerPosition");
+        if (!markerPosition.equals("noPosition")) {
+            //POSTAVKA MARKERA NA VEC ODREDJENU LOKACIJU
+        }
     }
 
     //kreiranje Google Api Client-a
@@ -99,17 +106,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
         myLastLocation = location;
-        if (myCurrLocationMarker != null) {
+        /*if (myCurrLocationMarker != null) {
             myCurrLocationMarker.remove();
-        }
+        }*/
 
         //Postavka markera na trenutnu poziciju
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
+        /*MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        myCurrLocationMarker = myMap.addMarker(markerOptions);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(R.color.red));
+        myCurrLocationMarker = myMap.addMarker(markerOptions);*/
 
         //Pomeraj kamere i zumiranje na trenutnu lokaciju
         myMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -119,7 +126,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (myGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(myGoogleApiClient, this);
         }
-
     }
 
     @Override
@@ -128,12 +134,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static final int REQUEST_LOCATION = 1;
     public boolean checkLocationPermission(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Asking user if explanation is needed
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                //Prompt the user once explanation has been shown
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
             } else {
-                // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
             }
             return false;
@@ -146,10 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted. Do the
-                    // contacts-related task you need to do.
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         if (myGoogleApiClient == null) {
                             buildGoogleApiClient();
@@ -157,10 +157,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         myMap.setMyLocationEnabled(true);
                     }
                 } else {
-                    // Permission denied, Disable the functionality that depends on this permission.
                     Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
                 }
-                return;
             }
         }
     }
