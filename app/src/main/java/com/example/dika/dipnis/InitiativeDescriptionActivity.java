@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -50,7 +48,7 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
     public TextView tvTipInicijativeBaza, tvVrstaRazlog, tvVrstaRazlogBaza, tvKratakOpisBaza,
                     tvLokacijaBaza, tvDatumBaza, tvVremeBaza, tvOpisBaza;
     public TextView tvGalerijaOpis;
-    public ImageView ivGalerija;
+    public ImageView ivGalerija, ivLokacija;
     public Button btnSledeca, btnPrethodna, btnDodajSliku;
     public ConstraintLayout clProgressBar;
     public AlertDialog.Builder adb;
@@ -85,6 +83,7 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         tvOpisBaza = (TextView) findViewById(R.id.IDTvOpisBaza);
         tvGalerijaOpis = (TextView) findViewById(R.id.IDTvGalerijaOpis);
         ivGalerija = (ImageView) findViewById(R.id.IDIvGalerija);
+        ivLokacija = (ImageView) findViewById(R.id.IDIvLokacija);
         btnSledeca = (Button) findViewById(R.id.IDBtnSledeca);
         btnPrethodna = (Button) findViewById(R.id.IDBtnPrethodna);
         btnDodajSliku = (Button) findViewById(R.id.IDBtnDodajSliku);
@@ -94,6 +93,17 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         idInic = intent.getStringExtra("idInicijative");
         //prikaz svih inicijativa
         new MyAsyncTask().execute("showDetails", idInic);
+
+        //klik na lokaciju
+        ivLokacija.setClickable(true);
+        ivLokacija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InitiativeDescriptionActivity.this, MapsActivity.class);
+                intent.putExtra("markerPosition", tvLokacijaBaza.getText().toString());
+                startActivity(intent);
+            }
+        });
 
         btnSledeca.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@ package com.example.dika.dipnis;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,8 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
-import android.content.DialogInterface;
 
 import static com.example.dika.dipnis.Global.homeUrl;
 

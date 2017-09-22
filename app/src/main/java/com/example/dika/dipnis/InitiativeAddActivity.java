@@ -12,14 +12,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +49,7 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
 
     private static final int CAMERA = 0;
     private static final int GALLERY = 1;
+    private static final int LOCATION = 2;
 
     private Bitmap bmp;
     private boolean camera;
@@ -62,7 +60,7 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
     public EditText etVrstaRazlog, etKratakOpis, etLokacija, etOpis;
     public Spinner spinTipInicijative;
     public LinearLayout llDatum, llVreme;
-    public ImageView ivSlika;
+    public ImageView ivSlika, ivLokacija;
     public Button btnDodajSliku, btnSacuvajInicijativu;
     public ConstraintLayout clProgressBar;
     public AlertDialog.Builder adb;
@@ -89,6 +87,7 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
         llDatum = (LinearLayout) findViewById(R.id.IALlDatum);
         llVreme = (LinearLayout) findViewById(R.id.IALlVreme);
         ivSlika = (ImageView) findViewById(R.id.IAIvSlika);
+        ivLokacija = (ImageView) findViewById(R.id.IAIvLokacija);
         btnDodajSliku = (Button) findViewById(R.id.IABtnDodajSliku);
         btnSacuvajInicijativu = (Button) findViewById(R.id.IABtnSacuvajInicijativu);
         clProgressBar = (ConstraintLayout) findViewById(R.id.IAClProgressBar);
@@ -106,6 +105,17 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
         spinTipInicijative.setAdapter(adapter);
 
         spinTipInicijative.setOnItemSelectedListener(this);
+
+        //klik na lokaciju
+        ivLokacija.setClickable(true);
+        ivLokacija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InitiativeAddActivity.this, MapsActivity.class);
+                intent.putExtra("markerPosition", "noPosition");
+                startActivityForResult(intent, LOCATION);
+            }
+        });
 
         //klik na kalenar - odabir datuma
         llDatum.setOnClickListener(new View.OnClickListener() {
@@ -249,17 +259,22 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
                 bmp = (Bitmap) data.getExtras().get("data");
                 ivSlika.setImageBitmap(bmp);
                 camera = true;
+                ivSlika.setVisibility(View.VISIBLE);
             }
             else if (requestCode == GALLERY) {
                 try {
                     bmp = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
                     ivSlika.setImageBitmap(bmp);
                     camera = false;
+                    ivSlika.setVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            ivSlika.setVisibility(View.VISIBLE);
+            //rezultat mape
+            else if (requestCode == LOCATION) {
+                etLokacija.setText(data.getStringExtra("lokacija"));
+            }
         }
     }
 

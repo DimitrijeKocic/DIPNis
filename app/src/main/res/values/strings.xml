@@ -34,7 +34,6 @@
     <!--Sve forme-->
     <string name="strAdbTitleObavestenje">Obaveštenje</string>
     <string name="strAdbTitleSlika">Dodaj sliku</string>
-    <string name="strAdbTitleNazivLokacije">Odaberite naziv lokacije</string>
     <string name="strAdbSlikaDodata">Slika je uspešno dodata u bazu.</string>
     <string name="strAdbObavezanUnos">Obavezan unos u polje:</string>
     <string-array name="strAdbItems">
@@ -43,6 +42,13 @@
     </string-array>
     <string name="strAdbOK">OK</string>
     <string name="strAdbGreska">Greška prilikom konektovanja na server. Pokušajte kasnije.</string>
+
+    <!--Mapa-->
+    <string name="strMAdbTitleNazivLokacije">Odaberite naziv lokacije</string>
+    <string name="strMAdbDa">Da</string>
+    <string name="strMAdbNe">Ne</string>
+    <string name="strMAdbPristupLokaciji">Dozvolite aplikaciji DIPNiš da pristupi lokaciji vašeg uređaja?</string>
+    <string name="strMAdbNepostojecaLokacija">Ne možemo pronaći definisanu lokaciju na mapi.</string>
 
     <!--Dogadjaji-->
     <string name="strEAdbDodajSlikuObavestenje">Ne možete dodati sliku za događaj u budućnosti.</string>

@@ -147,14 +147,12 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View view) {
                 adb = new AlertDialog.Builder(EventAddActivity.this);
                 if (tvDatum.getText().toString().compareTo(dateNow) > 0) {
-                    adb = new AlertDialog.Builder(EventAddActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                     adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
                     adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
                     final String[] adbItems = getResources().getStringArray(R.array.strAdbItems);
-                    adb = new AlertDialog.Builder(EventAddActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
@@ -293,10 +291,10 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                     bmp = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
                     ivSlika.setImageBitmap(bmp);
                     camera = false;
+                    ivSlika.setVisibility(View.VISIBLE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                ivSlika.setVisibility(View.VISIBLE);
             }
             //rezultat mape
             else if (requestCode == LOCATION) {
