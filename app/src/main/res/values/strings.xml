@@ -20,7 +20,10 @@
     <string name="strTitlePregledProblema">Pregled problema</string>
     <string name="strTitleOpisProblema">Opis problema</string>
     <string name="strTitleDodajProblem">Dodaj problem</string>
+
+    <!--Mapa-->
     <string name="strTitleMapa">Mapa</string>
+    <string name="strMapaPostaviLokaciju">Postavi lokaciju</string>
 
     <!--Tekst u formi O aplikaciji-->
     <string name="strTvTekstOAplikaciji">Ovde ce da stoji tekst za formu O aplikaciji!!!</string>
@@ -31,6 +34,7 @@
     <!--Sve forme-->
     <string name="strAdbTitleObavestenje">Obaveštenje</string>
     <string name="strAdbTitleSlika">Dodaj sliku</string>
+    <string name="strAdbTitleNazivLokacije">Odaberite naziv lokacije</string>
     <string name="strAdbSlikaDodata">Slika je uspešno dodata u bazu.</string>
     <string name="strAdbObavezanUnos">Obavezan unos u polje:</string>
     <string-array name="strAdbItems">

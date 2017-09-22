@@ -1,21 +1,26 @@
 package com.example.dika.dipnis;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.Address;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.identity.intents.Address;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -38,18 +43,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        GoogleMap.OnMyLocationButtonClickListener {
+        GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMapLongClickListener {
 
-    private GoogleMap myMap;
+    public static final int REQUEST_LOCATION = 1;
+
+    GoogleMap myMap;
     GoogleApiClient myGoogleApiClient;
     Location myLastLocation;
     Marker myLocationMarker;
     LocationRequest myLocationRequest;
 
     String markerPosition;
-    boolean setMarker;
+    boolean setMarker, zoomMyLocation;
+    Button btnPostavi;
+    AlertDialog.Builder adb;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
@@ -58,13 +67,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        setMarker = false;
+        setMarker = true;
+        zoomMyLocation = true;
+        btnPostavi = (Button) findViewById(R.id.mapaBtnPostavi);
+        btnPostavi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         myMap = googleMap;
         myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        myMap.setOnMapLongClickListener(this);
 
         //Inicijalizacija Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -87,17 +107,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         markerPosition = intent.getStringExtra("markerPosition");
         if (!markerPosition.equals("noPosition")) {
-            setMarker = true;
+            setMarker = false;
+            zoomMyLocation = false;
             Geocoder geocoder = new Geocoder(this);
-            List<android.location.Address> addressList = null;
+            List<Address> addressList = null;
             try {
                 addressList = geocoder.getFromLocationName(markerPosition, 1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            android.location.Address address = addressList.get(0);
+            Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
             myLocationMarker = myMap.addMarker(new MarkerOptions().position(latLng).title(markerPosition));
+            myLocationMarker.showInfoWindow();
             myMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             myMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         }
@@ -136,7 +158,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Postavka markera na trenutnu poziciju
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         //Pomeraj kamere i zumiranje na trenutnu lokaciju
-        if (setMarker) {
+        if (zoomMyLocation) {
             myMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             myMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         }
@@ -150,7 +172,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {}
 
-    public static final int REQUEST_LOCATION = 1;
     public boolean checkLocationPermission(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -185,5 +206,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMyLocationButtonClick() {
         return false;
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        if (setMarker) {
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> addressList = null;
+            try {
+                addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Address a1 = addressList.get(0);
+            String adr1[] = a1.toString().split("\"")[1].split(", ");
+            String address1 = "";
+            for (int i = 0; i < adr1.length - 2; i++) {
+                address1 += (i == 0 ? "" : ", ") + adr1[i];
+            }
+            Address a2 = addressList.get(1);
+            String adr2[] = a2.toString().split("\"")[1].split(", ");
+            String address2 = "";
+            for (int i = 0; i < adr2.length - 1; i++) {
+                address2 += (i == 0 ? "" : ", ") + adr2[i];
+            }
+            final LatLng latLon = latLng;
+            final String[] adbItems = {address1, address2};
+            adb = new AlertDialog.Builder(MapsActivity.this);
+            adb.setTitle(getResources().getString(R.string.strAdbTitleNazivLokacije));
+            adb.setItems(adbItems, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int i) {
+                    if (myLocationMarker != null)
+                        myLocationMarker.remove();
+                    myLocationMarker = myMap.addMarker(new MarkerOptions().position(latLon).title(adbItems[i]));
+                    myLocationMarker.showInfoWindow();
+                    zoomMyLocation = false;
+                    btnPostavi.setVisibility(View.VISIBLE);
+                }
+            });
+            adb.setIcon(R.drawable.location_icon_red);
+            adb.show();
+        }
     }
 }

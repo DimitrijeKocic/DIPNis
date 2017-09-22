@@ -27,9 +27,9 @@ import java.util.ArrayList;
 
 public final class Global extends Application {
 
-    public static final String homeUrl = "http://24.135.176.151:8080/dipNisServer/";
+    //public static final String homeUrl = "http://24.135.176.151:8080/dipNisServer/";
     //public static final String homeUrl = "http://160.99.9.136/dipnis/";
-    //public static final String homeUrl = "http://192.168.1.125/dipnis/";
+    public static final String homeUrl = "http://192.168.1.125/dipnis/";
 
     public String dataString, resultString;
 

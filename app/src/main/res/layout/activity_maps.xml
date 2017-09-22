@@ -8,7 +8,7 @@
     tools:context="com.example.dika.dipnis.MainActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarPocetna"
+        android:id="@+id/toolbarMapa"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
@@ -40,6 +40,22 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.dika.dipnis.MapsActivity"/>
+        tools:context="com.example.dika.dipnis.MapsActivity">
+
+        <Button
+            android:id="@+id/mapaBtnPostavi"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/strMapaPostaviLokaciju"
+            android:background="@drawable/round_button"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t15"
+            android:visibility="gone"/>
+
+    </fragment>
 
 </LinearLayout>
