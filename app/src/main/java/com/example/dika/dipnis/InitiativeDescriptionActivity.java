@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -179,13 +180,16 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
                 //upis u bazu
                 new MyAsyncTask().execute("addImage", idInic, img, homeUrl);
                 //upis u lokalno skladiste
-                File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+                File destinationFolder = new File(Environment.getExternalStorageDirectory() + "/DIPNis");
+                destinationFolder.mkdir();
+                File destination = new File(destinationFolder, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ".jpg");
                 FileOutputStream fo;
                 try {
                     destination.createNewFile();
                     fo = new FileOutputStream(destination);
                     fo.write(stream.toByteArray());
                     fo.close();
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(destination)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

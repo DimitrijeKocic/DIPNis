@@ -3,89 +3,78 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/EIListRl"
+        android:orientation="horizontal"
+        android:id="@+id/EIListLl"
         android:padding="@dimen/pad5"
-        android:background="@drawable/border_transparent_background" >
+        android:background="@drawable/list_item_background">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/EIListItemIvIcon"
+            android:layout_width="65dp"
+            android:layout_height="65dp"/>
+        
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/EIListLlTipLokacija">
+            android:id="@+id/EIListRl"
+            android:layout_marginStart="@dimen/mar10"
+            android:layout_marginLeft="@dimen/mar10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/EIListLlVrstaDatum"
+                android:layout_marginBottom="@dimen/mar5">
+
+                <TextView
+                    android:id="@+id/EIListItemTvVrstaIzvodjacRazlog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text=""
+                    android:textSize="@dimen/t17"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/EIListItemTvDatumVreme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_gravity="end"
+                    android:textSize="@dimen/t13"
+                    android:textColor="@color/grey"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/EIListItemTvTipDogadjajaInicijative"
-                android:layout_width="wrap_content"
+                android:id="@+id/EIListItemTvKratakOpis"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:layout_gravity="start"
-                android:textSize="@dimen/t17"
-                android:textColor="@color/black"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
+                android:layout_below="@id/EIListLlVrstaDatum"
+                android:gravity="start"
+                android:textSize="@dimen/t15"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/mar5"/>
 
             <TextView
                 android:id="@+id/EIListItemTvLokacija"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text=""
                 android:gravity="end"
-                android:text=""
-                android:textSize="@dimen/t17"
-                android:textColor="@color/black" />
+                android:textSize="@dimen/t13"
+                android:textColor="@color/grey"
+                android:layout_below="@id/EIListItemTvKratakOpis"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/EIListItemTvKratakOpis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_below="@id/EIListLlTipLokacija"
-            android:gravity="center"
-            android:textSize="@dimen/t17"
-            android:textColor="@color/black"
-            android:layout_marginBottom="@dimen/mar5"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/EIListLlVrstaDatum"
-            android:layout_below="@id/EIListItemTvKratakOpis">
-
-            <TextView
-                android:id="@+id/EIListItemTvVrstaIzvodjacRazlog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_gravity="start"
-                android:textSize="@dimen/t17"
-                android:textColor="@color/black"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/EIListItemTvDatumVreme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_gravity="end"
-                android:textSize="@dimen/t17"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/EIListItemTvId"

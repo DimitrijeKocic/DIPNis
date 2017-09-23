@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -185,13 +186,16 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                     img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
 
                     if (camera) {
-                        File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+                        File destinationFolder = new File(Environment.getExternalStorageDirectory() + "/DIPNis");
+                        destinationFolder.mkdir();
+                        File destination = new File(destinationFolder, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ".jpg");
                         FileOutputStream fo;
                         try {
                             destination.createNewFile();
                             fo = new FileOutputStream(destination);
                             fo.write(stream.toByteArray());
                             fo.close();
+                            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(destination)));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

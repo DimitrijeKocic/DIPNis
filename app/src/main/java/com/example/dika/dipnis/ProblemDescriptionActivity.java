@@ -21,6 +21,7 @@ public class ProblemDescriptionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
+    /////////////KREIRANJE MENIJA/////////////////
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -28,6 +29,7 @@ public class ProblemDescriptionActivity extends AppCompatActivity {
         return true;
     }
 
+    //////EVENT ZA KLIK NA STAVKU MENIJA/////
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

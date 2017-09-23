@@ -3,6 +3,8 @@ package com.example.dika.dipnis;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -16,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -100,8 +103,8 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         lvPrikaz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String, String> hash =  (HashMap) parent.getItemAtPosition(position);
-                String idDog = hash.get("id");
+                ListItem item =  (ListItem) parent.getItemAtPosition(position);
+                String idDog = item.id;
                 Intent intent = new Intent(EventReviewActivity.this, EventDescriptionActivity.class);
                 intent.putExtra("idDogadjaja", idDog);
                 startActivity(intent);
@@ -210,7 +213,7 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
     ////////////////////BACKGROUND WORKER KLASA///////////////////////
     public class MyAsyncTask extends AsyncTask<String, Object, String> {
 
-        ArrayList<HashMap<String, String>> eventsList;
+        ArrayList<ListItem> itemsList;
         ArrayList<String> eventsTypes;
 
         ArrayList<String> keys, values;
@@ -231,7 +234,7 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
             eventsShowTypeKindUrl = homeUrl + "eventsShowTypeKind.php";
 
             //Deklaracija listi
-            eventsList = new ArrayList<>();
+            itemsList = new ArrayList<>();
             eventsTypes = new ArrayList<>();
             keys = new ArrayList<>();
             values = new ArrayList<>();
@@ -344,15 +347,13 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
                 adb.setIcon(R.drawable.adb_obavestenje);
                 adb.show();
             } else {
-                if (eventsList.isEmpty()) {
+                if (itemsList.isEmpty()) {
                     lvPrikaz.setVisibility(View.GONE);
                     tvPrikazNePostoji.setVisibility(View.VISIBLE);
                 } else {
                     //popunjavanje listView-a
-                    SimpleAdapter listAdapter = new SimpleAdapter(EventReviewActivity.this, eventsList, R.layout.ei_list_item_layout,
-                            new String[]{"id", "tipDogadjaja", "vrstaIzvodjac", "kratakOpis", "lokacija", "datumVreme"},
-                            new int[]{R.id.EIListItemTvId, R.id.EIListItemTvTipDogadjajaInicijative, R.id.EIListItemTvVrstaIzvodjacRazlog, R.id.EIListItemTvKratakOpis, R.id.EIListItemTvLokacija, R.id.EIListItemTvDatumVreme});
-                    lvPrikaz.setAdapter(listAdapter);
+                    MyAdapter myAdapter=new MyAdapter(getApplicationContext(), R.layout.ei_list_item_layout, itemsList);
+                    lvPrikaz.setAdapter(myAdapter);
                     //listAdapter.notifyDataSetChanged();
                     lvPrikaz.setVisibility(View.VISIBLE);
                     tvPrikazNePostoji.setVisibility(View.GONE);
@@ -366,7 +367,7 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
         public void makeListFromJSON(String jsonString) {
             try {
                 //brisanje stare liste
-                eventsList.clear();
+                itemsList.clear();
                 //ceo JSON string
                 JSONObject jsonObject = new JSONObject(jsonString);
                 //niz objekata
@@ -376,23 +377,26 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
                     JSONObject dogadjaj = dogadjaji.getJSONObject(i);
                     String id = dogadjaj.getString("idDogadjaja");
                     String tipDogadjaja = dogadjaj.getString("tipDogadjaja");
+                    Bitmap bmp = null;
+                    switch (tipDogadjaja) {
+                        case "Sportski":
+                            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.sport_icon);
+                            break;
+                        case "Koncerti":
+                            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.concert_icon);
+                            break;
+                        case "Ostali":
+                            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.event_icon);
+                            break;
+                    }
                     String vrstaIzvodjac = dogadjaj.getString("vrstaIzvodjac");
                     String kratakOpis = dogadjaj.getString("kratakOpis");
                     String lokacija = dogadjaj.getString("lokacija");
                     String datumVreme = dogadjaj.getString("datumVreme");
                     datumVreme = datumVreme.substring(0, datumVreme.length() - 3);
 
-                    //kreiranje key.value parova za svaki dogadjaj
-                    HashMap<String, String> dog = new HashMap<>();
-                    dog.put("id", id);
-                    dog.put("tipDogadjaja", tipDogadjaja);
-                    dog.put("vrstaIzvodjac", vrstaIzvodjac);
-                    dog.put("kratakOpis", kratakOpis);
-                    dog.put("lokacija", lokacija);
-                    dog.put("datumVreme", datumVreme);
-
                     //popunjavanje globalne liste key/value
-                    eventsList.add(dog);
+                    itemsList.add(new ListItem(id, vrstaIzvodjac, datumVreme, kratakOpis, lokacija, bmp));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -421,5 +425,4 @@ public class EventReviewActivity extends AppCompatActivity implements AdapterVie
             }
         }
     }
-
 }

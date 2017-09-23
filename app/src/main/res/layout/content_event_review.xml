@@ -138,7 +138,8 @@
                 android:id="@+id/ERLvPrikaz"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/ERTvPrikaz" />
+                android:layout_below="@id/ERTvPrikaz"
+                android:divider="@color/skyBlue"/>
 
             <TextView
                 android:id="@+id/ERTvPrikazNePostoji"

@@ -3,6 +3,8 @@ package com.example.dika.dipnis;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -100,8 +102,8 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
         lvPrikaz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String, String> hash =  (HashMap) parent.getItemAtPosition(position);
-                String idInic = hash.get("id");
+                ListItem item =  (ListItem) parent.getItemAtPosition(position);
+                String idInic = item.id;
                 Intent intent = new Intent(InitiativeReviewActivity.this, InitiativeDescriptionActivity.class);
                 intent.putExtra("idInicijative", idInic);
                 startActivity(intent);
@@ -213,7 +215,7 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
     ////////////////////BACKGROUND WORKER KLASA///////////////////////
     public class MyAsyncTask extends AsyncTask<String, Object, String> {
 
-        ArrayList<HashMap<String, String>> initiativesList;
+        ArrayList<ListItem> itemsList;
         ArrayList<String> initiativesTypes;
 
         ArrayList<String> keys, values;
@@ -234,7 +236,7 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
             initiativesShowTypeKindUrl = homeUrl + "initiativesShowTypeKind.php";
 
             //Deklaracija listi
-            initiativesList = new ArrayList<>();
+            itemsList = new ArrayList<>();
             initiativesTypes = new ArrayList<>();
             keys = new ArrayList<>();
             values = new ArrayList<>();
@@ -347,15 +349,13 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
                 adb.setIcon(R.drawable.adb_obavestenje);
                 adb.show();
             } else {
-                if (initiativesList.isEmpty()) {
+                if (itemsList.isEmpty()) {
                     lvPrikaz.setVisibility(View.GONE);
                     tvPrikazNePostoji.setVisibility(View.VISIBLE);
                 } else {
                     //popunjavanje listView-a
-                    SimpleAdapter listAdapter = new SimpleAdapter(InitiativeReviewActivity.this, initiativesList, R.layout.ei_list_item_layout,
-                            new String[]{"id", "tipInicijative", "vrstaRazlog", "kratakOpis", "lokacija", "datumVreme"},
-                            new int[]{R.id.EIListItemTvId, R.id.EIListItemTvTipDogadjajaInicijative, R.id.EIListItemTvVrstaIzvodjacRazlog, R.id.EIListItemTvKratakOpis, R.id.EIListItemTvLokacija, R.id.EIListItemTvDatumVreme});
-                    lvPrikaz.setAdapter(listAdapter);
+                    MyAdapter myAdapter=new MyAdapter(getApplicationContext(), R.layout.ei_list_item_layout, itemsList);
+                    lvPrikaz.setAdapter(myAdapter);
                     //listAdapter.notifyDataSetChanged();
                     lvPrikaz.setVisibility(View.VISIBLE);
                     tvPrikazNePostoji.setVisibility(View.GONE);
@@ -369,7 +369,7 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
         public void makeListFromJSON(String jsonString) {
             try {
                 //brisanje stare liste
-                initiativesList.clear();
+                itemsList.clear();
                 //ceo JSON string
                 JSONObject jsonObject = new JSONObject(jsonString);
                 //niz inicijativa
@@ -379,23 +379,29 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
                     JSONObject inicijativa = inicijative.getJSONObject(i);
                     String id = inicijativa.getString("idInicijative");
                     String tipInicijative = inicijativa.getString("tipInicijative");
+                    Bitmap bmp = null;
+                    switch (tipInicijative) {
+                        case "Sportske":
+                            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.sport_icon);
+                            break;
+                        case "Protesti":
+                            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.protest_icon);
+                            break;
+                        case "Humanitarne akcije":
+                            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.humanity_icon);
+                            break;
+                        case "Ostale":
+                            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.initiative_icon);
+                            break;
+                    }
                     String vrstaRazlog = inicijativa.getString("vrstaRazlog");
                     String kratakOpis = inicijativa.getString("kratakOpis");
                     String lokacija = inicijativa.getString("lokacija");
                     String datumVreme = inicijativa.getString("datumVreme");
                     datumVreme = datumVreme.substring(0, datumVreme.length() - 3);
 
-                    //kreiranje key.value parova za svaku inicijativu
-                    HashMap<String, String> dog = new HashMap<>();
-                    dog.put("id", id);
-                    dog.put("tipInicijative", tipInicijative);
-                    dog.put("vrstaRazlog", vrstaRazlog);
-                    dog.put("kratakOpis", kratakOpis);
-                    dog.put("lokacija", lokacija);
-                    dog.put("datumVreme", datumVreme);
-
                     //popunjavanje globalne liste key/value
-                    initiativesList.add(dog);
+                    itemsList.add(new ListItem(id, vrstaRazlog, datumVreme, kratakOpis, lokacija, bmp));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
