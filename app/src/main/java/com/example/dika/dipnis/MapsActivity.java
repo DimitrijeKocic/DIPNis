@@ -92,44 +92,74 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Inicijalizacija Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //za SDK veci od 23
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (!((LocationManager)this.getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    adb = new AlertDialog.Builder(MapsActivity.this);
+                    adb.setMessage(R.string.strMAdbPristupLokaciji);
+                    adb.setPositiveButton(R.string.strMAdbDa, new Dialog.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                if (markerPosition.equals("noPosition"))
+                                    buildGoogleApiClient();
+                                myMap.setMyLocationEnabled(true);
+                                myMap.getUiSettings().setMyLocationButtonEnabled(true);
+                            }
+                        }
+                    });
+                    adb.setNegativeButton(R.string.strMAdbNe, new Dialog.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (markerPosition.equals("noPosition")) {
+                                myMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(43.322122, 21.895438)));
+                                myMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+                            }
+                        }
+                    });
+                    adb.setIcon(R.drawable.location_icon_red);
+                    adb.show();
+                } else {
+                    buildGoogleApiClient();
+                    myMap.setMyLocationEnabled(true);
+                    myMap.getUiSettings().setMyLocationButtonEnabled(true);
+                }
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            }
+        } else {
+            if (!((LocationManager)this.getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                adb = new AlertDialog.Builder(MapsActivity.this);
+                adb.setMessage(R.string.strMAdbPristupLokaciji);
+                adb.setPositiveButton(R.string.strMAdbDa, new Dialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            if (markerPosition.equals("noPosition"))
+                                buildGoogleApiClient();
+                            myMap.setMyLocationEnabled(true);
+                            myMap.getUiSettings().setMyLocationButtonEnabled(true);
+                        }
+                    }
+                });
+                adb.setNegativeButton(R.string.strMAdbNe, new Dialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (markerPosition.equals("noPosition")) {
+                            myMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(43.322122, 21.895438)));
+                            myMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+                        }
+                    }
+                });
+                adb.setIcon(R.drawable.location_icon_red);
+                adb.show();
+            } else {
+                //za SDK manji od 23
                 buildGoogleApiClient();
                 myMap.setMyLocationEnabled(true);
                 myMap.getUiSettings().setMyLocationButtonEnabled(true);
-            } else {
-                checkLocationPermission();
             }
-        } else if (!((LocationManager)this.getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            adb = new AlertDialog.Builder(MapsActivity.this);
-            adb.setMessage(R.string.strMAdbPristupLokaciji);
-            adb.setPositiveButton(R.string.strMAdbDa, new Dialog.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        if (markerPosition.equals("noPosition"))
-                            buildGoogleApiClient();
-                        myMap.setMyLocationEnabled(true);
-                        myMap.getUiSettings().setMyLocationButtonEnabled(true);
-                    }
-                }
-            });
-            adb.setNegativeButton(R.string.strMAdbNe, new Dialog.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (markerPosition.equals("noPosition")) {
-                        myMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(43.322122, 21.895438)));
-                        myMap.animateCamera(CameraUpdateFactory.zoomTo(13));
-                    }
-                }
-            });
-            adb.setIcon(R.drawable.location_icon_red);
-            adb.show();
-        } else {
-            //za SDK manji od 23
-            buildGoogleApiClient();
-            myMap.setMyLocationEnabled(true);
-            myMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
 
         if (!markerPosition.equals("noPosition")) {
@@ -142,7 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (addressList.size() != 0) {
+            if (addressList != null && addressList.size() != 0) {
                 Address address = addressList.get(0);
                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                 myMarker = myMap.addMarker(new MarkerOptions().position(latLng).title(markerPosition));
@@ -212,19 +242,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {}
 
-    //pitanje za dopustanje lokacije za sdk >= 23
-    public boolean checkLocationPermission(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {

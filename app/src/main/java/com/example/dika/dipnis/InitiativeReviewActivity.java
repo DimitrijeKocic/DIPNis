@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,7 +28,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.example.dika.dipnis.Global.homeUrl;
 
@@ -354,8 +352,8 @@ public class InitiativeReviewActivity extends AppCompatActivity implements Adapt
                     tvPrikazNePostoji.setVisibility(View.VISIBLE);
                 } else {
                     //popunjavanje listView-a
-                    MyAdapter myAdapter=new MyAdapter(getApplicationContext(), R.layout.ei_list_item_layout, itemsList);
-                    lvPrikaz.setAdapter(myAdapter);
+                    MyAdapterEI myAdapterEI =new MyAdapterEI(getApplicationContext(), R.layout.ei_list_item_layout, itemsList);
+                    lvPrikaz.setAdapter(myAdapterEI);
                     //listAdapter.notifyDataSetChanged();
                     lvPrikaz.setVisibility(View.VISIBLE);
                     tvPrikazNePostoji.setVisibility(View.GONE);

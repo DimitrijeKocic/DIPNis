@@ -173,4 +173,29 @@
     <string name="strIABtnSacuvajInicijativu">Sačuvaj inicijativu</string>
     <!--.....................INICIJATIVE......................-->
 
+
+    <!--.......................PROBLEMI.....................-->
+    <!--Zajednicko-->
+    <string name="strPRPDPATvTipProblema">Tip problema:</string>
+    <string name="strPDPABtnDodajSliku">Dodaj sliku</string>
+
+    <!--Iz forme Pregled problema-->
+    <string name="strPRTvFilter">Filter</string>
+    <string-array name="strPRSpinTipProblema">
+        <item>Svi</item>
+        <item>Rupe na kolovozu</item>
+        <item>Izgubljeni ljubimci</item>
+        <item>Lutalice</item>
+        <item>Ostali</item>
+    </string-array>
+    <string name="strPRTvPrikaz">Prikaz odabranih problema</string>
+    <string name="strPRTvPrikazNePostoji">Ne postoji nijedan problem ove vrste.</string>
+    <string name="strPREtHintUlica">Naziv ulice (deo naziva)</string>
+
+    <!--Iz forme Opis problema-->
+
+
+    <!--Iz forme Dodaj problem-->
+
+    <!--.......................PROBLEMI.....................-->
 </resources>

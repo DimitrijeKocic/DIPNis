@@ -291,10 +291,9 @@
                     <LinearLayout
                         android:id="@+id/EDLlSledecaPrethodna"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/mar5"
-                        android:layout_marginBottom="@dimen/mar10">
+                        android:layout_marginTop="@dimen/mar5">
 
                         <Button
                             android:id="@+id/EDBtnPrethodna"
@@ -308,7 +307,8 @@
                         <Button
                             android:id="@+id/EDBtnDodajSliku"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="40dp"
                             android:layout_weight="1"
                             android:layout_marginLeft="@dimen/mar5"
                             android:layout_marginStart="@dimen/mar5"

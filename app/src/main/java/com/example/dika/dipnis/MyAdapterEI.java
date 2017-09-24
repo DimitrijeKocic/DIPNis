@@ -31,11 +31,11 @@ class ListItem {
     }
 }
 
-public class MyAdapter extends ArrayAdapter<ListItem> {
+public class MyAdapterEI extends ArrayAdapter<ListItem> {
 
     ArrayList<ListItem> itemsList = new ArrayList<>();
 
-    public MyAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<ListItem> objects) {
+    public MyAdapterEI(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<ListItem> objects) {
         super(context, resource, objects);
         itemsList = objects;
     }

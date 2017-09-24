@@ -1,19 +1,24 @@
 package com.example.dika.dipnis;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,6 +57,8 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
     private static final int CAMERA = 0;
     private static final int GALLERY = 1;
     private static final int LOCATION = 2;
+
+    public static final int REQUEST_CAMERA = 1;
 
     private Bitmap bmp;
     private boolean camera;
@@ -154,8 +162,17 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
                         @Override
                         public void onClick(DialogInterface dialog, int i) {
                             if (adbItems[i].equals("Slikaj")) {
-                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(intent, CAMERA);
+                                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                        startActivityForResult(intent, CAMERA);
+                                    } else {
+                                        requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+                                    }
+                                } else {
+                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    startActivityForResult(intent, CAMERA);
+                                }
                             } else if (adbItems[i].equals("Odaberi iz galerije")) {
                                 Intent intent = new Intent();
                                 intent.setType("image/*");
@@ -278,6 +295,22 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
             //rezultat mape
             else if (requestCode == LOCATION) {
                 etLokacija.setText(data.getStringExtra("lokacija"));
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CAMERA: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, CAMERA);
+                    }
+                } else {
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

@@ -288,7 +288,7 @@
             <LinearLayout
                 android:id="@+id/EALlDugmici"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="@dimen/mar5"
                 android:orientation="horizontal"
                 android:layout_below="@+id/EAIvSlika">
@@ -296,7 +296,8 @@
                 <Button
                     android:id="@+id/EABtnDodajSliku"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
                     android:layout_weight="3"
                     android:text="@string/strEDEABtnDodajSliku"
                     android:background="@drawable/round_button"
@@ -306,7 +307,8 @@
                 <Button
                     android:id="@+id/EABtnSacuvajDogadjaj"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
                     android:layout_weight="4"
                     android:layout_marginLeft="@dimen/mar10"
                     android:layout_marginStart="@dimen/mar10"

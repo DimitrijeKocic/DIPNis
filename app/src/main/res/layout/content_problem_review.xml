@@ -9,6 +9,157 @@
     tools:showIn="@layout/activity_problem_review"
     android:background="@drawable/transparent_background_image">
 
+    <RelativeLayout
+        android:id="@+id/rlProblemReview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/mar15"
+        android:layout_marginLeft="@dimen/mar15"
+        android:layout_marginRight="@dimen/mar15"
+        android:layout_marginStart="@dimen/mar15"
+        android:layout_marginTop="1dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
 
+        <TextView
+            android:id="@+id/PRTvFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/strPRTvFilter"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t19"
+            android:layout_marginTop="@dimen/mar10" />
+
+        <RelativeLayout
+            android:id="@+id/PRRlFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_marginTop="@dimen/mar6"
+            android:layout_below="@id/PRTvFilter">
+
+            <LinearLayout
+                android:id="@+id/PRLlTipProblema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mar5"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/pad3"
+                android:paddingLeft="@dimen/pad3"
+                android:paddingRight="@dimen/pad3">
+
+                <TextView
+                    android:id="@+id/PRTvTipProblema"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strPRPDPATvTipProblema"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t17" />
+
+                <Spinner
+                    android:id="@+id/PRSpinTipProblema"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/mar10"
+                    android:layout_marginStart="@dimen/mar10"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/PREtUlica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/t17"
+                android:hint="@string/strPREtHintUlica"
+                android:layout_marginTop="@dimen/mar5"
+                android:layout_below="@+id/PRLlTipProblema"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/PRRlPrikaz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PRRlFilter"
+            android:layout_marginTop="@dimen/mar15"
+            android:paddingBottom="@dimen/pad3"
+            android:paddingLeft="@dimen/pad3"
+            android:paddingRight="@dimen/pad3">
+
+            <TextView
+                android:id="@+id/PRTvPrikaz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/strPRTvPrikaz"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t19"
+                android:layout_marginBottom="@dimen/mar8"/>
+
+            <ListView
+                android:id="@+id/PRLvPrikaz"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/PRTvPrikaz"
+                android:divider="@color/skyBlue"/>
+
+            <TextView
+                android:id="@+id/PRTvPrikazNePostoji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/strPRTvPrikazNePostoji"
+                android:textColor="@color/red"
+                android:textSize="@dimen/t17"
+                android:layout_below="@id/PRTvPrikaz"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/PRClProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rlProblemReview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/greyTransparent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/PRProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

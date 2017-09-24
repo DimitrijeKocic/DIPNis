@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/PListLl"
+        android:padding="@dimen/pad5"
+        android:background="@drawable/list_item_background">
+
+        <ImageView
+            android:id="@+id/PListItemIvImage"
+            android:layout_width="65dp"
+            android:layout_height="65dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/PListRl"
+            android:layout_marginStart="@dimen/mar10"
+            android:layout_marginLeft="@dimen/mar10">
+
+            <TextView
+                android:id="@+id/PListItemTvTipProblema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text=""
+                android:textSize="@dimen/t17"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/mar5"/>
+
+            <TextView
+                android:id="@+id/PListItemTvOpis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_below="@id/PListItemTvTipProblema"
+                android:gravity="start"
+                android:textSize="@dimen/t15"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/mar5"/>
+
+            <TextView
+                android:id="@+id/PListItemTvLokacija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:gravity="end"
+                android:textSize="@dimen/t15"
+                android:textColor="@color/grey"
+                android:layout_below="@id/PListItemTvOpis"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/PListItemTvId"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text=""
+        android:visibility="gone"/>
+
+</LinearLayout>

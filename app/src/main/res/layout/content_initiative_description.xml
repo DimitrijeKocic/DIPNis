@@ -291,10 +291,9 @@
                     <LinearLayout
                         android:id="@+id/IDLlSledecaPrethodna"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/mar5"
-                        android:layout_marginBottom="@dimen/mar10">
+                        android:layout_marginTop="@dimen/mar5">
 
                         <Button
                             android:id="@+id/IDBtnPrethodna"
