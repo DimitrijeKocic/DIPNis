@@ -72,130 +72,100 @@
     <!--.....................OSNOVNA FORMA...................-->
 
 
-    <!--.......................DOGADJAJI.....................-->
-    <!--Zajednicko-->
-    <string name="strEREDEATvTipDogadjaja">Tip događaja:</string>
-    <string name="strEREDTvVrstaSporta">Vrsta sporta:</string>
-    <string name="strEREDTvIzvodjacGrupa">Izvođač/Grupa:</string>
-    <string name="strEREDTvVrstaDogadjaja">Vrsta događaja:</string>
-    <string name="strEDEABtnDodajSliku">Dodaj sliku</string>
+    <!--.......................OSTALO.....................-->
+    <!--Text Views-->
+    <string name="strTvTipDogadjaja">Tip događaja:</string>
+    <string name="strTvTipInicijative">Tip inicijative:</string>
+    <string name="strTvTipProblema">Tip problema:</string>
+    <string name="strTvVrstaSporta">Vrsta sporta:</string>
+    <string name="strTvIzvodjacGrupa">Izvođač/Grupa:</string>
+    <string name="strTvVrstaDogadjaja">Vrsta događaja:</string>
+    <string name="strTvRazlogProtesta">Razlog protesta:</string>
+    <string name="strTvVrstaHumanitarneAkcije">Vrsta humanitarne akcije:</string>
+    <string name="strTvVrstaInicijative">Vrsta inicijative:</string>
+    <string name="strTvRezultatColon">Rezultat:</string>
+    <string name="strTvRezultat">Rezultat</string>
+    <string name="strTvKratakOpis">Kratak opis:</string>
+    <string name="strTvLokacija">Lokacija:</string>
+    <string name="strTvDatum">Datum:</string>
+    <string name="strTvVreme">Vreme:</string>
+    <string name="strTvOpis">Opis:</string>
+    <string name="strTvGalerija">Galerija:</string>
+    <string name="strTvGalerijaOpisDogadjaji">Još uvek ne postoje slike za ovaj događaj.</string>
+    <string name="strTvGalerijaOpisInicijative">Još uvek ne postoje slike za ovu inicijativu.</string>
+    <string name="strTvGalerijaOpisProblemi">Još uvek ne postoje slike za ovaj problem.</string>
+    <string name="strTvFilter">Filter</string>
+    <string name="strTvPrikazDogadjaji">Prikaz odabranih događаја</string>
+    <string name="strTvPrikazNePostojiDogadjaji">Ne postoji nijedan događaj ove vrste.</string>
+    <string name="strTvPrikazInicijative">Prikaz odabranih inicijativa</string>
+    <string name="strTvPrikazNePostojiInicijative">Ne postoji nijedna inicijativa ove vrste.</string>
+    <string name="strTvPrikazProblemi">Prikaz odabranih problema</string>
+    <string name="strTvPrikazNePostojiProblemi">Ne postoji nijedan problem ove vrste.</string>
 
-    <!--Iz forme Pregled dogadjaja-->
-    <string name="strERTvFilter">Filter</string>
-    <string-array name="strERSpinTipDogadjaja">
+    <!--Edit text hints-->
+    <string name="strEtHintVrstaSporta">Vrsta sporta</string>
+    <string name="strEtHintIzvodjacGrupa">Izvođač/Grupa</string>
+    <string name="strEtHintVrstaDogadjaja">Vrsta događaja</string>
+    <string name="strEtHintRazlogProtesta">Razlog protesta</string>
+    <string name="strEtHintVrstaHumanitarneAkcije">Vrsta humanitarne akcije</string>
+    <string name="strEtHintVrstaInicijative">Vrsta inicijative</string>
+    <string name="strEtHintTim1">Tim 1</string>
+    <string name="strEtHintTim2">Tim 2</string>
+    <string name="strEtHintKratakOpis">Kratak opis</string>
+    <string name="strEtHintLokacija">Lokacija</string>
+    <string name="strEtHintOpis">Opis</string>
+    <string name="strEtHintUlica">Naziv ulice (deo naziva)</string>
+
+    <!--Buttons-->
+    <string name="strBtnDodajSliku">Dodaj sliku</string>
+    <string name="strBtnSledeca">&gt;</string>
+    <string name="strBtnPrethodna">&lt;</string>
+    <string name="strBtnSacuvajDogadjaj">Sačuvaj događaj</string>
+    <string name="strBtnSacuvajInicijativu">Sačuvaj inicijativu</string>
+    <string name="strBtnSacuvajProblem">Sačuvaj problem</string>
+
+    <!--Spinner arrays-->
+    <string-array name="strSpinTipDogadjajaAll">
         <item>Svi</item>
         <item>Sportski</item>
         <item>Koncerti</item>
         <item>Ostali</item>
     </string-array>
-    <string name="strERChkBuduciDogadjaji">Prikaži samo buduće događaje</string>
-    <string name="strERTvPrikaz">Prikaz odabranih događаја</string>
-    <string name="strERTvPrikazNePostoji">Ne postoji nijedan događaj ove vrste.</string>
-
-    <!--Iz forme Opis dogadjaja-->
-    <string name="strEDTvRezultat">Rezultat:</string>
-    <string name="strEDTvKratakOpis">Kratak opis:</string>
-    <string name="strEDTvLokacija">Lokacija:</string>
-    <string name="strEDTvDatum">Datum:</string>
-    <string name="strEDTvVreme">Vreme:</string>
-    <string name="strEDTvOpis">Opis:</string>
-    <string name="strEDTvGalerija">Galerija:</string>
-    <string name="strEDTvGalerijaOpis">Još uvek ne postoje slike za ovaj događaj.</string>
-    <string name="strEDBtnSledeca">&gt;</string>
-    <string name="strEDBtnPrethodna">&lt;</string>
-
-    <!--Iz forme Dodaj dogadjaj-->
-    <string-array name="strEASpinTipDogadjaja">
+    <string-array name="strSpinTipDogadjaja">
         <item>Sportski</item>
         <item>Koncerti</item>
         <item>Ostali</item>
     </string-array>
-    <string name="strEAEtHintVrstaSporta">Vrsta sporta</string>
-    <string name="strEAEtHintIzvodjacGrupa">Izvođač/Grupa</string>
-    <string name="strEAEtHintVrstaDogadjaja">Vrsta događaja</string>
-    <string name="strEATvRezultat">Rezultat</string>
-    <string name="strEAEtHintTim1">Tim 1</string>
-    <string name="strEAEtHintTim2">Tim 2</string>
-    <string name="strEAEtHintKratakOpis">Kratak opis</string>
-    <string name="strEAEtHintLokacija">Lokacija</string>
-    <string name="strEAEtHintOpis">Opis</string>
-    <string name="strEABtnSacuvajDogadjaj">Sačuvaj događaj</string>
-    <!--.......................DOGADJAJI.....................-->
-
-
-    <!--.....................INICIJATIVE......................-->
-    <!--Zajednicko-->
-    <string name="strIRIDIATvTipInicijative">Tip inicijative:</string>
-    <string name="strIRIDTvVrstaSporta">Vrsta sporta:</string>
-    <string name="strIRIDTvRazlogProtesta">Razlog protesta:</string>
-    <string name="strIRIDTvVrstaHumanitarneAkcije">Vrsta humanitarne akcije:</string>
-    <string name="strIRIDTvVrstaInicijative">Vrsta inicijative:</string>
-    <string name="strIDIABtnDodajSliku">Dodaj sliku</string>
-
-    <!--Iz forme Pregled inicijativa-->
-    <string name="strIRTvFilter">Filter</string>
-    <string-array name="strIRSpinTipInicijative">
+    <string-array name="strSpinTipInicijativeAll">
         <item>Sve</item>
         <item>Sportske</item>
         <item>Protesti</item>
         <item>Humanitarne akcije</item>
         <item>Ostale</item>
     </string-array>
-    <string name="strIRChkBuduceInicijative">Prikaži samo buduće inicijative</string>
-    <string name="strIRTvPrikaz">Prikaz odabranih inicijativa</string>
-    <string name="strIRTvPrikazNePostoji">Ne postoji nijedna inicijativa ove vrste.</string>
-
-    <!--Iz forme Opis inicijativa-->
-    <string name="strIDTvKratakOpis">Kratak opis:</string>
-    <string name="strIDTvLokacija">Lokacija:</string>
-    <string name="strIDTvDatum">Datum:</string>
-    <string name="strIDTvVreme">Vreme:</string>
-    <string name="strIDTvOpis">Opis:</string>
-    <string name="strIDTvGalerija">Galerija:</string>
-    <string name="strIDTvGalerijaOpis">Još uvek ne postoje slike za ovu inicijativu.</string>
-    <string name="strIDBtnSledeca">&gt;</string>
-    <string name="strIDBtnPrethodna">&lt;</string>
-
-    <!--Iz forme Dodaj inicijativu-->
-    <string-array name="strIASpinTipInicijative">
+    <string-array name="strSpinTipInicijative">
         <item>Sportske</item>
         <item>Protesti</item>
         <item>Humanitarne akcije</item>
         <item>Ostale</item>
     </string-array>
-    <string name="strIAEtHintVrstaSporta">Vrsta sporta</string>
-    <string name="strIAEtHintRazlogProtesta">Razlog protesta</string>
-    <string name="strIAEtHintVrstaHumanitarneAkcije">Vrsta humanitarne akcije</string>
-    <string name="strIAEtHintVrstaInicijative">Vrsta inicijative</string>
-    <string name="strIAEtHintKratakOpis">Kratak opis</string>
-    <string name="strIAEtHintLokacija">Lokacija</string>
-    <string name="strIAEtHintOpis">Opis</string>
-    <string name="strIABtnSacuvajInicijativu">Sačuvaj inicijativu</string>
-    <!--.....................INICIJATIVE......................-->
-
-
-    <!--.......................PROBLEMI.....................-->
-    <!--Zajednicko-->
-    <string name="strPRPDPATvTipProblema">Tip problema:</string>
-    <string name="strPDPABtnDodajSliku">Dodaj sliku</string>
-
-    <!--Iz forme Pregled problema-->
-    <string name="strPRTvFilter">Filter</string>
-    <string-array name="strPRSpinTipProblema">
+    <string-array name="strSpinTipProblemaAll">
         <item>Svi</item>
         <item>Rupe na kolovozu</item>
         <item>Izgubljeni ljubimci</item>
         <item>Lutalice</item>
         <item>Ostali</item>
     </string-array>
-    <string name="strPRTvPrikaz">Prikaz odabranih problema</string>
-    <string name="strPRTvPrikazNePostoji">Ne postoji nijedan problem ove vrste.</string>
-    <string name="strPREtHintUlica">Naziv ulice (deo naziva)</string>
+    <string-array name="strSpinTipProblema">
+        <item>Rupe na kolovozu</item>
+        <item>Izgubljeni ljubimci</item>
+        <item>Lutalice</item>
+        <item>Ostali</item>
+    </string-array>
 
-    <!--Iz forme Opis problema-->
+    <!--Checkboxes-->
+    <string name="strChkBuduciDogadjaji">Prikaži samo buduće događaje</string>
+    <string name="strChkBuduceInicijative">Prikaži samo buduće inicijative</string>
+    <!--.......................OSTALO.....................-->
 
-
-    <!--Iz forme Dodaj problem-->
-
-    <!--.......................PROBLEMI.....................-->
 </resources>

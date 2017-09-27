@@ -1,6 +1,5 @@
 package com.example.dika.dipnis;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -109,7 +108,7 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
         tvVreme.setText(timeNow);
 
         //Postavljanje itema spinera za tip dogadjaja
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.strIASpinTipInicijative, R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.strSpinTipInicijative, R.layout.spinner_layout);
         adapter.setDropDownViewResource(R.layout.spinner_item_layout);
         spinTipInicijative.setAdapter(adapter);
 
@@ -344,16 +343,16 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (spinTipInicijative.getSelectedItem().toString()) {
             case "Sportske":
-                etVrstaRazlog.setHint(R.string.strIAEtHintVrstaSporta);
+                etVrstaRazlog.setHint(R.string.strEtHintVrstaSporta);
                 break;
             case "Protesti":
-                etVrstaRazlog.setHint(R.string.strIAEtHintRazlogProtesta);
+                etVrstaRazlog.setHint(R.string.strEtHintRazlogProtesta);
                 break;
             case "Humanitarne akcije":
-                etVrstaRazlog.setHint(R.string.strIAEtHintVrstaHumanitarneAkcije);
+                etVrstaRazlog.setHint(R.string.strEtHintVrstaHumanitarneAkcije);
                 break;
             case "Ostale":
-                etVrstaRazlog.setHint(R.string.strIAEtHintVrstaInicijative);
+                etVrstaRazlog.setHint(R.string.strEtHintVrstaInicijative);
                 break;
         }
     }
@@ -449,7 +448,7 @@ public class InitiativeAddActivity extends AppCompatActivity implements AdapterV
             values.add(params[6]);
             values.add(params[7]);
             values.add(params[8]);
-            jsonStr = global.getJSON(initiativesAddUrl, true, keys, values);
+            jsonStr = global.getJSON(initiativesAddUrl, keys, values);
             if (jsonStr.equals("ConnectTimeout")) {
                 type = "Timeout";
             } else if (jsonStr.equals("Success")) {

@@ -41,7 +41,7 @@
                 android:value="com.example.dika.dipnis.MainActivity" />
         </activity>
         <activity
-            android:name=".EventReviewActivity"
+            android:name=".ReviewActivity"
             android:label="@string/strTitlePregledDogadjaja"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
@@ -51,22 +51,12 @@
                 android:value="com.example.dika.dipnis.MainActivity" />
         </activity>
         <activity
-            android:name=".EventAddActivity"
+            android:name=".AddActivity"
             android:label="@string/strTitleDodajDogadjaj"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible|adjustPan">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dika.dipnis.MainActivity" />
-        </activity>
-        <activity
-            android:name=".InitiativeReviewActivity"
-            android:label="@string/strTitlePregledInicijativa"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dika.dipnis.MainActivity" />
@@ -83,55 +73,14 @@
                 android:value="com.example.dika.dipnis.MainActivity" />
         </activity>
         <activity
-            android:name=".ProblemReviewActivity"
-            android:label="@string/strTitlePregledProblema"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dika.dipnis.MainActivity" />
-        </activity>
-        <activity
-            android:name=".ProblemAddActivity"
-            android:label="@string/strTitleDodajProblem"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustPan">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dika.dipnis.MainActivity" />
-        </activity>
-        <activity
-            android:name=".EventDescriptionActivity"
+            android:name=".DescriptionActivity"
             android:label="@string/strTitleOpisDogadjaja"
-            android:parentActivityName=".EventReviewActivity"
+            android:parentActivityName=".ReviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dika.dipnis.EventReviewActivity" />
-        </activity>
-        <activity
-            android:name=".InitiativeDescriptionActivity"
-            android:label="@string/strTitleOpisInicijative"
-            android:parentActivityName=".InitiativeReviewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dika.dipnis.InitiativeReviewActivity" />
-        </activity>
-        <activity
-            android:name=".ProblemDescriptionActivity"
-            android:label="@string/strTitleOpisProblema"
-            android:parentActivityName=".ProblemReviewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.dika.dipnis.ProblemReviewActivity" />
+                android:value="com.example.dika.dipnis.ReviewActivity" />
         </activity>
         <activity
             android:name=".MapsActivity"

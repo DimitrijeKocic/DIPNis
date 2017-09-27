@@ -1,6 +1,5 @@
 package com.example.dika.dipnis;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -27,6 +26,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,9 +44,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import static com.example.dika.dipnis.Global.dogadjajInicijativaProblem;
 import static com.example.dika.dipnis.Global.homeUrl;
 
-public class InitiativeDescriptionActivity extends AppCompatActivity {
+public class DescriptionActivity extends AppCompatActivity {
 
     private Global global;
 
@@ -54,9 +56,11 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
 
     public static final int REQUEST_CAMERA = 1;
 
-    public TextView tvTipInicijativeBaza, tvVrstaRazlog, tvVrstaRazlogBaza, tvKratakOpisBaza,
-                    tvLokacijaBaza, tvDatumBaza, tvVremeBaza, tvOpisBaza;
-    public TextView tvGalerijaOpis;
+    public TextView tvTitle;
+    public RelativeLayout rlDescription;
+    public LinearLayout llVrsta, llKratakOpisRezultat, llDatumVreme;
+    public TextView tvTip, tvTipBaza, tvVrsta, tvVrstaBaza, tvKratakOpisRezultat, tvKratakOpisRezultatBaza,
+                    tvLokacijaBaza, tvDatumBaza, tvVremeBaza, tvOpisBaza, tvGalerijaOpis;
     public ImageView ivGalerija, ivLokacija;
     public Button btnSledeca, btnPrethodna, btnDodajSliku;
     public ConstraintLayout clProgressBar;
@@ -65,15 +69,18 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
     public ArrayList<Bitmap> bmps;
     public int index;
 
-    public String idInic;
+    public String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_initiative_description);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOpisInicijative);
+        setContentView(R.layout.activity_description);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOpis);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
 
         global = new Global();
 
@@ -82,33 +89,52 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         index = 0;
 
         //Postavljanje promenjivih za kontrole
-        tvTipInicijativeBaza = (TextView) findViewById(R.id.IDTvTipInicijativeBaza);
-        tvVrstaRazlog = (TextView) findViewById(R.id.IDTvVrstaRazlog);
-        tvVrstaRazlogBaza = (TextView) findViewById(R.id.IDTvVrstaRazlogBaza);
-        tvKratakOpisBaza = (TextView) findViewById(R.id.IDTvKratakOpisBaza);
-        tvLokacijaBaza = (TextView) findViewById(R.id.IDTvLokacijaBaza);
-        tvDatumBaza = (TextView) findViewById(R.id.IDTvDatumBaza);
-        tvVremeBaza = (TextView) findViewById(R.id.IDTvVremeBaza);
-        tvOpisBaza = (TextView) findViewById(R.id.IDTvOpisBaza);
-        tvGalerijaOpis = (TextView) findViewById(R.id.IDTvGalerijaOpis);
-        ivGalerija = (ImageView) findViewById(R.id.IDIvGalerija);
-        ivLokacija = (ImageView) findViewById(R.id.IDIvLokacija);
-        btnSledeca = (Button) findViewById(R.id.IDBtnSledeca);
-        btnPrethodna = (Button) findViewById(R.id.IDBtnPrethodna);
-        btnDodajSliku = (Button) findViewById(R.id.IDBtnDodajSliku);
-        clProgressBar = (ConstraintLayout) findViewById(R.id.IDClProgressBar);
+        tvTitle = (TextView) findViewById(R.id.titleOpis);
+        rlDescription = (RelativeLayout) findViewById(R.id.rlDescription);
+        llVrsta = (LinearLayout) findViewById(R.id.DLlVrsta);
+        llKratakOpisRezultat = (LinearLayout) findViewById(R.id.DLlKratakOpisRezultat);
+        llDatumVreme = (LinearLayout) findViewById(R.id.DLlDatumVreme);
+        tvTip = (TextView) findViewById(R.id.DTvTip);
+        tvTipBaza = (TextView) findViewById(R.id.DTvTipBaza);
+        tvVrsta = (TextView) findViewById(R.id.DTvVrsta);
+        tvVrstaBaza = (TextView) findViewById(R.id.DTvVrstaBaza);
+        tvKratakOpisRezultat = (TextView) findViewById(R.id.DTvKratakOpisRezultat);
+        tvKratakOpisRezultatBaza = (TextView) findViewById(R.id.DTvKratakOpisRezultatBaza);
+        tvLokacijaBaza = (TextView) findViewById(R.id.DTvLokacijaBaza);
+        tvDatumBaza = (TextView) findViewById(R.id.DTvDatumBaza);
+        tvVremeBaza = (TextView) findViewById(R.id.DTvVremeBaza);
+        tvOpisBaza = (TextView) findViewById(R.id.DTvOpisBaza);
+        tvGalerijaOpis = (TextView) findViewById(R.id.DTvGalerijaOpis);
+        ivGalerija = (ImageView) findViewById(R.id.DIvGalerija);
+        ivLokacija = (ImageView) findViewById(R.id.DIvLokacija);
+        btnSledeca = (Button) findViewById(R.id.DBtnSledeca);
+        btnPrethodna = (Button) findViewById(R.id.DBtnPrethodna);
+        btnDodajSliku = (Button) findViewById(R.id.DBtnDodajSliku);
+        clProgressBar = (ConstraintLayout) findViewById(R.id.DClProgressBar);
 
-        Intent intent = getIntent();
-        idInic = intent.getStringExtra("idInicijative");
-        //prikaz svih inicijativa
-        new MyAsyncTask().execute("showDetails", idInic);
+        switch (dogadjajInicijativaProblem) {
+            case "dogadjaj":
+                //postavljanje naslova forme
+                tvTitle.setText(getResources().getText(R.string.strTitleOpisDogadjaja));
+                break;
+            case "inicijativa":
+                //postavljanje naslova forme
+                tvTitle.setText(getResources().getText(R.string.strTitleOpisInicijative));
+                break;
+            case "problem":
+                //postavljanje naslova forme
+                tvTitle.setText(getResources().getText(R.string.strTitleOpisProblema));
+                break;
+        }
+        //prikaz opisa
+        new MyAsyncTask().execute("showDetails", id);
 
         //klik na lokaciju
         ivLokacija.setClickable(true);
         ivLokacija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InitiativeDescriptionActivity.this, MapsActivity.class);
+                Intent intent = new Intent(DescriptionActivity.this, MapsActivity.class);
                 intent.putExtra("markerPosition", tvLokacijaBaza.getText().toString());
                 startActivity(intent);
             }
@@ -139,15 +165,20 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         btnDodajSliku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0) {
-                    adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                boolean newDate = tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0;
+                if (dogadjajInicijativaProblem.equals("problem"))
+                    newDate = false;
+                if (newDate) {
+                    adb = new AlertDialog.Builder(DescriptionActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
-                    adb.setMessage(R.string.strIAdbDodajSlikuObavestenje);
+                    if (dogadjajInicijativaProblem.equals("dogadjaj"))
+                        adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
+                    else adb.setMessage(R.string.strIAdbDodajSlikuObavestenje);
                     adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
                     final String[] adbItems = getResources().getStringArray(R.array.strAdbItems);
-                    adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                    adb = new AlertDialog.Builder(DescriptionActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleSlika));
                     adb.setItems(adbItems, new DialogInterface.OnClickListener() {
                         @Override
@@ -184,21 +215,18 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
+            Bitmap bm = null;
+            String img = "";
             if (requestCode == CAMERA) {
                 //zapamti sliku u bitmapu
-                Bitmap bm = (Bitmap) data.getExtras().get("data");
-                //dodaje u listu bitmapa i postavlja je u imageView
-                bmps.add(bm);
-                ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
+                bm = (Bitmap) data.getExtras().get("data");
                 //konvertuje u string
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-                String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-                //upis u bazu
-                new MyAsyncTask().execute("addImage", idInic, img, homeUrl);
+                img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                 //upis u lokalno skladiste
                 File destinationFolder = new File(Environment.getExternalStorageDirectory() + "/DIPNis");
-                destinationFolder.mkdirs();
+                destinationFolder.mkdir();
                 File destination = new File(destinationFolder, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ".jpg");
                 FileOutputStream fo;
                 try {
@@ -214,19 +242,21 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
             else if (requestCode == GALLERY) {
                 try {
                     //zapamti sliku u bitmapu
-                    Bitmap bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-                    //dodaje u listu bitmapa i postavlja je u imageView
-                    bmps.add(bm);
-                    ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
-                    //konvertuje u string i poziva asyncTask za upis u bazu
+                    bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                    //konvertuje u string
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-                    String img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
-                    new MyAsyncTask().execute("addImage", idInic, img, homeUrl);
+                    img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            //dodaje u listu bitmapa i postavlja je u imageView
+            bmps.add(bm);
+            ivGalerija.setImageBitmap(bmps.get(index = bmps.size() - 1));
+            //upis u bazu
+            new MyAsyncTask().execute("addImage", id, img, homeUrl);
+
             ivGalerija.setVisibility(View.VISIBLE);
             btnSledeca.setVisibility(View.VISIBLE);
             btnPrethodna.setVisibility(View.VISIBLE);
@@ -267,7 +297,7 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menuItem) {
-            Intent intent = new Intent(InitiativeDescriptionActivity.this, AboutActivity.class);
+            Intent intent = new Intent(DescriptionActivity.this, AboutActivity.class);
             startActivity(intent);
             return true;
         }
@@ -292,50 +322,55 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
     public class MyAsyncTask extends AsyncTask<String, Object, String> {
 
         ArrayList<String> keys, values;
-        HashMap<String, String> initiative;
+        HashMap<String, String> hashObject;
 
-        String initiativesShowDetailsUrl, initiativesAddImageUrl;
+        String showDetailsUrl, addImageUrl;
 
         @Override
         protected void onPreExecute() {
             setProgressBar();
 
-            initiative = new HashMap<>();
+            hashObject = new HashMap<>();
             //deklaracija adresa skripti
-            initiativesShowDetailsUrl = homeUrl + "initiativesShowDetails.php";
-            initiativesAddImageUrl = homeUrl + "initiativesAddImage.php";
+            showDetailsUrl = homeUrl + "showDetails.php";
+            addImageUrl = homeUrl + "addImage.php";
             //Deklaracija listi
             keys = new ArrayList<>();
             values = new ArrayList<>();
-
         }
 
         @Override
         protected String doInBackground(String... params) {
             String type = params[0], jsonStr;
-            if (type.equals("showDetails")) {
-                keys.add("id");
-                values.add(params[1]);
-                jsonStr = global.getJSON(initiativesShowDetailsUrl, true, keys, values);
-                if (jsonStr.equals("ConnectTimeout")) {
-                    type = "Timeout";
-                } else {
-                    makeEventFromJSON(jsonStr);
-                }
-            }
-            else if (params[0].equals("addImage")) {
-                keys.add("id");
-                keys.add("slika");
-                keys.add("homeUrl");
-                values.add(params[1]);
-                values.add(params[2]);
-                values.add(params[3]);
-                jsonStr = global.getJSON(initiativesAddImageUrl, true, keys, values);
-                if (jsonStr.equals("ConnectTimeout")) {
-                    type = "Timeout";
-                } else if (jsonStr.equals("Success")) {
-                    type = "Success";
-                }
+            switch (type) {
+                case "showDetails":
+                    keys.add("dip");
+                    keys.add("id");
+                    values.add(dogadjajInicijativaProblem);
+                    values.add(params[1]);
+                    jsonStr = global.getJSON(showDetailsUrl, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else {
+                        makeEventFromJSON(jsonStr);
+                    }
+                    break;
+                case "addImage":
+                    keys.add("dip");
+                    keys.add("id");
+                    keys.add("slika");
+                    keys.add("homeUrl");
+                    values.add(dogadjajInicijativaProblem);
+                    values.add(params[1]);
+                    values.add(params[2]);
+                    values.add(params[3]);
+                    jsonStr = global.getJSON(addImageUrl, keys, values);
+                    if (jsonStr.equals("ConnectTimeout")) {
+                        type = "Timeout";
+                    } else if (jsonStr.equals("Success")) {
+                        type = "Success";
+                    }
+                    break;
             }
             return type;
         }
@@ -348,30 +383,52 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result.equals("showDetails")) {
-                String tip = initiative.get("tipInicijative");
+                rlDescription.setVisibility(View.VISIBLE);
 
-                switch (tip) {
-                    case "Sportske":
-                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaSporta);
-                        break;
-                    case "Protesti":
-                        tvVrstaRazlog.setText(R.string.strIRIDTvRazlogProtesta);
-                        break;
-                    case "Humanitarne akcije":
-                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaHumanitarneAkcije);
-                        break;
-                    case "Ostale":
-                        tvVrstaRazlog.setText(R.string.strIRIDTvVrstaInicijative);
-                        break;
+                String tip = hashObject.get("tip");
+                if (dogadjajInicijativaProblem.equals("problem")) {
+                    tvTip.setText(R.string.strTvTipProblema);
+                    llVrsta.setVisibility(View.GONE);
+                    llKratakOpisRezultat.setVisibility(View.GONE);
+                    llDatumVreme.setVisibility(View.GONE);
                 }
-
-                tvTipInicijativeBaza.setText(tip);
-                tvVrstaRazlogBaza.setText(initiative.get("vrstaRazlog"));
-                tvKratakOpisBaza.setText(initiative.get("kratakOpis"));
-                tvLokacijaBaza.setText(initiative.get("lokacija"));
-                tvDatumBaza.setText(initiative.get("datum"));
-                tvVremeBaza.setText(initiative.get("vreme"));
-                tvOpisBaza.setText(initiative.get("opis"));
+                else {
+                    if (dogadjajInicijativaProblem.equals("dogadjaj"))
+                        tvTip.setText(R.string.strTvTipDogadjaja);
+                    else tvTip.setText(R.string.strTvTipInicijative);
+                    tvKratakOpisRezultat.setText(R.string.strTvKratakOpis);
+                    switch (tip) {
+                        case "Sportski":
+                            tvVrsta.setText(R.string.strTvVrstaSporta);
+                            tvKratakOpisRezultat.setText(R.string.strTvRezultatColon);
+                            break;
+                        case "Koncerti":
+                            tvVrsta.setText(R.string.strTvIzvodjacGrupa);
+                            break;
+                        case "Ostali":
+                            tvVrsta.setText(R.string.strTvVrstaDogadjaja);
+                            break;
+                        case "Sportske":
+                            tvVrsta.setText(R.string.strTvVrstaSporta);
+                            break;
+                        case "Protesti":
+                            tvVrsta.setText(R.string.strTvRazlogProtesta);
+                            break;
+                        case "Humanitarne akcije":
+                            tvVrsta.setText(R.string.strTvVrstaHumanitarneAkcije);
+                            break;
+                        case "Ostale":
+                            tvVrsta.setText(R.string.strTvVrstaInicijative);
+                            break;
+                    }
+                    tvVrstaBaza.setText(hashObject.get("vrsta"));
+                    tvKratakOpisRezultatBaza.setText(hashObject.get("kratakOpis"));
+                    tvDatumBaza.setText(hashObject.get("datum"));
+                    tvVremeBaza.setText(hashObject.get("vreme"));
+                }
+                tvTipBaza.setText(tip);
+                tvLokacijaBaza.setText(hashObject.get("lokacija"));
+                tvOpisBaza.setText(hashObject.get("opis"));
 
                 if (bmps.size() != 0)
                     ivGalerija.setImageBitmap(bmps.get(index));
@@ -382,14 +439,14 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
                     tvGalerijaOpis.setVisibility(View.VISIBLE);
                 }
             } else if (result.equals("Success")) {
-                adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                adb = new AlertDialog.Builder(DescriptionActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                 adb.setMessage(R.string.strAdbSlikaDodata);
                 adb.setPositiveButton(R.string.strAdbOK, null);
                 adb.setIcon(R.drawable.adb_success);
                 adb.show();
             } else if (result.equals("Timeout")) {
-                adb = new AlertDialog.Builder(InitiativeDescriptionActivity.this);
+                adb = new AlertDialog.Builder(DescriptionActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                 adb.setMessage(R.string.strAdbGreska);
                 adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {
@@ -408,32 +465,35 @@ public class InitiativeDescriptionActivity extends AppCompatActivity {
         public void makeEventFromJSON(String jsonString) {
             try {
                 //brisanje stare liste
-                initiative.clear();
+                hashObject.clear();
                 //JSON objekat
-                JSONObject detalji = new JSONObject(jsonString);
+                JSONObject jsonObject = new JSONObject(jsonString);
 
-                String id = detalji.getString("idInicijative");
-                String tipInicijative = detalji.getString("tipInicijative");
-                String vrstaRazlog = detalji.getString("vrstaRazlog");
-                String kratakOpis = detalji.getString("kratakOpis");
-                String lokacija = detalji.getString("lokacija");
-                String datumVreme = detalji.getString("datumVreme");
-                datumVreme = datumVreme.substring(0, datumVreme.length() - 3);
-                String[] dv = datumVreme.split(" ");
-                String opis = detalji.getString("opis");
-                String slikeUrl = detalji.getString("slike");
+                //dogadjaji, inicijative, problemi
+                String id = jsonObject.getString("id");
+                String tip = jsonObject.getString("tip");
+                String lokacija = jsonObject.getString("lokacija");
+                String opis = jsonObject.getString("opis");
+                hashObject.put("id", id);
+                hashObject.put("tip", tip);
+                hashObject.put("lokacija", lokacija);
+                hashObject.put("opis", opis);
+
+                //samo dogadjaji i inicijative
+                if (!dogadjajInicijativaProblem.equals("problem")) {
+                    String vrsta = jsonObject.getString("vrsta");
+                    String kratakOpis = jsonObject.getString("kratakOpis");
+                    String datumVreme = jsonObject.getString("datumVreme");
+                    datumVreme = datumVreme.substring(0, datumVreme.length() - 3);
+                    String[] dv = datumVreme.split(" ");
+                    hashObject.put("vrsta", vrsta);
+                    hashObject.put("kratakOpis", kratakOpis);
+                    hashObject.put("datum", dv[0]);
+                    hashObject.put("vreme", dv[1]);
+                }
+
+                String slikeUrl = jsonObject.getString("slike");
                 String[] slike = slikeUrl.split(" ");
-
-                //kreiranje key.value parova za svaki dogadjaj
-                initiative.put("id", id);
-                initiative.put("tipInicijative", tipInicijative);
-                initiative.put("vrstaRazlog", vrstaRazlog);
-                initiative.put("kratakOpis", kratakOpis);
-                initiative.put("lokacija", lokacija);
-                initiative.put("datum", dv[0]);
-                initiative.put("vreme", dv[1]);
-                initiative.put("opis", opis);
-
                 for (String sl : slike) {
                     URL url = null;
                     try {

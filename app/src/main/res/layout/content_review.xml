@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.dika.dipnis.ProblemReviewActivity"
-    tools:showIn="@layout/activity_problem_review"
-    android:background="@drawable/transparent_background_image">
+    tools:context="com.example.dika.dipnis.ReviewActivity"
+    tools:showIn="@layout/activity_review"
+    android:background="@drawable/transparent_background_image" >
 
     <RelativeLayout
-        android:id="@+id/rlProblemReview"
+        android:id="@+id/rlReview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/mar15"
@@ -27,25 +27,25 @@
         tools:layout_constraintTop_creator="1">
 
         <TextView
-            android:id="@+id/PRTvFilter"
+            android:id="@+id/RTvFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/strPRTvFilter"
+            android:text="@string/strTvFilter"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/t19"
             android:layout_marginTop="@dimen/mar10" />
 
         <RelativeLayout
-            android:id="@+id/PRRlFilter"
+            android:id="@+id/RRlFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
             android:layout_marginTop="@dimen/mar6"
-            android:layout_below="@id/PRTvFilter">
+            android:layout_below="@id/RTvFilter">
 
             <LinearLayout
-                android:id="@+id/PRLlTipProblema"
+                android:id="@+id/RLlTip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mar5"
@@ -55,15 +55,15 @@
                 android:paddingRight="@dimen/pad3">
 
                 <TextView
-                    android:id="@+id/PRTvTipProblema"
+                    android:id="@+id/RTvTip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strPRPDPATvTipProblema"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
                 <Spinner
-                    android:id="@+id/PRSpinTipProblema"
+                    android:id="@+id/RSpinTip"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/mar10"
@@ -72,56 +72,84 @@
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/PREtUlica"
+            <LinearLayout
+                android:id="@+id/RLlVrsta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine|textCapSentences"
+                android:layout_below="@id/RLlTip"
+                android:layout_marginTop="@dimen/mar10"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/pad3"
+                android:paddingLeft="@dimen/pad3"
+                android:paddingRight="@dimen/pad3"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/RTvVrsta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/t17" />
+
+                <Spinner
+                    android:id="@+id/RSpinVrsta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/mar10"
+                    android:layout_marginStart="@dimen/mar10"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/RChkBuduci"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/RLlVrsta"
+                android:layout_marginTop="@dimen/mar10"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/t17"
-                android:hint="@string/strPREtHintUlica"
-                android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@+id/PRLlTipProblema"
                 android:visibility="gone"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/PRRlPrikaz"
+            android:id="@+id/RRlPrikaz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/PRRlFilter"
+            android:layout_below="@id/RRlFilter"
             android:layout_marginTop="@dimen/mar15"
             android:paddingBottom="@dimen/pad3"
             android:paddingLeft="@dimen/pad3"
             android:paddingRight="@dimen/pad3">
 
             <TextView
-                android:id="@+id/PRTvPrikaz"
+                android:id="@+id/RTvPrikaz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/strPRTvPrikaz"
+                android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/t19"
                 android:layout_marginBottom="@dimen/mar8"/>
 
             <ListView
-                android:id="@+id/PRLvPrikaz"
+                android:id="@+id/RLvPrikaz"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/PRTvPrikaz"
+                android:layout_below="@id/RTvPrikaz"
                 android:divider="@color/skyBlue"/>
 
             <TextView
-                android:id="@+id/PRTvPrikazNePostoji"
+                android:id="@+id/RTvPrikazNePostoji"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/strPRTvPrikazNePostoji"
+                android:text=""
                 android:textColor="@color/red"
                 android:textSize="@dimen/t17"
-                android:layout_below="@id/PRTvPrikaz"
+                android:layout_below="@id/RTvPrikaz"
                 android:visibility="gone"/>
 
         </RelativeLayout>
@@ -129,7 +157,7 @@
     </RelativeLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/PRClProgressBar"
+        android:id="@+id/RClProgressBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
@@ -138,7 +166,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rlProblemReview"
+        app:layout_constraintBottom_toBottomOf="@+id/rlReview"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -146,7 +174,7 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/PRProgressBar"
+            android:id="@+id/RProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"

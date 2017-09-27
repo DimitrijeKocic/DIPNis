@@ -41,7 +41,7 @@
                     android:id="@+id/IATvTipInicijative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strIRIDIATvTipInicijative"
+                    android:text="@string/strTvTipInicijative"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
@@ -63,7 +63,7 @@
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/t17"
-                android:hint="@string/strIAEtHintVrstaSporta"
+                android:hint="@string/strEtHintVrstaSporta"
                 android:layout_marginTop="@dimen/mar5"
                 android:layout_below="@+id/IALlTipInicijative"/>
 
@@ -75,7 +75,7 @@
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/t17"
-                android:hint="@string/strIAEtHintKratakOpis"
+                android:hint="@string/strEtHintKratakOpis"
                 android:layout_below="@id/IAEtVrstaRazlog"/>
 
             <RelativeLayout
@@ -102,7 +102,7 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/t17"
-                        android:hint="@string/strIAEtHintLokacija" />
+                        android:hint="@string/strEtHintLokacija" />
 
                 </LinearLayout>
 
@@ -196,7 +196,7 @@
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/t17"
-                android:hint="@string/strIAEtHintOpis"
+                android:hint="@string/strEtHintOpis"
                 android:layout_marginTop="@dimen/mar5"
                 android:layout_below="@+id/IALlDatumVreme"/>
 
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="40dp"
                     android:layout_weight="3"
-                    android:text="@string/strIDIABtnDodajSliku"
+                    android:text="@string/strBtnDodajSliku"
                     android:background="@drawable/round_button"
                     android:textColor="@color/white"
                     android:textSize="@dimen/t15" />
@@ -237,7 +237,7 @@
                     android:layout_weight="4"
                     android:layout_marginLeft="@dimen/mar10"
                     android:layout_marginStart="@dimen/mar10"
-                    android:text="@string/strIABtnSacuvajInicijativu"
+                    android:text="@string/strBtnSacuvajInicijativu"
                     android:background="@drawable/round_button"
                     android:textColor="@color/white"
                     android:textSize="@dimen/t15" />

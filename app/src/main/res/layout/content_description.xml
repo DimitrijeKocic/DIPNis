@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.dika.dipnis.EventDescriptionActivity"
-    tools:showIn="@layout/activity_event_description"
+    tools:context="com.example.dika.dipnis.DescriptionActivity"
+    tools:showIn="@layout/activity_description"
     android:background="@drawable/transparent_background_image">
 
     <ScrollView
-        android:id="@+id/scvEventDescription"
+        android:id="@+id/scvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_bias="0.0"
@@ -22,31 +22,32 @@
         tools:layout_constraintTop_creator="1">
 
         <RelativeLayout
-            android:id="@+id/rlEventDescription"
+            android:id="@+id/rlDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar15"
             android:layout_marginLeft="@dimen/mar15"
             android:layout_marginStart="@dimen/mar15"
             android:layout_marginRight="@dimen/mar15"
-            android:layout_marginEnd="@dimen/mar15">
+            android:layout_marginEnd="@dimen/mar15"
+            android:visibility="gone">
 
             <LinearLayout
-                android:id="@+id/EDLlTipDogadjaja"
+                android:id="@+id/DLlTip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/EDTvTipDogadjaja"
+                    android:id="@+id/DTvTip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEREDEATvTipDogadjaja"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17"  />
 
                 <TextView
-                    android:id="@+id/EDTvTipDogadjajaBaza"
+                    android:id="@+id/DTvTipBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -59,15 +60,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlVrstaIzvodjac"
+                android:id="@+id/DLlVrsta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@id/EDLlTipDogadjaja">
+                android:layout_below="@id/DLlTip">
 
                 <TextView
-                    android:id="@+id/EDTvVrstaIzvodjac"
+                    android:id="@+id/DTvVrsta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -75,7 +76,7 @@
                     android:textSize="@dimen/t17"  />
 
                 <TextView
-                    android:id="@+id/EDTvVrstaIzvodjacBaza"
+                    android:id="@+id/DTvVrstaBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -88,15 +89,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlKratakOpisRezultat"
+                android:id="@+id/DLlKratakOpisRezultat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@id/EDLlVrstaIzvodjac">
+                android:layout_below="@id/DLlVrsta">
 
                 <TextView
-                    android:id="@+id/EDTvKratakOpisRezultat"
+                    android:id="@+id/DTvKratakOpisRezultat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -104,7 +105,7 @@
                     android:textSize="@dimen/t17"  />
 
                 <TextView
-                    android:id="@+id/EDTvKratakOpisRezultatBaza"
+                    android:id="@+id/DTvKratakOpisRezultatBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -117,14 +118,14 @@
             </LinearLayout>
 
             <RelativeLayout
-                    android:id="@+id/EDRlLokacija"
+                    android:id="@+id/DRlLokacija"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/mar5"
-                    android:layout_below="@id/EDLlKratakOpisRezultat">
+                    android:layout_below="@id/DLlKratakOpisRezultat">
 
                 <LinearLayout
-                    android:id="@+id/EDLlLokacija"
+                    android:id="@+id/DLlLokacija"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="25dp"
@@ -133,15 +134,15 @@
                     android:paddingStart="0dp">
 
                     <TextView
-                        android:id="@+id/EDTvLokacija"
+                        android:id="@+id/DTvLokacija"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/strEDTvLokacija"
+                        android:text="@string/strTvLokacija"
                         android:textColor="@color/black"
                         android:textSize="@dimen/t17" />
 
                     <TextView
-                        android:id="@+id/EDTvLokacijaBaza"
+                        android:id="@+id/DTvLokacijaBaza"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/mar10"
@@ -155,13 +156,13 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/EDIvLokacija"
+                    android:id="@+id/DIvLokacija"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginLeft="-25dp"
                     android:layout_marginStart="-25dp"
-                    android:layout_toRightOf="@id/EDLlLokacija"
-                    android:layout_toEndOf="@id/EDLlLokacija"
+                    android:layout_toRightOf="@id/DLlLokacija"
+                    android:layout_toEndOf="@id/DLlLokacija"
                     android:scaleType="fitStart"
                     app:srcCompat="@drawable/location_icon"
                     tools:ignore="ContentDescription"/>
@@ -169,23 +170,23 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlDatumVreme"
+                android:id="@+id/DLlDatumVreme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@id/EDRlLokacija">
+                android:layout_below="@id/DRlLokacija">
 
                 <TextView
-                    android:id="@+id/EDTvDatum"
+                    android:id="@+id/DTvDatum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvDatum"
+                    android:text="@string/strTvDatum"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17"  />
 
                 <TextView
-                    android:id="@+id/EDTvDatumBaza"
+                    android:id="@+id/DTvDatumBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -196,15 +197,15 @@
                     android:textSize="@dimen/t17" />
 
                 <TextView
-                    android:id="@+id/EDTvVreme"
+                    android:id="@+id/DTvVreme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvVreme"
+                    android:text="@string/strTvVreme"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
                 <TextView
-                    android:id="@+id/EDTvVremeBaza"
+                    android:id="@+id/DTvVremeBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -217,23 +218,23 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlOpis"
+                android:id="@+id/DLlOpis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
-                android:layout_below="@id/EDLlDatumVreme">
+                android:layout_below="@id/DLlDatumVreme">
 
                 <TextView
-                    android:id="@+id/EDTvOpis"
+                    android:id="@+id/DTvOpis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvOpis"
+                    android:text="@string/strTvOpis"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
                 <TextView
-                    android:id="@+id/EDTvOpisBaza"
+                    android:id="@+id/DTvOpisBaza"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -246,24 +247,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/EDLlGalerija"
+                android:id="@+id/DLlGalerija"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/mar5"
                 android:baselineAligned="false"
-                android:layout_below="@id/EDLlOpis">
+                android:layout_below="@id/DLlOpis">
 
                 <TextView
-                    android:id="@+id/EDTvGalerija"
+                    android:id="@+id/DTvGalerija"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEDTvGalerija"
+                    android:text="@string/strTvGalerija"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
                 <LinearLayout
-                    android:id="@+id/EDLlGalerijaOpis"
+                    android:id="@+id/DLlGalerijaOpis"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -272,16 +273,16 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/EDTvGalerijaOpis"
+                        android:id="@+id/DTvGalerijaOpis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/strEDTvGalerijaOpis"
+                        android:text="@string/strTvGalerijaOpisDogadjaji"
                         android:textColor="@color/red"
                         android:textSize="@dimen/t17"
                         android:visibility="gone"/>
 
                     <ImageView
-                        android:id="@+id/EDIvGalerija"
+                        android:id="@+id/DIvGalerija"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scaleType="fitStart"
@@ -289,23 +290,23 @@
                         tools:ignore="ContentDescription"/>
 
                     <LinearLayout
-                        android:id="@+id/EDLlSledecaPrethodna"
+                        android:id="@+id/DLlSledecaPrethodna"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/mar5">
 
                         <Button
-                            android:id="@+id/EDBtnPrethodna"
+                            android:id="@+id/DBtnPrethodna"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
-                            android:text="@string/strEDBtnPrethodna"
+                            android:text="@string/strBtnPrethodna"
                             android:background="@drawable/round_button"
                             android:textColor="@color/white"
                             android:textSize="@dimen/t15" />
 
                         <Button
-                            android:id="@+id/EDBtnDodajSliku"
+                            android:id="@+id/DBtnDodajSliku"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:minHeight="40dp"
@@ -314,16 +315,16 @@
                             android:layout_marginStart="@dimen/mar5"
                             android:layout_marginRight="@dimen/mar5"
                             android:layout_marginEnd="@dimen/mar5"
-                            android:text="@string/strEDEABtnDodajSliku"
+                            android:text="@string/strBtnDodajSliku"
                             android:background="@drawable/round_button"
                             android:textColor="@color/white"
                             android:textSize="@dimen/t15" />
 
                         <Button
-                            android:id="@+id/EDBtnSledeca"
+                            android:id="@+id/DBtnSledeca"
                             android:layout_width="50dp"
                             android:layout_height="40dp"
-                            android:text="@string/strEDBtnSledeca"
+                            android:text="@string/strBtnSledeca"
                             android:background="@drawable/round_button"
                             android:textColor="@color/white"
                             android:textSize="@dimen/t15" />
@@ -339,7 +340,7 @@
     </ScrollView>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/EDClProgressBar"
+        android:id="@+id/DClProgressBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
@@ -356,7 +357,7 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/EDProgressBar"
+            android:id="@+id/DProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"

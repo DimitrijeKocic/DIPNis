@@ -2,8 +2,6 @@ package com.example.dika.dipnis;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -82,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         btnPregledDogadjaja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EventReviewActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReviewActivity.class);
+                intent.putExtra("type", "dogadjaj");
                 startActivity(intent);
             }
         });
@@ -90,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
         btnDodajDogadjaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EventAddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("type", "dogadjaj");
                 startActivity(intent);
             }
         });
@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
         btnPregledInicijativa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InitiativeReviewActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReviewActivity.class);
+                intent.putExtra("type", "inicijativa");
                 startActivity(intent);
             }
         });
@@ -106,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
         btnDodajInicijativu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, InitiativeAddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("type", "inicijativa");
                 startActivity(intent);
             }
         });
@@ -114,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
         btnPregledProblema.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ProblemReviewActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReviewActivity.class);
+                intent.putExtra("type", "problem");
                 startActivity(intent);
             }
         });
@@ -122,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
         btnDodajProblem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ProblemAddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                intent.putExtra("type", "problem");
                 startActivity(intent);
             }
         });

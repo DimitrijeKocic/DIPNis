@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.dika.dipnis.EventAddActivity"
+    tools:context="com.example.dika.dipnis.AddActivity"
     tools:showIn="@layout/activity_event_add"
     android:background="@drawable/transparent_background_image" >
 
@@ -41,7 +41,7 @@
                     android:id="@+id/EATvTipDogadjaja"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEREDEATvTipDogadjaja"
+                    android:text="@string/strTvTipDogadjaja"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17" />
 
@@ -63,7 +63,7 @@
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/t17"
-                android:hint="@string/strEAEtHintVrstaSporta"
+                android:hint="@string/strEtHintVrstaSporta"
                 android:layout_marginTop="@dimen/mar5"
                 android:layout_below="@+id/EALlTipDogadjaja"/>
 
@@ -78,7 +78,7 @@
                     android:id="@+id/EATvRezultat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/strEATvRezultat"
+                    android:text="@string/strTvRezultat"
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17"
                     android:gravity="center"/>
@@ -100,7 +100,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/t17"
                         android:textAlignment="center"
-                        android:hint="@string/strEAEtHintTim1" />
+                        android:hint="@string/strEtHintTim1" />
 
                     <EditText
                         android:id="@+id/EAEtTim1Poeni"
@@ -136,7 +136,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/t17"
                         android:textAlignment="center"
-                        android:hint="@string/strEAEtHintTim2" />
+                        android:hint="@string/strEtHintTim2" />
 
                 </LinearLayout>
 
@@ -148,7 +148,7 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/t17"
-                    android:hint="@string/strEAEtHintKratakOpis"
+                    android:hint="@string/strEtHintKratakOpis"
                     android:visibility="gone"/>
 
             </RelativeLayout>
@@ -177,7 +177,7 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/t17"
-                        android:hint="@string/strEAEtHintLokacija" />
+                        android:hint="@string/strEtHintLokacija" />
 
                 </LinearLayout>
 
@@ -271,7 +271,7 @@
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/t17"
-                android:hint="@string/strEAEtHintOpis"
+                android:hint="@string/strEtHintOpis"
                 android:layout_marginTop="@dimen/mar5"
                 android:layout_below="@+id/EALlDatumVreme"/>
 
@@ -299,7 +299,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="40dp"
                     android:layout_weight="3"
-                    android:text="@string/strEDEABtnDodajSliku"
+                    android:text="@string/strBtnDodajSliku"
                     android:background="@drawable/round_button"
                     android:textColor="@color/white"
                     android:textSize="@dimen/t15" />
@@ -312,7 +312,7 @@
                     android:layout_weight="4"
                     android:layout_marginLeft="@dimen/mar10"
                     android:layout_marginStart="@dimen/mar10"
-                    android:text="@string/strEABtnSacuvajDogadjaj"
+                    android:text="@string/strBtnSacuvajDogadjaj"
                     android:background="@drawable/round_button"
                     android:textColor="@color/white"
                     android:textSize="@dimen/t15" />

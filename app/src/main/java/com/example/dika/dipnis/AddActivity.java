@@ -1,6 +1,5 @@
 package com.example.dika.dipnis;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -50,7 +49,7 @@ import java.util.Calendar;
 
 import static com.example.dika.dipnis.Global.homeUrl;
 
-public class EventAddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Global global;
 
@@ -116,7 +115,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         tvVreme.setText(timeNow);
 
         //Postavljanje itema spinera za tip dogadjaja
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.strEASpinTipDogadjaja, R.layout.spinner_layout);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.strSpinTipDogadjaja, R.layout.spinner_layout);
         adapter.setDropDownViewResource(R.layout.spinner_item_layout);
         spinTipDogadjaja.setAdapter(adapter);
 
@@ -127,7 +126,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         ivLokacija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EventAddActivity.this, MapsActivity.class);
+                Intent intent = new Intent(AddActivity.this, MapsActivity.class);
                 intent.putExtra("markerPosition", "noPosition");
                 startActivityForResult(intent, LOCATION);
             }
@@ -154,7 +153,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         btnDodajSliku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adb = new AlertDialog.Builder(EventAddActivity.this);
+                adb = new AlertDialog.Builder(AddActivity.this);
                 if (tvDatum.getText().toString().compareTo(dateNow) > 0) {
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                     adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
@@ -251,7 +250,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                         kratakOpis = etKratakOpis.getText().toString();
                     }
                     if (bmp != null && tvDatum.getText().toString().compareTo(dateNow) > 0) {
-                        adb = new AlertDialog.Builder(EventAddActivity.this);
+                        adb = new AlertDialog.Builder(AddActivity.this);
                         adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                         adb.setMessage(R.string.strEAdbDogadjajSacuvanObavestenje);
                         adb.setPositiveButton(R.string.strAdbOK, null);
@@ -265,7 +264,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
                         initialState();
                     }
                 } else {
-                    adb = new AlertDialog.Builder(EventAddActivity.this);
+                    adb = new AlertDialog.Builder(AddActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                     adb.setMessage(getResources().getString(R.string.strAdbObavezanUnos) + " " + (item.getHint().toString().equals("") ? "Rezultat" : item.getHint().toString()) + ".");
                     adb.setPositiveButton(R.string.strAdbOK, null);
@@ -357,7 +356,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menuItem) {
-            Intent intent = new Intent(EventAddActivity.this, AboutActivity.class);
+            Intent intent = new Intent(AddActivity.this, AboutActivity.class);
             startActivity(intent);
             return true;
         }
@@ -369,19 +368,19 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (spinTipDogadjaja.getSelectedItem().toString()) {
             case "Sportski":
-                etVrstaIzvodjac.setHint(R.string.strEAEtHintVrstaSporta);
+                etVrstaIzvodjac.setHint(R.string.strEtHintVrstaSporta);
                 tvRezultat.setVisibility(View.VISIBLE);
                 llRezultat.setVisibility(View.VISIBLE);
                 etKratakOpis.setVisibility(View.GONE);
                 break;
             case "Koncerti":
-                etVrstaIzvodjac.setHint(R.string.strEAEtHintIzvodjacGrupa);
+                etVrstaIzvodjac.setHint(R.string.strEtHintIzvodjacGrupa);
                 tvRezultat.setVisibility(View.GONE);
                 llRezultat.setVisibility(View.GONE);
                 etKratakOpis.setVisibility(View.VISIBLE);
                 break;
             case "Ostali":
-                etVrstaIzvodjac.setHint(R.string.strEAEtHintVrstaDogadjaja);
+                etVrstaIzvodjac.setHint(R.string.strEtHintVrstaDogadjaja);
                 tvRezultat.setVisibility(View.GONE);
                 llRezultat.setVisibility(View.GONE);
                 etKratakOpis.setVisibility(View.VISIBLE);
@@ -480,7 +479,7 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
             values.add(params[6]);
             values.add(params[7]);
             values.add(params[8]);
-            jsonStr = global.getJSON(eventsAddUrl, true, keys, values);
+            jsonStr = global.getJSON(eventsAddUrl, keys, values);
             if (jsonStr.equals("ConnectTimeout")) {
                 type = "Timeout";
             } else if (jsonStr.equals("Success")) {
@@ -498,14 +497,14 @@ public class EventAddActivity extends AppCompatActivity implements AdapterView.O
         @Override
         protected void onPostExecute(String result) {
             if (result.equals("Success")) {
-                adb = new AlertDialog.Builder(EventAddActivity.this);
+                adb = new AlertDialog.Builder(AddActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                 adb.setMessage(R.string.strEAdbDogadjajSacuvan);
                 adb.setPositiveButton(R.string.strAdbOK, null);
                 adb.setIcon(R.drawable.adb_success);
                 adb.show();
             } else if (result.equals("Timeout")) {
-                adb = new AlertDialog.Builder(EventAddActivity.this);
+                adb = new AlertDialog.Builder(AddActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                 adb.setMessage(R.string.strAdbGreska);
                 adb.setPositiveButton(R.string.strAdbOK, new Dialog.OnClickListener() {

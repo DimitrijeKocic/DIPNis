@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dika.dipnis.ProblemDescriptionActivity">
+    tools:context="com.example.dika.dipnis.DescriptionActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -12,24 +12,24 @@
         android:theme="@style/myTheme">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarOpisProblema"
+            android:id="@+id/toolbarOpis"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/myTheme" >
 
             <ImageView
-                android:id="@+id/logoOpisProblema"
+                android:id="@+id/logoOpis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/dipnis_logo"
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/titleOpisProblema"
+                android:id="@+id/titleOpis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/strTitleOpisProblema"
+                android:text=""
                 android:layout_gravity="center"
                 android:textSize="@dimen/t23"
                 android:textStyle="bold"
@@ -40,6 +40,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_problem_description" />
+    <include layout="@layout/content_description" />
 
 </android.support.design.widget.CoordinatorLayout>

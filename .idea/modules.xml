@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DIPNis.iml" filepath="$PROJECT_DIR$/DIPNis.iml" />
       <module fileurl="file://$PROJECT_DIR$/GitSvnDIPNis.iml" filepath="$PROJECT_DIR$/GitSvnDIPNis.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
