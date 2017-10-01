@@ -165,10 +165,7 @@ public class DescriptionActivity extends AppCompatActivity {
         btnDodajSliku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean newDate = tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0;
-                if (dogadjajInicijativaProblem.equals("problem"))
-                    newDate = false;
-                if (newDate) {
+                if (tvDatumBaza.getText().toString().compareTo(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())) > 0 && !dogadjajInicijativaProblem.equals("problem")) {
                     adb = new AlertDialog.Builder(DescriptionActivity.this);
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
                     if (dogadjajInicijativaProblem.equals("dogadjaj"))

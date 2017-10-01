@@ -59,6 +59,9 @@
     <string name="strIAdbDodajSlikuObavestenje">Ne možete dodati sliku za inicijativu u budućnosti.</string>
     <string name="strIAdbInicijativaSacuvanaObavestenje">Ne možete dodati inicijativu u budućnosti sa slikom.</string>
     <string name="strIAdbInicijativaSacuvana">Inicijativa je uspešno sačuvana u bazi.</string>
+
+    <!--Problem-->
+    <string name="strPAdbProblemSacuvan">Problem je uspešno sačuvan u bazi.</string>
     <!--.................ALERT DIALOG BUILDER...............-->
 
 

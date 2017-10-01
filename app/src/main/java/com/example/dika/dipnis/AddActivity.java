@@ -33,6 +33,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -47,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import static com.example.dika.dipnis.Global.dogadjajInicijativaProblem;
 import static com.example.dika.dipnis.Global.homeUrl;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -65,61 +67,116 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     private String dateNow, timeNow;
 
     public static TextView tvDatum, tvVreme;
-    public EditText etVrstaIzvodjac, etKratakOpis, etTim1, etTim2, etTim1Poeni, etTim2Poeni, etLokacija, etOpis;
+
+    public TextView tvTitle;
+    public RelativeLayout rlKratakOpis;
+    public LinearLayout llDatumVreme;
+    public TextView tvTip;
+    public EditText etVrsta, etKratakOpis, etTim1, etTim2, etTim1Poeni, etTim2Poeni, etLokacija, etOpis;
     public TextView tvRezultat;
-    public Spinner spinTipDogadjaja;
+    public Spinner spinTip;
     public LinearLayout llDatum, llVreme, llRezultat;
     public ImageView ivSlika, ivLokacija;
-    public Button btnDodajSliku, btnSacuvajDogadjaj;
+    public Button btnDodajSliku, btnSacuvaj;
     public ConstraintLayout clProgressBar;
     public AlertDialog.Builder adb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_add);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarDodajDogadjaj);
+        setContentView(R.layout.activity_add);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarDodaj);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        Intent intent = getIntent();
+        dogadjajInicijativaProblem = intent.getStringExtra("type");
+
         global = new Global();
+
         camera = false;
 
         //Postavljanje promenjivih za kontrole
-        tvDatum = (TextView) findViewById(R.id.EATvDatum);
-        tvVreme = (TextView) findViewById(R.id.EATvVreme);
-        etVrstaIzvodjac = (EditText) findViewById(R.id.EAEtVrstaIzvodjac);
-        etKratakOpis = (EditText) findViewById(R.id.EAEtKratakOpis);
-        etTim1 = (EditText) findViewById(R.id.EAEtTim1);
-        etTim2 = (EditText) findViewById(R.id.EAEtTim2);
-        etTim1Poeni = (EditText) findViewById(R.id.EAEtTim1Poeni);
-        etTim2Poeni = (EditText) findViewById(R.id.EAEtTim2Poeni);
-        etLokacija = (EditText) findViewById(R.id.EAEtLokacija);
-        etOpis = (EditText) findViewById(R.id.EAEtOpis);
-        tvRezultat = (TextView) findViewById(R.id.EATvRezultat);
-        spinTipDogadjaja = (Spinner) findViewById(R.id.EASpinTipDogadjaja);
-        llDatum = (LinearLayout) findViewById(R.id.EALlDatum);
-        llVreme = (LinearLayout) findViewById(R.id.EALlVreme);
-        llRezultat = (LinearLayout) findViewById(R.id.EALlRezultat);
-        ivSlika = (ImageView) findViewById(R.id.EAIvSlika);
-        ivLokacija = (ImageView) findViewById(R.id.EAIvLokacija);
-        btnDodajSliku = (Button) findViewById(R.id.EABtnDodajSliku);
-        btnSacuvajDogadjaj = (Button) findViewById(R.id.EABtnSacuvajDogadjaj);
-        clProgressBar = (ConstraintLayout) findViewById(R.id.EAClProgressBar);
+        tvDatum = (TextView) findViewById(R.id.ATvDatum);
+        tvVreme = (TextView) findViewById(R.id.ATvVreme);
+        tvTitle = (TextView) findViewById(R.id.titleDodaj);
+        rlKratakOpis = (RelativeLayout) findViewById(R.id.ARlKratakOpis);
+        llDatumVreme = (LinearLayout) findViewById(R.id.ALlDatumVreme);
+        tvTip = (TextView) findViewById(R.id.ATvTip);
+        etVrsta = (EditText) findViewById(R.id.AEtVrsta);
+        etKratakOpis = (EditText) findViewById(R.id.AEtKratakOpis);
+        etTim1 = (EditText) findViewById(R.id.AEtTim1);
+        etTim2 = (EditText) findViewById(R.id.AEtTim2);
+        etTim1Poeni = (EditText) findViewById(R.id.AEtTim1Poeni);
+        etTim2Poeni = (EditText) findViewById(R.id.AEtTim2Poeni);
+        etLokacija = (EditText) findViewById(R.id.AEtLokacija);
+        etOpis = (EditText) findViewById(R.id.AEtOpis);
+        tvRezultat = (TextView) findViewById(R.id.ATvRezultat);
+        spinTip = (Spinner) findViewById(R.id.ASpinTip);
+        llDatum = (LinearLayout) findViewById(R.id.ALlDatum);
+        llVreme = (LinearLayout) findViewById(R.id.ALlVreme);
+        llRezultat = (LinearLayout) findViewById(R.id.ALlRezultat);
+        ivSlika = (ImageView) findViewById(R.id.AIvSlika);
+        ivLokacija = (ImageView) findViewById(R.id.AIvLokacija);
+        btnDodajSliku = (Button) findViewById(R.id.ABtnDodajSliku);
+        btnSacuvaj = (Button) findViewById(R.id.ABtnSacuvaj);
+        clProgressBar = (ConstraintLayout) findViewById(R.id.AClProgressBar);
 
-        //setovanje trenutnog datuma i vremena
-        String[] dateTimeArr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime()).split(" ");
-        dateNow = dateTimeArr[0];
-        timeNow = dateTimeArr[1];
-        tvDatum.setText(dateNow);
-        tvVreme.setText(timeNow);
+        if (!dogadjajInicijativaProblem.equals("problem")) {
+            //setovanje trenutnog datuma i vremena
+            String[] dateTimeArr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime()).split(" ");
+            dateNow = dateTimeArr[0];
+            timeNow = dateTimeArr[1];
+            tvDatum.setText(dateNow);
+            tvVreme.setText(timeNow);
+        }
 
-        //Postavljanje itema spinera za tip dogadjaja
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.strSpinTipDogadjaja, R.layout.spinner_layout);
-        adapter.setDropDownViewResource(R.layout.spinner_item_layout);
-        spinTipDogadjaja.setAdapter(adapter);
+        switch (dogadjajInicijativaProblem) {
+            case "dogadjaj":
+                //postavljanje naslova forme
+                tvTitle.setText(R.string.strTitleDodajDogadjaj);
+                //postavljanje spinnera tip
+                ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.strSpinTipDogadjaja, R.layout.spinner_layout);
+                adapter1.setDropDownViewResource(R.layout.spinner_item_layout);
+                spinTip.setAdapter(adapter1);
+                //postavljanje ostalih karakteristicnih stringova
+                tvTip.setText(R.string.strTvTipDogadjaja);
+                btnSacuvaj.setText(R.string.strBtnSacuvajDogadjaj);
+                rlKratakOpis.setVisibility(View.VISIBLE);
+                llDatumVreme.setVisibility(View.VISIBLE);
+                etVrsta.setVisibility(View.VISIBLE);
+                break;
+            case "inicijativa":
+                //postavljanje naslova forme
+                tvTitle.setText(R.string.strTitleDodajInicijativu);
+                //postavljanje spinnera tip
+                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.strSpinTipInicijative, R.layout.spinner_layout);
+                adapter2.setDropDownViewResource(R.layout.spinner_item_layout);
+                spinTip.setAdapter(adapter2);
+                //postavljanje ostalih karakteristicnih stringova
+                tvTip.setText(R.string.strTvTipInicijative);
+                btnSacuvaj.setText(R.string.strBtnSacuvajInicijativu);
+                rlKratakOpis.setVisibility(View.VISIBLE);
+                llDatumVreme.setVisibility(View.VISIBLE);
+                etVrsta.setVisibility(View.VISIBLE);
+                tvRezultat.setVisibility(View.GONE);
+                llRezultat.setVisibility(View.GONE);
+                etKratakOpis.setVisibility(View.VISIBLE);
+                break;
+            case "problem":
+                //postavljanje naslova forme
+                tvTitle.setText(R.string.strTitleDodajProblem);
+                btnSacuvaj.setText(R.string.strBtnSacuvajProblem);
+                //postavljanje spinnera tip
+                ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.strSpinTipProblema, R.layout.spinner_layout);
+                adapter3.setDropDownViewResource(R.layout.spinner_item_layout);
+                spinTip.setAdapter(adapter3);
+                //postavljanje ostalih karakteristicnih stringova
+                tvTip.setText(R.string.strTvTipProblema);
+                break;
+        }
 
-        spinTipDogadjaja.setOnItemSelectedListener(this);
+        spinTip.setOnItemSelectedListener(this);
 
         //klik na lokaciju
         ivLokacija.setClickable(true);
@@ -132,31 +189,35 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
-        //klik na kalenar - odabir datuma
-        llDatum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "datePicker");
-            }
-        });
+        if (!dogadjajInicijativaProblem.equals("problem")) {
+            //klik na kalenar - odabir datuma
+            llDatum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogFragment datePicker = new DatePickerFragment();
+                    datePicker.show(getSupportFragmentManager(), "datePicker");
+                }
+            });
 
-        //klik na sat - odabir vremena
-        llVreme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "timePicker");
-            }
-        });
+            //klik na sat - odabir vremena
+            llVreme.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogFragment timePicker = new TimePickerFragment();
+                    timePicker.show(getSupportFragmentManager(), "timePicker");
+                }
+            });
+        }
 
         btnDodajSliku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 adb = new AlertDialog.Builder(AddActivity.this);
-                if (tvDatum.getText().toString().compareTo(dateNow) > 0) {
+                if (!dogadjajInicijativaProblem.equals("problem") && tvDatum.getText().toString().compareTo(dateNow) > 0) {
                     adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
-                    adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
+                    if (dogadjajInicijativaProblem.equals("dogadjaj"))
+                        adb.setMessage(R.string.strEAdbDodajSlikuObavestenje);
+                    else adb.setMessage(R.string.strIAdbDodajSlikuObavestenje);
                     adb.setPositiveButton(R.string.strAdbOK, null);
                     adb.setIcon(R.drawable.adb_obavestenje);
                 } else {
@@ -191,7 +252,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
-        btnSacuvajDogadjaj.setOnClickListener(new View.OnClickListener() {
+        btnSacuvaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String img;
@@ -218,16 +279,16 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                     }
                 } else img = "";
 
-                String tipDogadjaja = spinTipDogadjaja.getSelectedItem().toString();
-
                 //provera za unos u tekst polja
                 ArrayList<EditText> inputCheck = new ArrayList<>();
                 EditText item = null;
-                if (tipDogadjaja.equals("Sportski")) {
-                    inputCheck.addAll(Arrays.asList(etVrstaIzvodjac, etTim1, etTim2, etTim1Poeni, etTim2Poeni, etLokacija, etOpis));
-                } else {
-                    inputCheck.addAll(Arrays.asList(etVrstaIzvodjac, etKratakOpis, etLokacija, etOpis));
-                }
+                String tip = spinTip.getSelectedItem().toString();
+                if (dogadjajInicijativaProblem.equals("problem"))
+                    inputCheck.addAll(Arrays.asList(etLokacija, etOpis));
+                else if (tip.equals("Sportski"))
+                    inputCheck.addAll(Arrays.asList(etVrsta, etTim1, etTim2, etTim1Poeni, etTim2Poeni, etLokacija, etOpis));
+                else
+                    inputCheck.addAll(Arrays.asList(etVrsta, etKratakOpis, etLokacija, etOpis));
                 for (EditText itemTmp : inputCheck) {
                     if (itemTmp.getText().toString().equals("")) {
                         item = itemTmp;
@@ -235,32 +296,39 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                     }
                 }
                 if (item == null) {
-                    String vrstaIzvodjac = etVrstaIzvodjac.getText().toString();
                     String lokacija = etLokacija.getText().toString();
                     String opis = etOpis.getText().toString();
-                    String datumVreme = tvDatum.getText().toString() + " " + tvVreme.getText().toString() + ":00";
-                    String kratakOpis;
-                    if (tipDogadjaja.equals("Sportski")) {
-                        String tim1 = etTim1.getText().toString();
-                        String tim2 = etTim2.getText().toString();
-                        String tim1Poeni = etTim1Poeni.getText().toString();
-                        String tim2Poeni = etTim2Poeni.getText().toString();
-                        kratakOpis = tim1 + " " + tim1Poeni + ":"  + tim2Poeni + " " + tim2;
+                    if (!dogadjajInicijativaProblem.equals("problem")) {
+                        String vrsta = etVrsta.getText().toString();
+                        String datumVreme = tvDatum.getText().toString() + " " + tvVreme.getText().toString() + ":00";
+                        String kratakOpis;
+                        if (tip.equals("Sportski")) {
+                            String tim1 = etTim1.getText().toString();
+                            String tim2 = etTim2.getText().toString();
+                            String tim1Poeni = etTim1Poeni.getText().toString();
+                            String tim2Poeni = etTim2Poeni.getText().toString();
+                            kratakOpis = tim1 + " " + tim1Poeni + ":" + tim2Poeni + " " + tim2;
+                        } else {
+                            kratakOpis = etKratakOpis.getText().toString();
+                        }
+                        if (bmp != null && tvDatum.getText().toString().compareTo(dateNow) > 0) {
+                            adb = new AlertDialog.Builder(AddActivity.this);
+                            adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
+                            if (dogadjajInicijativaProblem.equals("dogadjaj"))
+                                adb.setMessage(R.string.strEAdbDogadjajSacuvanObavestenje);
+                            else adb.setMessage(R.string.strIAdbInicijativaSacuvanaObavestenje);
+                            adb.setPositiveButton(R.string.strAdbOK, null);
+                            adb.setIcon(R.drawable.adb_obavestenje);
+                            adb.show();
+                            ivSlika.setVisibility(View.GONE);
+                            bmp = null;
+                            ivSlika.setImageBitmap(bmp);
+                        } else {
+                            new MyAsyncTask().execute("add", tip, lokacija, opis, img, homeUrl, vrsta, kratakOpis, datumVreme);
+                            initialState();
+                        }
                     } else {
-                        kratakOpis = etKratakOpis.getText().toString();
-                    }
-                    if (bmp != null && tvDatum.getText().toString().compareTo(dateNow) > 0) {
-                        adb = new AlertDialog.Builder(AddActivity.this);
-                        adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
-                        adb.setMessage(R.string.strEAdbDogadjajSacuvanObavestenje);
-                        adb.setPositiveButton(R.string.strAdbOK, null);
-                        adb.setIcon(R.drawable.adb_obavestenje);
-                        adb.show();
-                        ivSlika.setVisibility(View.GONE);
-                        bmp = null;
-                        ivSlika.setImageBitmap(bmp);
-                    } else {
-                        new MyAsyncTask().execute("addEvent", tipDogadjaja, vrstaIzvodjac, kratakOpis, lokacija, datumVreme, opis, img, homeUrl);
+                        new MyAsyncTask().execute("add", tip, lokacija, opis, img, homeUrl);
                         initialState();
                     }
                 } else {
@@ -277,8 +345,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     /////////////////POCETNO STANJE ELEMENATA/////////////////////
     public void initialState() {
-        spinTipDogadjaja.setSelection(0);
-        etVrstaIzvodjac.setText("");
+        spinTip.setSelection(0);
+        etVrsta.setText("");
         etTim1.setText("");
         etTim1Poeni.setText("");
         etTim2.setText("");
@@ -366,24 +434,36 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     ////////////////EVENT ZA KLIK NA ITEM NEKOG SPINERA//////////////////////
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (spinTipDogadjaja.getSelectedItem().toString()) {
+        switch (spinTip.getSelectedItem().toString()) {
             case "Sportski":
-                etVrstaIzvodjac.setHint(R.string.strEtHintVrstaSporta);
+                etVrsta.setHint(R.string.strEtHintVrstaSporta);
                 tvRezultat.setVisibility(View.VISIBLE);
                 llRezultat.setVisibility(View.VISIBLE);
                 etKratakOpis.setVisibility(View.GONE);
                 break;
             case "Koncerti":
-                etVrstaIzvodjac.setHint(R.string.strEtHintIzvodjacGrupa);
+                etVrsta.setHint(R.string.strEtHintIzvodjacGrupa);
                 tvRezultat.setVisibility(View.GONE);
                 llRezultat.setVisibility(View.GONE);
                 etKratakOpis.setVisibility(View.VISIBLE);
                 break;
             case "Ostali":
-                etVrstaIzvodjac.setHint(R.string.strEtHintVrstaDogadjaja);
+                etVrsta.setHint(R.string.strEtHintVrstaDogadjaja);
                 tvRezultat.setVisibility(View.GONE);
                 llRezultat.setVisibility(View.GONE);
                 etKratakOpis.setVisibility(View.VISIBLE);
+                break;
+            case "Sportske":
+                etVrsta.setHint(R.string.strEtHintVrstaSporta);
+                break;
+            case "Protesti":
+                etVrsta.setHint(R.string.strEtHintRazlogProtesta);
+                break;
+            case "Humanitarne akcije":
+                etVrsta.setHint(R.string.strEtHintVrstaHumanitarneAkcije);
+                break;
+            case "Ostale":
+                etVrsta.setHint(R.string.strEtHintVrstaInicijative);
                 break;
         }
     }
@@ -447,14 +527,14 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
         ArrayList<String> keys, values;
 
-        String eventsAddUrl;
+        String addUrl;
 
         @Override
         protected void onPreExecute() {
             setProgressBar();
 
             //deklaracija adrese skripte
-            eventsAddUrl = homeUrl + "eventsAdd.php";
+            addUrl = homeUrl + "add.php";
             //Deklaracija listi
             keys = new ArrayList<>();
             values = new ArrayList<>();
@@ -463,23 +543,27 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         @Override
         protected String doInBackground(String... params) {
             String type = "", jsonStr;
-            keys.add("tipDogadjaja");
-            keys.add("vrstaIzvodjac");
-            keys.add("kratakOpis");
+            keys.add("dip");
+            keys.add("tip");
             keys.add("lokacija");
-            keys.add("datumVreme");
             keys.add("opis");
             keys.add("slika");
             keys.add("homeUrl");
+            values.add(dogadjajInicijativaProblem);
             values.add(params[1]);
             values.add(params[2]);
             values.add(params[3]);
             values.add(params[4]);
             values.add(params[5]);
-            values.add(params[6]);
-            values.add(params[7]);
-            values.add(params[8]);
-            jsonStr = global.getJSON(eventsAddUrl, keys, values);
+            if (!dogadjajInicijativaProblem.equals("problem")) {
+                keys.add("vrsta");
+                keys.add("kratakOpis");
+                keys.add("datumVreme");
+                values.add(params[6]);
+                values.add(params[7]);
+                values.add(params[8]);
+            }
+            jsonStr = global.getJSON(addUrl, keys, values);
             if (jsonStr.equals("ConnectTimeout")) {
                 type = "Timeout";
             } else if (jsonStr.equals("Success")) {
@@ -499,7 +583,17 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             if (result.equals("Success")) {
                 adb = new AlertDialog.Builder(AddActivity.this);
                 adb.setTitle(getResources().getString(R.string.strAdbTitleObavestenje));
-                adb.setMessage(R.string.strEAdbDogadjajSacuvan);
+                switch (dogadjajInicijativaProblem) {
+                    case "dogadjaj":
+                        adb.setMessage(R.string.strEAdbDogadjajSacuvan);
+                        break;
+                    case "inicijativa":
+                        adb.setMessage(R.string.strIAdbInicijativaSacuvana);
+                        break;
+                    case "problem":
+                        adb.setMessage(R.string.strPAdbProblemSacuvan);
+                        break;
+                }
                 adb.setPositiveButton(R.string.strAdbOK, null);
                 adb.setIcon(R.drawable.adb_success);
                 adb.show();
