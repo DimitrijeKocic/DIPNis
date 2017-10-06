@@ -1,11 +1,11 @@
 CREATE TABLE dogadjaj (
 	id int NOT NULL AUTO_INCREMENT,
 	tip varchar(10) NOT NULL,
-	vrsta varchar(30),
-	kratakOpis varchar(40),
-	lokacija varchar(40),
-	datumVreme datetime,
-	opis varchar(300),
+	vrsta varchar(30) NOT NULL,
+	kratakOpis varchar(40) NOT NULL,
+	lokacija varchar(40) NOT NULL,
+	datumVreme datetime NOT NULL,
+	opis varchar(300) NOT NULL,
 	slike varchar(500),
 	PRIMARY KEY (id)
 );
@@ -13,11 +13,11 @@ CREATE TABLE dogadjaj (
 CREATE TABLE inicijativa (
 	id int NOT NULL AUTO_INCREMENT,
 	tip varchar(25) NOT NULL,
-	vrsta varchar(30),
-	kratakOpis varchar(40),
-	lokacija varchar(40),
-	datumVreme datetime,
-	opis varchar(300),
+	vrsta varchar(30) NOT NULL,
+	kratakOpis varchar(40) NOT NULL,
+	lokacija varchar(40) NOT NULL,
+	datumVreme datetime NOT NULL,
+	opis varchar(300) NOT NULL,
 	slike varchar(500),
 	PRIMARY KEY (id)
 );
@@ -25,8 +25,8 @@ CREATE TABLE inicijativa (
 CREATE TABLE problem (
 	id int NOT NULL AUTO_INCREMENT,
 	tip varchar(25) NOT NULL,
-	lokacija varchar(40),
-	opis varchar(300),
+	lokacija varchar(40) NOT NULL,
+	opis varchar(300) NOT NULL,
 	slike varchar(500),
 	PRIMARY KEY (id)
 );

@@ -46,11 +46,11 @@ if ($result1)
 		{
 			echo "Success";
 		}
-		else echo "Error executing query, please try again.";
+		else echo "Error executing query2, please try again.";
 	}
 	else echo "Success";
 }
-else echo "Error executing query, please try again.";
+else echo "Error executing query1, please try again.";
 
 mysqli_close($conn);
 
