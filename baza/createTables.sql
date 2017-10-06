@@ -2,7 +2,7 @@ CREATE TABLE dogadjaj (
 	id int NOT NULL AUTO_INCREMENT,
 	tip varchar(10) NOT NULL,
 	vrsta varchar(30) NOT NULL,
-	kratakOpis varchar(40) NOT NULL,
+	kratakOpis varchar(40),
 	lokacija varchar(40) NOT NULL,
 	datumVreme datetime NOT NULL,
 	opis varchar(300) NOT NULL,

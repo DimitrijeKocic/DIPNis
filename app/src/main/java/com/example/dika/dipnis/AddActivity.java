@@ -286,7 +286,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 if (dogadjajInicijativaProblem.equals("problem"))
                     inputCheck.addAll(Arrays.asList(etLokacija, etOpis));
                 else if (tip.equals("Sportski"))
-                    inputCheck.addAll(Arrays.asList(etVrsta, etTim1, etTim2, etTim1Poeni, etTim2Poeni, etLokacija, etOpis));
+                    inputCheck.addAll(Arrays.asList(etVrsta, etLokacija, etOpis));
                 else
                     inputCheck.addAll(Arrays.asList(etVrsta, etKratakOpis, etLokacija, etOpis));
                 for (EditText itemTmp : inputCheck) {
