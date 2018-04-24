@@ -55,6 +55,8 @@ public class DescriptionActivity extends AppCompatActivity {
     private static final int GALLERY = 1;
 
     public static final int REQUEST_CAMERA = 1;
+    public static final int REQUEST_EXTERNAL_STORAGE = 2;
+    public ByteArrayOutputStream stream;
 
     public TextView tvTitle;
     public RelativeLayout rlDescription;
@@ -183,14 +185,12 @@ public class DescriptionActivity extends AppCompatActivity {
                             if (adbItems[i].equals("Slikaj")) {
                                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                     if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                        startActivityForResult(intent, CAMERA);
+                                        openCamera();
                                     } else {
                                         requestPermissions(new String[]{android.Manifest.permission.CAMERA}, REQUEST_CAMERA);
                                     }
                                 } else {
-                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(intent, CAMERA);
+                                    openCamera();
                                 }
                             } else if (adbItems[i].equals("Odaberi iz galerije")) {
                                 Intent intent = new Intent();
@@ -207,6 +207,27 @@ public class DescriptionActivity extends AppCompatActivity {
         });
     }
 
+    public void openCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA);
+    }
+
+    public void writeImageToStorage(ByteArrayOutputStream stream) {
+        File destinationFolder = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/DIPNis");
+        destinationFolder.mkdirs();
+        File destination = new File(destinationFolder, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ".jpg");
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(stream.toByteArray());
+            fo.close();
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(destination)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /////////////////REZULTAT KAMERE ILI GALERIJE////////////////////
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -218,23 +239,20 @@ public class DescriptionActivity extends AppCompatActivity {
                 //zapamti sliku u bitmapu
                 bm = (Bitmap) data.getExtras().get("data");
                 //konvertuje u string
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                stream = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                 img = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
                 //upis u lokalno skladiste
-                File destinationFolder = new File(Environment.getExternalStorageDirectory() + "/DIPNis");
-                destinationFolder.mkdir();
-                File destination = new File(destinationFolder, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime()) + ".jpg");
-                FileOutputStream fo;
-                try {
-                    destination.createNewFile();
-                    fo = new FileOutputStream(destination);
-                    fo.write(stream.toByteArray());
-                    fo.close();
-                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(destination)));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        writeImageToStorage(stream);
+                    } else {
+                        requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE);
+                    }
+                } else {
+                    writeImageToStorage(stream);
                 }
+
             }
             else if (requestCode == GALLERY) {
                 try {
@@ -267,11 +285,19 @@ public class DescriptionActivity extends AppCompatActivity {
             case REQUEST_CAMERA: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, CAMERA);
+                        openCamera();
                     }
                 } else {
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Permission denied!", Toast.LENGTH_LONG).show();
+                }
+            }
+            case REQUEST_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        writeImageToStorage(stream);
+                    }
+                } else {
+                    Toast.makeText(this, "Permission denied!", Toast.LENGTH_LONG).show();
                 }
             }
         }
